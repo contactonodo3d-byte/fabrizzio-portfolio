@@ -1,0 +1,70 @@
+/* Color direction drawn from Designjoy's public stylesheet: pale blush canvas,
+   black editorial type, and vivid color in graphic panels. */
+:root {
+  --bg: #ece6e8;
+  --surface: #ffffff;
+  --ink: #000000;
+  --muted: #5b5559;
+  --line: #c9bec3;
+  --accent: #ffdb01;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+body { color: var(--ink); background: var(--bg); }
+::selection { background: #ffdb01; color: #000; }
+.site-header { background: rgb(236 230 232 / 96%); border-color: var(--line); }
+.wordmark-dot { color: #ff0084; }
+.desktop-nav a { color: #4d454a; }
+.desktop-nav a:hover, .desktop-nav a[aria-current=page] { color: #000; }
+.header-cta, .button-light { background: #000; color: #fff; }
+.header-cta:hover, .button-light:hover { background: #3a2099; }
+.menu-toggle span { background: #000; }
+.hero-top, .hero-bottom p, .showcase-caption { color: #5b5559; }
+.status { color: #000; }
+.status-dot { background: #ff0084; box-shadow: 0 0 0 4px #ff008425; }
+.hero h1 em, .page-intro h1 em { color: #3a2099; }
+.section h2 em, .perspective h2 em { color: #ff0084; }
+.showcase-one { background: #ffdb01; color: #000; }
+.showcase-two { background: #097fff; }
+.outline-circle { border-color: #ffdb01; box-shadow: 0 0 65px #0002; }
+.showcase-two .showcase-label { color: #fff; }
+.showcase-three { background: #ff5a00; color: #000; }
+.project-brand { background: linear-gradient(125deg, #ff0084, #3a2099); color: #fff; }
+.project-digital { background: linear-gradient(135deg, #097fff, #0052ff 62%, #3a2099); color: #fff; }
+.project-spatial { background: linear-gradient(125deg, #ffdb01, #ff5a00); color: #000; }
+.project-meta .eyebrow, .project-meta p, .editorial-note { color: #5b5559; }
+.services-band { background: #000; color: #fff; }
+.services-band .section-head h2 em { color: #ffdb01; }
+.service-rows a, .service-rows a:last-child { border-color: #4a4a4a; }
+.service-rows p { color: #bbb; }
+.perspective p { color: #4d454a; }
+.lab-teaser { background: #ff0084; color: #000; }
+.lab-teaser p { color: #25101b; }
+.lab-shape { color: #ffdb01; }
+.footer { background: #000; color: #fff; border-color: #000; }
+.footer h2 em { color: #ffdb01; }
+.footer-bottom { border-color: #4a4a4a; }
+.footer-bottom p { color: #ccc; }
+.footer-bottom small { color: #aaa; }
+.round-arrow { border-color: #777; }
+.round-arrow:hover { background: #ffdb01; color: #000; }
+.page-intro p, .service-detail p, .about-copy p { color: #4d454a; }
+.work-guidance, .service-detail { border-color: var(--line); }
+.service-detail li { color: #332d31; border-color: #aca1a6; }
+.monthly { background: #000; color: #fff; }
+.monthly .button-dark { background: #ffdb01; color: #000; }
+.monthly .button-dark:hover { background: #fff; }
+.portrait-placeholder { background: linear-gradient(145deg, #ff0084, #ff5a00); color: #000; }
+.portrait-placeholder span { color: #000; }
+.contact-direct span:last-child { color: #4d454a; }
+.contact-form input, .contact-form select, .contact-form textarea { background: #fff; color: #000; border-color: #a99da3; }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: #3a2099; }
+.contact-form .button-light { background: #000; color: #fff; }
+.form-message { color: #3a2099; }
+.not-found em { color: #3a2099; }
+
+@media (max-width: 700px) {
+  .mobile-nav:not([hidden]) { background: #000; color: #fff; }
+  .mobile-nav a { border-color: #555; }
+}
