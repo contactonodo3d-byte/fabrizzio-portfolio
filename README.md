@@ -9,6 +9,14 @@ npm install
 npm run dev
 ```
 
+## Edit the website text
+
+Open `src/content.js` in Codex. This is the editing file for the site's main text, services, portfolio placeholders, Lab topics, contact form labels, and contact email. Change the words inside quotes while keeping the property names, commas, and brackets in place.
+
+For example, to change the first headline, edit `copy.home.hero.line1`, `line2`, and `accent`. The `accent` words get the colored styling. To change a service, edit its entry in the `services` array. To add a real Lab post, add an entry to `labEntries` with its category, title, summary, date, and URL.
+
+Save the file while `npm run dev` is running; the preview updates automatically. Run `npm run build` to check the site before committing. The site's layout and colors remain in `src/main.js`, `src/styles.css`, `src/palette.css`, and `src/lab.css`.
+
 ## Build
 
 ```bash
