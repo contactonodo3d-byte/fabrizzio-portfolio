@@ -30,5 +30,8 @@ The production files are written to `dist/`.
 - `/` — Home
 - `/work.html` — Work
 - `/services.html` — Services
+- `/lab.html` — Lab: articles, use cases, and experiments
 - `/about.html` — About
 - `/contact.html` — Contact
+
+Lab entries are listed in `src/content.js`. Keep the list empty until real work is ready to publish; each entry needs a category, title, summary, date, and URL.

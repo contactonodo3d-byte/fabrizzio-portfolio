@@ -13,3 +13,8 @@ export const projects = [
   { id: '02', label: 'Web & digital', title: 'A clearer digital experience.', note: 'Digital project placeholder', className: 'project-digital' },
   { id: '03', label: 'Experiential', title: 'A space people step into.', note: 'Spatial project placeholder', className: 'project-spatial' },
 ];
+
+// Publish a Lab entry by adding { category, title, summary, date, url } here.
+// category should be 'Article', 'Use case', or 'Experiment'. The URL can point
+// to a future article page or an external publication.
+export const labEntries = [];

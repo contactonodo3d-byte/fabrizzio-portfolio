@@ -9,6 +9,7 @@ export default defineConfig({
         home: resolve(import.meta.dirname, 'index.html'),
         work: resolve(import.meta.dirname, 'work.html'),
         services: resolve(import.meta.dirname, 'services.html'),
+        lab: resolve(import.meta.dirname, 'lab.html'),
         about: resolve(import.meta.dirname, 'about.html'),
         contact: resolve(import.meta.dirname, 'contact.html'),
       },
