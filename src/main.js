@@ -83,7 +83,7 @@ function playlistWidget() {
   if (!playlist) return '';
   return `<section class="playlist-widget" id="playlist" aria-labelledby="playlist-title">
     <h2 class="visually-hidden" id="playlist-title">${copy.home.playlist.title}</h2>
-    <iframe title="${site.name} playlist on Spotify" src="${playlist.embed}" width="100%" height="80" style="border-radius:999px" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <iframe title="${site.name} playlist on Spotify" src="${playlist.embed}" width="100%" height="152" style="border-radius:12px" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </section>`;
 }
 
