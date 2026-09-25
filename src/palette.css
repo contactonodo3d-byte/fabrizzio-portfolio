@@ -76,13 +76,13 @@ body { color: var(--ink); background: var(--bg); }
 .language-switch button:hover:not([aria-pressed="true"]){background:#ffdb01}
 .mobile-nav .language-switch{display:none}
 .hero-visual{min-width:0}
-.playlist-widget{margin:0 0 18px;padding:10px 13px;background:#ffdb01;color:#000;border:1.5px solid #000;border-radius:9px 13px 8px 12px / 11px 8px 13px 9px;box-shadow:3px 3px 0 #000;transform:rotate(-.35deg)}
+.playlist-widget{margin:0 0 18px;padding:8px 0;background:transparent;color:#000;border:0;border-radius:0;box-shadow:none;transform:none}
 .playlist-widget-head{min-height:48px;display:flex;align-items:center;gap:12px}
 .playlist-widget-head>div{min-width:0;flex:1}
 .playlist-widget .eyebrow{font-size:9px;letter-spacing:.13em}
 .playlist-widget h2{margin:3px 0 0;font-size:17px;line-height:1;letter-spacing:-.055em}
-.playlist-toggle{flex:0 0 auto;width:34px;height:34px;border:1.5px solid #000;border-radius:50%;background:#fff;color:#000;font-size:15px;line-height:1}
-.playlist-toggle:hover{background:#ff0084}
+.playlist-toggle{flex:0 0 auto;width:34px;height:34px;border:0;border-radius:50%;background:transparent;color:#000;font-size:21px;line-height:1}
+.playlist-toggle:hover{color:#ff0084}
 .playlist-soundwaves{height:28px;display:flex;align-items:center;gap:3px;flex:0 0 auto}
 .playlist-soundwaves i{display:block;width:3px;height:var(--bar-height);background:#000;border-radius:8px;transform:rotate(var(--tilt))}
 .playlist-soundwaves i:nth-child(1){--bar-height:10px;--tilt:-8deg;--peak:18px}
