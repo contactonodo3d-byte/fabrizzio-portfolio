@@ -3,3 +3,10 @@
 @media(max-width:700px){.hero-main{gap:42px;padding:0 0 50px}.hero-copy h1{font-size:clamp(60px,15vw,100px);margin:78px 0 27px}.hero-copy .hero-bottom{flex-direction:column;align-items:flex-start;gap:26px}.hero-album{padding:13px;border-radius:15px}.album-stage{height:470px}.album-card{width:min(77%,310px)}.album-cover-design{padding:20px}.album-cover-title{font-size:clamp(38px,10vw,55px)}.hero-showcase{margin-top:0}}
 @media(max-width:420px){.hero-copy h1{font-size:58px}.album-stage{height:430px}.album-card{width:min(78%,285px)}.album-cover-title{font-size:38px}.album-top .eyebrow{font-size:9px}.album-current{font-size:13px}.album-foot a,.album-foot button{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.album-card{transition:none!important}}
+
+/* Drag follows the pointer continuously. Wheel input is captured by the album. */
+.hero-album{overscroll-behavior:contain}
+.album-card{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
+.hero-album.is-hovered:not(.is-dragging) .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px) - 18px)) scale(calc(var(--album-scale,1) + .04))}
+.hero-album.is-dragging .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
+.album-stage.is-dragging .album-card{transition:none!important;cursor:grabbing}

@@ -139,9 +139,15 @@ function setupHeroAlbum() {
   let visible = true;
   let manualPause = reducedMotion;
   let pauseUntil = 0;
+  let wheelDelta = 0;
   let lastWheel = 0;
   let pointerStart = null;
   let suppressClick = false;
+
+  function setDragOffset(pixels) {
+    const limited = Math.max(-220, Math.min(220, pixels));
+    cards.forEach((card) => card.style.setProperty('--album-drag', `${limited}px`));
+  }
 
   function render() {
     cards.forEach((card, index) => {
@@ -179,7 +185,7 @@ function setupHeroAlbum() {
 
   function step(direction) { select(active + direction); }
   function tick() {
-    if (manualPause || hovering || focused || !visible || document.hidden || Date.now() < pauseUntil) return;
+    if (manualPause || hovering || focused || pointerStart || !visible || document.hidden || Date.now() < pauseUntil) return;
     active = (active + 1) % count;
     render();
   }
@@ -205,31 +211,66 @@ function setupHeroAlbum() {
     event.currentTarget.textContent = manualPause ? copy.home.album.play : copy.home.album.pause;
   });
 
-  stage.addEventListener('wheel', (event) => {
-    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-    if (Math.abs(delta) < 4) return;
+  album.addEventListener('wheel', (event) => {
     event.preventDefault();
-    if (Date.now() - lastWheel < 380) return;
-    lastWheel = Date.now();
-    step(delta > 0 ? 1 : -1);
-  }, { passive: false });
+    event.stopPropagation();
+    const now = Date.now();
+    if (now - lastWheel > 220) wheelDelta = 0;
+    lastWheel = now;
+    const rawDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    const delta = rawDelta * (event.deltaMode === 1 ? 24 : event.deltaMode === 2 ? 300 : 1);
+    wheelDelta += delta;
+    const threshold = 70;
+    if (Math.abs(wheelDelta) < threshold) return;
+    const direction = Math.sign(wheelDelta);
+    const steps = Math.min(3, Math.floor(Math.abs(wheelDelta) / threshold));
+    wheelDelta -= direction * steps * threshold;
+    step(direction * steps);
+  }, { passive: false, capture: true });
 
   stage.addEventListener('pointerdown', (event) => {
-    pointerStart = { x: event.clientX, y: event.clientY };
+    if (event.button !== undefined && event.button !== 0) return;
+    pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY, axis: null, dragging: false };
   });
-  stage.addEventListener('pointerup', (event) => {
-    if (!pointerStart) return;
+  stage.addEventListener('pointermove', (event) => {
+    if (!pointerStart || event.pointerId !== pointerStart.id) return;
     const dx = event.clientX - pointerStart.x;
     const dy = event.clientY - pointerStart.y;
-    pointerStart = null;
-    const movement = Math.abs(dy) >= Math.abs(dx) ? dy : dx;
-    if (Math.abs(movement) > 30) {
-      suppressClick = true;
-      step(movement < 0 ? 1 : -1);
-      window.setTimeout(() => { suppressClick = false; }, 120);
+    if (!pointerStart.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 7) {
+      pointerStart.axis = Math.abs(dy) >= Math.abs(dx) ? 'y' : 'x';
+      pointerStart.dragging = true;
+      stage.setPointerCapture(event.pointerId);
+      stage.classList.add('is-dragging');
+      album.classList.add('is-dragging');
     }
+    if (!pointerStart.dragging) return;
+    event.preventDefault();
+    setDragOffset((pointerStart.axis === 'y' ? dy : dx) * .8);
   });
-  stage.addEventListener('pointercancel', () => { pointerStart = null; });
+  stage.addEventListener('pointerup', (event) => {
+    if (!pointerStart || event.pointerId !== pointerStart.id) return;
+    const dx = event.clientX - pointerStart.x;
+    const dy = event.clientY - pointerStart.y;
+    const movement = pointerStart.axis === 'x' ? dx : dy;
+    const wasDragging = pointerStart.dragging;
+    pointerStart = null;
+    stage.classList.remove('is-dragging');
+    album.classList.remove('is-dragging');
+    if (!wasDragging) return;
+    suppressClick = true;
+    window.setTimeout(() => { suppressClick = false; }, 120);
+    if (Math.abs(movement) > 25) {
+      const steps = Math.min(3, Math.max(1, Math.round(Math.abs(movement) / 110)));
+      step((movement < 0 ? 1 : -1) * steps);
+    }
+    setDragOffset(0);
+  });
+  stage.addEventListener('pointercancel', () => {
+    pointerStart = null;
+    stage.classList.remove('is-dragging');
+    album.classList.remove('is-dragging');
+    setDragOffset(0);
+  });
   stage.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowRight') { event.preventDefault(); step(1); }
     if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
