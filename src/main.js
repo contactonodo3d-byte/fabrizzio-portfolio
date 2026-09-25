@@ -219,7 +219,7 @@ function setupHeroAlbum() {
   });
 
   cards.forEach((card, index) => card.addEventListener('click', (event) => {
-    if (suppressClick) { event.preventDefault(); return; }
+    if (suppressClick) { event.preventDefault(); event.stopPropagation(); return; }
     select(index);
   }));
   album.querySelector('[data-album-prev]').addEventListener('click', () => step(-1));
@@ -253,14 +253,14 @@ function setupHeroAlbum() {
     album.classList.remove('is-releasing');
     pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY, axis: null, dragging: false };
   });
-  stage.addEventListener('pointermove', (event) => {
+  stage.addEventListener('dragstart', (event) => event.preventDefault());
+  window.addEventListener('pointermove', (event) => {
     if (!pointerStart || event.pointerId !== pointerStart.id) return;
     const dx = event.clientX - pointerStart.x;
     const dy = event.clientY - pointerStart.y;
     if (!pointerStart.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 7) {
       pointerStart.axis = Math.abs(dy) >= Math.abs(dx) ? 'y' : 'x';
       pointerStart.dragging = true;
-      stage.setPointerCapture(event.pointerId);
       stage.classList.add('is-dragging');
       album.classList.add('is-dragging');
     }
@@ -268,16 +268,17 @@ function setupHeroAlbum() {
     event.preventDefault();
     setDragOffset((pointerStart.axis === 'y' ? dy : dx) * .8);
   });
-  stage.addEventListener('pointerup', (event) => {
+  window.addEventListener('pointerup', (event) => {
     if (!pointerStart || event.pointerId !== pointerStart.id) return;
     const dx = event.clientX - pointerStart.x;
     const dy = event.clientY - pointerStart.y;
-    const movement = pointerStart.axis === 'x' ? dx : dy;
-    const wasDragging = pointerStart.dragging;
+    const axis = pointerStart.axis || (Math.abs(dy) >= Math.abs(dx) ? 'y' : 'x');
+    const movement = axis === 'x' ? dx : dy;
+    const wasDragging = pointerStart.dragging || Math.abs(movement) > 25;
     pointerStart = null;
     if (!wasDragging) return;
     suppressClick = true;
-    window.setTimeout(() => { suppressClick = false; }, 120);
+    window.setTimeout(() => { suppressClick = false; }, 550);
     let change = 0;
     if (Math.abs(movement) > 25) {
       const steps = Math.min(3, Math.max(1, Math.round(Math.abs(movement) / 110)));
@@ -285,7 +286,13 @@ function setupHeroAlbum() {
     }
     settleDrag(change);
   });
-  stage.addEventListener('pointercancel', () => {
+  window.addEventListener('pointercancel', () => {
+    if (!pointerStart) return;
+    pointerStart = null;
+    settleDrag(0);
+  });
+  window.addEventListener('blur', () => {
+    if (!pointerStart) return;
     pointerStart = null;
     settleDrag(0);
   });
