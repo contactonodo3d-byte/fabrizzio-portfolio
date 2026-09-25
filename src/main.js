@@ -143,10 +143,29 @@ function setupHeroAlbum() {
   let lastWheel = 0;
   let pointerStart = null;
   let suppressClick = false;
+  let releaseTimer = null;
 
   function setDragOffset(pixels) {
     const limited = Math.max(-220, Math.min(220, pixels));
     cards.forEach((card) => card.style.setProperty('--album-drag', `${limited}px`));
+  }
+
+  function settleDrag(change) {
+    stage.classList.remove('is-dragging');
+    album.classList.remove('is-dragging');
+    album.classList.add('is-releasing');
+    pauseUntil = Date.now() + 4000;
+
+    // Establish the last dragged position with transitions enabled before
+    // moving to the next cover. Otherwise the browser coalesces both states
+    // and the release appears to snap.
+    void stage.offsetWidth;
+    requestAnimationFrame(() => {
+      if (change) step(change);
+      setDragOffset(0);
+      window.clearTimeout(releaseTimer);
+      releaseTimer = window.setTimeout(() => album.classList.remove('is-releasing'), reducedMotion ? 0 : 760);
+    });
   }
 
   function render() {
@@ -230,6 +249,8 @@ function setupHeroAlbum() {
 
   stage.addEventListener('pointerdown', (event) => {
     if (event.button !== undefined && event.button !== 0) return;
+    window.clearTimeout(releaseTimer);
+    album.classList.remove('is-releasing');
     pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY, axis: null, dragging: false };
   });
   stage.addEventListener('pointermove', (event) => {
@@ -254,22 +275,19 @@ function setupHeroAlbum() {
     const movement = pointerStart.axis === 'x' ? dx : dy;
     const wasDragging = pointerStart.dragging;
     pointerStart = null;
-    stage.classList.remove('is-dragging');
-    album.classList.remove('is-dragging');
     if (!wasDragging) return;
     suppressClick = true;
     window.setTimeout(() => { suppressClick = false; }, 120);
+    let change = 0;
     if (Math.abs(movement) > 25) {
       const steps = Math.min(3, Math.max(1, Math.round(Math.abs(movement) / 110)));
-      step((movement < 0 ? 1 : -1) * steps);
+      change = (movement < 0 ? 1 : -1) * steps;
     }
-    setDragOffset(0);
+    settleDrag(change);
   });
   stage.addEventListener('pointercancel', () => {
     pointerStart = null;
-    stage.classList.remove('is-dragging');
-    album.classList.remove('is-dragging');
-    setDragOffset(0);
+    settleDrag(0);
   });
   stage.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowRight') { event.preventDefault(); step(1); }

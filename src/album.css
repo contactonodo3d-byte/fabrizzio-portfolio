@@ -10,3 +10,4 @@
 .hero-album.is-hovered:not(.is-dragging) .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px) - 18px)) scale(calc(var(--album-scale,1) + .04))}
 .hero-album.is-dragging .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
 .album-stage.is-dragging .album-card{transition:none!important;cursor:grabbing}
+.hero-album.is-hovered.is-releasing .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
