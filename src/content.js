@@ -4,7 +4,7 @@ export const site = {
   location: 'Asunción, Paraguay',
   linkedin: '',
   instagram: '',
-  playlistUrl: '', // Paste a public YouTube Music playlist URL here.
+  playlistUrl: 'https://music.youtube.com/playlist?list=PLtbJ6z8MarLvfg8BKtmP0iS4ZiuPkjq9a&si=Kkq0POsv3RaKxlUj',
 };
 
 // EDIT THE WEBSITE TEXT HERE.
@@ -27,6 +27,12 @@ export const copy = {
     hero: { line1: 'I design things', line2: 'people ', accent: 'notice.' },
     intro: 'Visual design and physical experiences with a clear point of view and a reason to exist.',
     exploreWorkButton: 'Explore my work',
+    playlist: {
+      kicker: 'FR / ON REPEAT',
+      title: 'My playlist',
+      note: 'A little soundtrack from my studio.',
+      open: 'Open in YouTube Music',
+    },
     album: {
       kicker: 'The project album',
       projectLink: 'Explore selected work',

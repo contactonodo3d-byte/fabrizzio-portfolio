@@ -26,11 +26,11 @@ function header() {
       <a href="./lab.html" ${route === '/lab.html' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
       <a href="./about.html" ${route === '/about.html' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a>
     </nav>
-    <button class="playlist-trigger" type="button" data-playlist-open>♫ <span>${copy.navigation.playlist}</span></button>
+    <a class="playlist-trigger" href="./#playlist">♫ <span>${copy.navigation.playlist}</span></a>
     <a class="header-cta" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button>
   </div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./contact.html">${copy.navigation.startProject}</a><button type="button" data-playlist-open>♫ ${copy.navigation.playlist}</button>
+    <a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./contact.html">${copy.navigation.startProject}</a><a href="./#playlist">♫ ${copy.navigation.playlist}</a>
   </nav></header>`;
 }
 
@@ -57,11 +57,22 @@ function heroAlbum() {
   </section>`;
 }
 
+function playlistWidget() {
+  const playlist = playlistDetails();
+  if (!playlist) return '';
+  return `<section class="playlist-widget" id="playlist" aria-labelledby="playlist-title">
+    <div class="playlist-widget-head"><div><span class="eyebrow">${copy.home.playlist.kicker}</span><h2 id="playlist-title">♫ ${copy.home.playlist.title}</h2></div><span class="playlist-widget-mark" aria-hidden="true">✳</span></div>
+    <p>${copy.home.playlist.note}</p>
+    <iframe title="${site.name} playlist on YouTube" src="${playlist.embed}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <a href="${playlist.url}" target="_blank" rel="noopener noreferrer">${copy.home.playlist.open} ↗</a>
+  </section>`;
+}
+
 function home() {
   return `<main>
     <section class="hero container"><div class="hero-top"><span class="eyebrow status"><span class="status-dot"></span> ${copy.home.role}</span><span class="eyebrow">${copy.home.location}</span></div>
       <div class="hero-main"><div class="hero-copy"><h1>${display(copy.home.hero)}</h1>
-      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="./work.html">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
+      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="./work.html">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>${playlistWidget()}
       </div>${heroAlbum()}</div>
       <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}<span class="tiny-star">✳</span></span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>↘</span></span></div>
     </section>
@@ -116,36 +127,7 @@ function contact() {
 
 const pages = { '/': home, '/index.html': home, '/work.html': work, '/services.html': services, '/lab.html': lab, '/about.html': about, '/contact.html': contact };
 const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / PAGE NOT FOUND</div><h1>Nothing here<br/><em>yet.</em></h1><a class="button button-light" href="./">Back home ↗</a></main>`);
-app.innerHTML = header() + render() + footer() + `<dialog class="playlist-dialog" aria-labelledby="playlist-title"><div class="playlist-head"><div><span class="eyebrow">FR / RADIO</span><h2 id="playlist-title">${copy.navigation.playlist}</h2></div><button type="button" class="playlist-close" data-playlist-close aria-label="Close playlist">×</button></div><div class="playlist-body" data-playlist-body></div></dialog>`;
-
-const playlistDialog = document.querySelector('.playlist-dialog');
-const playlistBody = playlistDialog.querySelector('[data-playlist-body]');
-document.querySelectorAll('[data-playlist-open]').forEach((button) => button.addEventListener('click', () => {
-  const playlist = playlistDetails();
-  playlistBody.replaceChildren();
-  if (playlist) {
-    const iframe = document.createElement('iframe');
-    iframe.title = `${site.name} playlist on YouTube`;
-    iframe.src = playlist.embed;
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.allowFullscreen = true;
-    playlistBody.append(iframe);
-    const link = document.createElement('a');
-    link.href = playlist.url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.textContent = 'Open in YouTube Music ↗';
-    playlistBody.append(link);
-  } else {
-    const message = document.createElement('p');
-    message.textContent = 'Playlist coming soon. Add your public YouTube Music playlist URL in src/content.js.';
-    playlistBody.append(message);
-  }
-  playlistDialog.showModal();
-}));
-playlistDialog.querySelector('[data-playlist-close]').addEventListener('click', () => playlistDialog.close());
-playlistDialog.addEventListener('click', (event) => { if (event.target === playlistDialog) playlistDialog.close(); });
-playlistDialog.addEventListener('close', () => playlistBody.replaceChildren());
+app.innerHTML = header() + render() + footer();
 
 const menuButton = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
