@@ -11,3 +11,9 @@
 .hero-album.is-dragging .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
 .album-stage.is-dragging .album-card{transition:none!important;cursor:grabbing}
 .hero-album.is-hovered.is-releasing .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
+
+/* Let the project covers sit directly on the page rather than in a frame. */
+.hero-album{padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.album-top{padding:3px 0 0}
+.album-bottom{padding-inline:0;border-color:#b8aeb3}
+.album-foot{padding-inline:0;border-color:#b8aeb3}

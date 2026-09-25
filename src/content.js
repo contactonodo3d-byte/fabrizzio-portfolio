@@ -32,6 +32,8 @@ export const copy = {
       title: 'My playlist',
       note: 'A little soundtrack from my studio.',
       open: 'Open in YouTube Music',
+      expand: 'Open player',
+      collapse: 'Close player',
     },
     album: {
       kicker: 'The project album',

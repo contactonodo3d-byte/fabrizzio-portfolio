@@ -17,7 +17,9 @@ For example, to change the first headline, edit `copy.home.hero.line1`, `line2`,
 
 The hero's looping project album uses `heroCovers` in the same file. Put approved cover images in `public/images/`, then set each cover's `thumbnail` to a relative path such as `./images/my-project.webp`. Update its `title`, `category`, and `href` at the same time. Empty thumbnails show the colorful placeholder design.
 
-The **My playlist** widget on the home page uses the public YouTube Music link in `site.playlistUrl` in `src/content.js`. Visitors can play it in the embedded YouTube player or open the playlist in YouTube Music. Change the link there to swap playlists. The header link jumps to the widget.
+The compact **My playlist** widget above the project album uses the public YouTube Music link in `site.playlistUrl` in `src/content.js`. Visitors can open its YouTube player and play the playlist on the site; the doodle sound bars animate only during playback. Closing the player stops it. Change the link to swap playlists.
+
+English is the editable source in `src/content.js`. Spanish and Portuguese text is in `src/translations.js`. The EN / ES / PT switch saves the visitor's choice in the browser and uses it across pages.
 
 Save the file while `npm run dev` is running; the preview updates automatically. Run `npm run build` to check the site before committing. The site's layout and colors remain in `src/main.js`, `src/styles.css`, `src/palette.css`, and `src/lab.css`.
 
