@@ -4,7 +4,7 @@ export const site = {
   location: 'Asunción, Paraguay',
   linkedin: '',
   instagram: '',
-  playlistUrl: 'https://music.youtube.com/playlist?list=PLtbJ6z8MarLvfg8BKtmP0iS4ZiuPkjq9a&si=Kkq0POsv3RaKxlUj',
+  playlistUrl: 'https://open.spotify.com/embed/playlist/4G7hOw2Krp9DA7tLFY0bfI?utm_source=generator&theme=0&si=cc88254c73e44591',
 };
 
 // EDIT THE WEBSITE TEXT HERE.
@@ -30,17 +30,7 @@ export const copy = {
     playlist: {
       kicker: 'FR / ON REPEAT',
       title: 'My playlist',
-      note: 'A little soundtrack from my studio.',
-      open: 'Open in YouTube Music',
-      expand: 'Open player',
-      collapse: 'Close player',
-      play: 'Play playlist',
-      stop: 'Stop playback',
-      previous: 'Previous song',
-      next: 'Next song',
-      ready: 'Ready to play',
-      autoplayBlocked: 'Press play to start listening.',
-      unavailable: 'Player unavailable. Open the playlist on YouTube Music.',
+      open: 'Open in Spotify',
     },
     album: {
       kicker: 'The project album',

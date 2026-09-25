@@ -25,11 +25,12 @@ const isPlaceholderEmail = site.email === 'hello@example.com';
 function playlistDetails() {
   try {
     const url = new URL(site.playlistUrl);
-    if (url.protocol !== 'https:' || !['music.youtube.com', 'www.youtube.com', 'youtube.com'].includes(url.hostname)) return null;
-    const id = url.searchParams.get('list');
-    if (!id || !/^[\w-]+$/.test(id)) return null;
-    const parameters = new URLSearchParams({ listType: 'playlist', list: id, enablejsapi: '1', autoplay: '1', playsinline: '1', origin: location.origin });
-    return { url: url.href, embed: `https://www.youtube.com/embed?${parameters}` };
+    const match = url.protocol === 'https:' && url.hostname === 'open.spotify.com'
+      ? url.pathname.match(/^\/(?:embed\/)?playlist\/([\w]+)\/?$/)
+      : null;
+    if (!match) return null;
+    const external = new URL(`https://open.spotify.com/playlist/${match[1]}`);
+    return { url: external.href, embed: url.href };
   } catch { return null; }
 }
 
@@ -82,19 +83,9 @@ function playlistWidget() {
   if (!playlist) return '';
   return `<section class="playlist-widget" id="playlist" aria-labelledby="playlist-title">
     <div class="playlist-widget-head"><div><span class="eyebrow">${copy.home.playlist.kicker}</span><h2 id="playlist-title">${copy.home.playlist.title}</h2></div>
-      <span class="playlist-soundwaves" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-      <div class="playlist-controls">
-        <button type="button" data-playlist-prev aria-label="${copy.home.playlist.previous}">↶</button>
-        <button type="button" data-playlist-play aria-label="${copy.home.playlist.play}">▶</button>
-        <button type="button" data-playlist-next aria-label="${copy.home.playlist.next}">↷</button>
-        <button type="button" class="playlist-toggle" aria-expanded="false" aria-controls="playlist-panel" aria-label="${copy.home.playlist.expand}" data-playlist-toggle>＋</button>
-      </div>
     </div>
-    <p class="playlist-track" data-playlist-track>${copy.home.playlist.ready}</p>
-    <div class="playlist-panel" id="playlist-panel" hidden>
-      <iframe title="${site.name} playlist on YouTube" data-src="${playlist.embed}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      <a href="${playlist.url}" target="_blank" rel="noopener noreferrer">${copy.home.playlist.open} ↗</a>
-    </div>
+    <iframe title="${site.name} playlist on Spotify" src="${playlist.embed}" width="100%" height="152" style="border-radius:12px" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <a class="playlist-external" href="${playlist.url}" target="_blank" rel="noopener noreferrer">${copy.home.playlist.open} ↗</a>
   </section>`;
 }
 
@@ -369,102 +360,6 @@ function setupHeroAlbum() {
 }
 
 setupHeroAlbum();
-
-function setupPlaylistWidget() {
-  const widget = document.querySelector('.playlist-widget');
-  if (!widget) return;
-  const toggle = widget.querySelector('[data-playlist-toggle]');
-  const playButton = widget.querySelector('[data-playlist-play]');
-  const previousButton = widget.querySelector('[data-playlist-prev]');
-  const nextButton = widget.querySelector('[data-playlist-next]');
-  const panel = widget.querySelector('.playlist-panel');
-  const iframe = panel.querySelector('iframe');
-  const track = widget.querySelector('[data-playlist-track]');
-  let player = null;
-  let playerReady = false;
-  let pendingAction = null;
-
-  function updatePlayback(isPlaying) {
-    widget.classList.toggle('is-playing', isPlaying);
-    playButton.textContent = isPlaying ? '■' : '▶';
-    playButton.setAttribute('aria-label', isPlaying ? copy.home.playlist.stop : copy.home.playlist.play);
-    if (isPlaying && player?.getVideoData) {
-      const title = player.getVideoData().title;
-      if (title) track.textContent = title;
-    } else if (!isPlaying) {
-      track.textContent = copy.home.playlist.ready;
-    }
-  }
-
-  function runAction(action) {
-    if (!playerReady || !player) { pendingAction = action; return; }
-    pendingAction = null;
-    if (action === 'play') player.playVideo();
-    if (action === 'stop') player.stopVideo();
-    if (action === 'next') player.nextVideo();
-    if (action === 'previous') player.previousVideo();
-  }
-
-  function observePlayer() {
-    const connect = () => {
-      if (!panel.hidden && !player) player = new window.YT.Player(iframe, {
-        events: {
-          onReady: () => {
-            playerReady = true;
-            runAction(pendingAction || 'play');
-          },
-          onStateChange: (event) => updatePlayback(event.data === window.YT.PlayerState.PLAYING),
-          onAutoplayBlocked: () => { track.textContent = copy.home.playlist.autoplayBlocked; },
-          onError: () => { track.textContent = copy.home.playlist.unavailable; },
-        },
-      });
-    };
-    if (window.YT?.Player) { connect(); return; }
-    const previous = window.onYouTubeIframeAPIReady;
-    window.onYouTubeIframeAPIReady = () => { previous?.(); connect(); };
-    if (!document.querySelector('script[data-youtube-api]')) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      script.async = true;
-      script.dataset.youtubeApi = '';
-      script.onerror = () => { track.textContent = copy.home.playlist.unavailable; };
-      document.head.append(script);
-    }
-  }
-
-  function openPanel(autoplay = false) {
-    if (panel.hidden) {
-      panel.hidden = false;
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', copy.home.playlist.collapse);
-      toggle.textContent = '−';
-    }
-    if (!iframe.src) iframe.src = iframe.dataset.src;
-    if (autoplay) pendingAction = 'play';
-    observePlayer();
-    if (autoplay && playerReady) runAction('play');
-  }
-
-  toggle.addEventListener('click', () => {
-    if (panel.hidden) openPanel(true);
-    else {
-      runAction('stop');
-      panel.hidden = true;
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', copy.home.playlist.expand);
-      toggle.textContent = '＋';
-    }
-  });
-  playButton.addEventListener('click', () => {
-    if (widget.classList.contains('is-playing')) runAction('stop');
-    else { openPanel(); runAction('play'); }
-  });
-  previousButton.addEventListener('click', () => { openPanel(); runAction('previous'); });
-  nextButton.addEventListener('click', () => { openPanel(); runAction('next'); });
-  openPanel(true);
-}
-
-setupPlaylistWidget();
 
 document.querySelector('#contact-form')?.addEventListener('submit', (event) => {
   event.preventDefault();
