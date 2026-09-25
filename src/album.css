@@ -6,6 +6,7 @@
 
 /* Drag follows the pointer continuously. Wheel input is captured by the album. */
 .hero-album{overscroll-behavior:contain}
+.album-controls button{display:inline-flex;align-items:center;justify-content:center}
 .album-card{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
 .hero-album.is-hovered:not(.is-dragging) .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px) - 18px)) scale(calc(var(--album-scale,1) + .04))}
 .hero-album.is-dragging .album-card.is-active{transform:translate(-50%,-50%) translateY(calc(var(--album-y,0px) + var(--album-drag,0px))) scale(var(--album-scale,1))}
