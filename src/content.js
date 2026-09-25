@@ -4,6 +4,7 @@ export const site = {
   location: 'Asunción, Paraguay',
   linkedin: '',
   instagram: '',
+  playlistUrl: '', // Paste a public YouTube Music playlist URL here.
 };
 
 // EDIT THE WEBSITE TEXT HERE.
@@ -18,6 +19,7 @@ export const copy = {
     about: 'About',
     contact: 'Contact',
     startProject: 'Start a project',
+    playlist: 'My playlist',
   },
   home: {
     role: 'Independent visual designer',

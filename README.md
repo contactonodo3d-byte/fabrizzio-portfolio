@@ -17,6 +17,8 @@ For example, to change the first headline, edit `copy.home.hero.line1`, `line2`,
 
 The hero's looping project album uses `heroCovers` in the same file. Put approved cover images in `public/images/`, then set each cover's `thumbnail` to a relative path such as `./images/my-project.webp`. Update its `title`, `category`, and `href` at the same time. Empty thumbnails show the colorful placeholder design.
 
+To enable the **My playlist** player, paste a public YouTube Music playlist link into `site.playlistUrl` in `src/content.js`. The button opens an embedded YouTube playlist only when a visitor clicks it; closing the panel stops playback. A link in the panel opens the playlist in YouTube Music. Until a link is set, the panel displays a placeholder message.
+
 Save the file while `npm run dev` is running; the preview updates automatically. Run `npm run build` to check the site before committing. The site's layout and colors remain in `src/main.js`, `src/styles.css`, `src/palette.css`, and `src/lab.css`.
 
 ## Build
