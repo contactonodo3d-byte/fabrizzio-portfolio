@@ -34,6 +34,13 @@ export const copy = {
       open: 'Open in YouTube Music',
       expand: 'Open player',
       collapse: 'Close player',
+      play: 'Play playlist',
+      stop: 'Stop playback',
+      previous: 'Previous song',
+      next: 'Next song',
+      ready: 'Ready to play',
+      autoplayBlocked: 'Press play to start listening.',
+      unavailable: 'Player unavailable. Open the playlist on YouTube Music.',
     },
     album: {
       kicker: 'The project album',
