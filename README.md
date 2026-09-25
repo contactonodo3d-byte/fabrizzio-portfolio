@@ -15,6 +15,8 @@ Open `src/content.js` in Codex. This is the editing file for the site's main tex
 
 For example, to change the first headline, edit `copy.home.hero.line1`, `line2`, and `accent`. The `accent` words get the colored styling. To change a service, edit its entry in the `services` array. To add a real Lab post, add an entry to `labEntries` with its category, title, summary, date, and URL.
 
+The hero's looping project album uses `heroCovers` in the same file. Put approved cover images in `public/images/`, then set each cover's `thumbnail` to a relative path such as `./images/my-project.webp`. Update its `title`, `category`, and `href` at the same time. Empty thumbnails show the colorful placeholder design.
+
 Save the file while `npm run dev` is running; the preview updates automatically. Run `npm run build` to check the site before committing. The site's layout and colors remain in `src/main.js`, `src/styles.css`, `src/palette.css`, and `src/lab.css`.
 
 ## Build

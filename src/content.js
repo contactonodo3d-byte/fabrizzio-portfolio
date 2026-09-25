@@ -23,8 +23,14 @@ export const copy = {
     role: 'Independent visual designer',
     location: 'Based in Paraguay · Working worldwide',
     hero: { line1: 'I design things', line2: 'people ', accent: 'notice.' },
-    intro: 'Brands, websites, and physical experiences with a clear point of view and a reason to exist.',
+    intro: 'Visual design and physical experiences with a clear point of view and a reason to exist.',
     exploreWorkButton: 'Explore my work',
+    album: {
+      kicker: 'The project album',
+      projectLink: 'Explore selected work',
+      pause: 'Pause motion',
+      play: 'Play motion',
+    },
     showcase: {
       bigWords: ['FORM', 'MEETS', 'PURPOSE'],
       middleLabel: 'DIGITAL / PHYSICAL / HUMAN',
@@ -144,6 +150,19 @@ export const projects = [
   { id: '01', label: 'Brand identity', title: 'A brand built to be remembered.', note: 'Featured project placeholder', className: 'project-brand' },
   { id: '02', label: 'Web & digital', title: 'A clearer digital experience.', note: 'Digital project placeholder', className: 'project-digital' },
   { id: '03', label: 'Experiential', title: 'A space people step into.', note: 'Spatial project placeholder', className: 'project-spatial' },
+];
+
+// HERO ALBUM COVERS. Replace each empty thumbnail with an image path such as
+// './images/my-project.webp'. Keep the files in public/images/ so the path
+// remains valid in local preview and on the published site. Update href to a
+// real case-study URL when that project page is ready.
+export const heroCovers = [
+  { id: '01', title: 'Brand identity', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-yellow' },
+  { id: '02', title: 'Digital experience', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-blue' },
+  { id: '03', title: 'Exhibition design', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-orange' },
+  { id: '04', title: 'Campaign design', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-pink' },
+  { id: '05', title: 'Visual systems', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-purple' },
+  { id: '06', title: 'New project', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-black' },
 ];
 
 // Publish a Lab entry by adding { category, title, summary, date, url } here.

@@ -1,4 +1,4 @@
-import { site, copy, projects, services as serviceOptions, labEntries } from './content.js';
+import { site, copy, projects, heroCovers, services as serviceOptions, labEntries } from './content.js';
 
 const app = document.querySelector('#app');
 const route = '/' + (location.pathname.split('/').pop() || '');
@@ -34,11 +34,24 @@ function projectCard(project, large = false) {
 
 function sectionIntro(kicker, title, action = '') { return `<div class="section-head"><div><div class="eyebrow">${kicker}</div><h2>${title}</h2></div>${action}</div>`; }
 
+function heroAlbum() {
+  if (!heroCovers.length) return '';
+  return `<section class="hero-album" aria-label="Interactive project album">
+    <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span><span class="album-top-mark" aria-hidden="true">✳</span></div>
+    <div class="album-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Project covers. Use the arrow keys, mouse wheel, or drag to browse.">
+      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="Select ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="lazy" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-title">${cover.title}</span><span class="album-cover-orbit"></span><span class="album-cover-foot">PORTFOLIO SLOT · ${cover.id}</span></span>`}</span></button>`).join('')}
+    </div>
+    <div class="album-bottom"><div class="album-readout" aria-live="polite"><span class="album-count" data-album-count>01 / 06</span><span class="album-current" data-album-title>${heroCovers[0].title}</span><span class="album-category" data-album-category>${heroCovers[0].category}</span></div><div class="album-controls"><button type="button" data-album-prev aria-label="Previous cover">↑</button><button type="button" data-album-next aria-label="Next cover">↓</button></div></div>
+    <div class="album-foot"><a href="${heroCovers[0].href}" data-album-link>${copy.home.album.projectLink} <span>↗</span></a><button type="button" data-album-pause aria-pressed="false">${copy.home.album.pause}</button></div>
+  </section>`;
+}
+
 function home() {
   return `<main>
     <section class="hero container"><div class="hero-top"><span class="eyebrow status"><span class="status-dot"></span> ${copy.home.role}</span><span class="eyebrow">${copy.home.location}</span></div>
-      <h1>${display(copy.home.hero)}</h1>
+      <div class="hero-main"><div class="hero-copy"><h1>${display(copy.home.hero)}</h1>
       <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="./work.html">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
+      </div>${heroAlbum()}</div>
       <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}<span class="tiny-star">✳</span></span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>↘</span></span></div>
     </section>
     <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), '<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>↗</span></a>')}<div class="project-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
@@ -102,6 +115,137 @@ menuButton?.addEventListener('click', () => {
   menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   mobileNav.hidden = !open;
 });
+
+function setupHeroAlbum() {
+  const album = document.querySelector('.hero-album');
+  if (!album) return;
+
+  const stage = album.querySelector('.album-stage');
+  const cards = [...album.querySelectorAll('.album-card')];
+  const count = cards.length;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const positions = {
+    0: { y: 0, scale: 1, z: 10, opacity: 1 },
+    1: { y: -55, scale: .94, z: 9, opacity: 1 },
+    2: { y: -106, scale: .88, z: 8, opacity: 1 },
+    3: { y: -150, scale: .82, z: 7, opacity: 1 },
+    '-1': { y: 310, scale: 1.04, z: 11, opacity: 1 },
+    '-2': { y: 490, scale: 1.08, z: 6, opacity: 0 },
+  };
+
+  let active = 0;
+  let hovering = false;
+  let focused = false;
+  let visible = true;
+  let manualPause = reducedMotion;
+  let pauseUntil = 0;
+  let lastWheel = 0;
+  let pointerStart = null;
+  let suppressClick = false;
+
+  function render() {
+    cards.forEach((card, index) => {
+      let distance = (index - active + count) % count;
+      if (distance > Math.floor(count / 2)) distance -= count;
+      const position = positions[distance] || { y: 490, scale: .8, z: 1, opacity: 0 };
+      const previous = Number(card.dataset.distance);
+      const wrapping = card.dataset.distance !== undefined && Math.abs(previous - distance) > 3;
+      if (wrapping) card.classList.add('is-wrapping');
+      card.style.setProperty('--album-y', `${position.y}px`);
+      card.style.setProperty('--album-scale', position.scale);
+      card.style.setProperty('--album-opacity', wrapping ? 0 : position.opacity);
+      card.style.zIndex = position.z;
+      card.dataset.distance = distance;
+      card.classList.toggle('is-active', distance === 0);
+      card.setAttribute('aria-pressed', String(distance === 0));
+      if (wrapping) requestAnimationFrame(() => requestAnimationFrame(() => {
+        card.classList.remove('is-wrapping');
+        card.style.setProperty('--album-opacity', position.opacity);
+      }));
+    });
+
+    const cover = heroCovers[active];
+    album.querySelector('[data-album-count]').textContent = `${String(active + 1).padStart(2, '0')} / ${String(count).padStart(2, '0')}`;
+    album.querySelector('[data-album-title]').textContent = cover.title;
+    album.querySelector('[data-album-category]').textContent = cover.category;
+    album.querySelector('[data-album-link]').href = cover.href;
+  }
+
+  function select(index) {
+    active = (index + count) % count;
+    pauseUntil = Date.now() + 4000;
+    render();
+  }
+
+  function step(direction) { select(active + direction); }
+  function tick() {
+    if (manualPause || hovering || focused || !visible || document.hidden || Date.now() < pauseUntil) return;
+    active = (active + 1) % count;
+    render();
+  }
+
+  album.addEventListener('mouseenter', () => { hovering = true; album.classList.add('is-hovered'); });
+  album.addEventListener('mouseleave', () => { hovering = false; album.classList.remove('is-hovered'); });
+  album.addEventListener('focusin', () => { focused = true; album.classList.add('is-hovered'); });
+  album.addEventListener('focusout', (event) => {
+    if (album.contains(event.relatedTarget)) return;
+    focused = false;
+    album.classList.remove('is-hovered');
+  });
+
+  cards.forEach((card, index) => card.addEventListener('click', (event) => {
+    if (suppressClick) { event.preventDefault(); return; }
+    select(index);
+  }));
+  album.querySelector('[data-album-prev]').addEventListener('click', () => step(-1));
+  album.querySelector('[data-album-next]').addEventListener('click', () => step(1));
+  album.querySelector('[data-album-pause]').addEventListener('click', (event) => {
+    manualPause = !manualPause;
+    event.currentTarget.setAttribute('aria-pressed', String(manualPause));
+    event.currentTarget.textContent = manualPause ? copy.home.album.play : copy.home.album.pause;
+  });
+
+  stage.addEventListener('wheel', (event) => {
+    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    if (Math.abs(delta) < 4) return;
+    event.preventDefault();
+    if (Date.now() - lastWheel < 380) return;
+    lastWheel = Date.now();
+    step(delta > 0 ? 1 : -1);
+  }, { passive: false });
+
+  stage.addEventListener('pointerdown', (event) => {
+    pointerStart = { x: event.clientX, y: event.clientY };
+  });
+  stage.addEventListener('pointerup', (event) => {
+    if (!pointerStart) return;
+    const dx = event.clientX - pointerStart.x;
+    const dy = event.clientY - pointerStart.y;
+    pointerStart = null;
+    const movement = Math.abs(dy) >= Math.abs(dx) ? dy : dx;
+    if (Math.abs(movement) > 30) {
+      suppressClick = true;
+      step(movement < 0 ? 1 : -1);
+      window.setTimeout(() => { suppressClick = false; }, 120);
+    }
+  });
+  stage.addEventListener('pointercancel', () => { pointerStart = null; });
+  stage.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') { event.preventDefault(); step(1); }
+    if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { threshold: .1 }).observe(album);
+  }
+  const pauseButton = album.querySelector('[data-album-pause]');
+  pauseButton.setAttribute('aria-pressed', String(manualPause));
+  if (manualPause) pauseButton.textContent = copy.home.album.play;
+  render();
+  window.setInterval(tick, 2600);
+}
+
+setupHeroAlbum();
 
 document.querySelector('#contact-form')?.addEventListener('submit', (event) => {
   event.preventDefault();
