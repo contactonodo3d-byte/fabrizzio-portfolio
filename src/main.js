@@ -82,10 +82,8 @@ function playlistWidget() {
   const playlist = playlistDetails();
   if (!playlist) return '';
   return `<section class="playlist-widget" id="playlist" aria-labelledby="playlist-title">
-    <div class="playlist-widget-head"><div><span class="eyebrow">${copy.home.playlist.kicker}</span><h2 id="playlist-title">${copy.home.playlist.title}</h2></div>
-    </div>
-    <iframe title="${site.name} playlist on Spotify" src="${playlist.embed}" width="100%" height="152" style="border-radius:12px" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    <a class="playlist-external" href="${playlist.url}" target="_blank" rel="noopener noreferrer">${copy.home.playlist.open} ↗</a>
+    <h2 class="visually-hidden" id="playlist-title">${copy.home.playlist.title}</h2>
+    <iframe title="${site.name} playlist on Spotify" src="${playlist.embed}" width="100%" height="80" style="border-radius:999px" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </section>`;
 }
 
