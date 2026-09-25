@@ -76,7 +76,7 @@ body { color: var(--ink); background: var(--bg); }
 .language-switch button:hover:not([aria-pressed="true"]){background:#ffdb01}
 .mobile-nav .language-switch{display:none}
 .hero-visual{min-width:0}
-.playlist-widget{width:min(100%,360px);margin:0 0 18px;padding:8px 0;background:transparent;color:#000;border:0;border-radius:0;box-shadow:none;transform:none}
+.playlist-widget{width:min(100%,360px);margin:0 auto 18px;padding:8px 0;background:transparent;color:#000;border:0;border-radius:0;box-shadow:none;transform:none}
 .playlist-widget-head{min-height:40px;display:flex;align-items:center;gap:12px}
 .playlist-widget-head>div{min-width:0;flex:1}
 .playlist-widget .eyebrow{font-size:9px;letter-spacing:0.15em}
