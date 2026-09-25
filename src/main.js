@@ -34,7 +34,12 @@ function playlistDetails() {
   } catch { return null; }
 }
 
-const icon = (name) => ({ arrow: '↗', right: '→', plus: '+' })[name];
+const icon = (name) => ({
+  arrow: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>',
+  right: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>',
+  plus: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+})[name];
+const sparkleIcon = '<svg class="icon-sparkle" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1v30M1 16h30M5.4 5.4l21.2 21.2M26.6 5.4 5.4 26.6"/></svg>';
 const display = ({ line1, line2 = '', accent = '' }) => `${line1}<br/>${line2}${accent ? `<em>${accent}</em>` : ''}`;
 const languageSwitch = () => `<div class="language-switch" role="group" aria-label="Language / Idioma / Idioma">${['en', 'es', 'pt'].map((code) => `<button type="button" data-language="${code}" aria-pressed="${language === code}" lang="${code}">${code.toUpperCase()}</button>`).join('')}</div>`;
 
@@ -47,11 +52,12 @@ function header() {
       <a href="./lab.html" ${route === '/lab.html' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
       <a href="./about.html" ${route === '/about.html' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a>
     </nav>
-    ${languageSwitch()}
+    <div class="header-tools">${languageSwitch()}
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="${ui.openMenu}"><span></span><span></span></button>
+    </div>
     <a class="header-cta" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="${ui.openMenu}"><span></span><span></span></button>
   </div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./contact.html">${copy.navigation.startProject}</a>${languageSwitch()}
+    <a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./contact.html">${copy.navigation.startProject}</a>
   </nav></header>`;
 }
 
@@ -69,7 +75,7 @@ function sectionIntro(kicker, title, action = '') { return `<div class="section-
 function heroAlbum() {
   if (!heroCovers.length) return '';
   return `<section class="hero-album" aria-label="Interactive project album">
-    <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span><span class="album-top-mark" aria-hidden="true">✳</span></div>
+    <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span><span class="album-top-mark" aria-hidden="true">${sparkleIcon}</span></div>
     <div class="album-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${ui.coverInstructions}">
       ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="lazy" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-title">${cover.title}</span><span class="album-cover-orbit"></span><span class="album-cover-foot">${ui.portfolioSlot} · ${cover.id}</span></span>`}</span></button>`).join('')}
     </div>
@@ -92,7 +98,7 @@ function home() {
       <div class="hero-main"><div class="hero-copy"><h1>${display(copy.home.hero)}</h1>
       <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="./work.html">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
-      <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}<span class="tiny-star">✳</span></span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>↘</span></span></div>
+      <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}<span class="tiny-star">${sparkleIcon}</span></span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>↘</span></span></div>
     </section>
     <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), '<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>↗</span></a>')}<div class="project-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
     <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="./services.html#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>↗</b></a>`).join('')}</div></div></section>
@@ -110,10 +116,10 @@ function about() { return `<main class="inner-page container"><div class="page-i
 function lab() {
   const entries = labEntries.length
     ? `<div class="lab-entry-grid">${labEntries.map(({ category, title, summary, date, url }) => `<a class="lab-entry" href="${url}"><span class="eyebrow">${category} · ${date}</span><h3>${title}</h3><p>${summary}</p><span class="lab-entry-arrow" aria-hidden="true">↗</span></a>`).join('')}</div>`
-    : `<div class="lab-empty"><span class="lab-empty-mark" aria-hidden="true">✳</span><div><div class="eyebrow">${copy.lab.emptyKicker}</div><h3>${copy.lab.emptyTitle}</h3><p>${copy.lab.emptyBody}</p></div></div>`;
+    : `<div class="lab-empty"><span class="lab-empty-mark" aria-hidden="true">${sparkleIcon}</span><div><div class="eyebrow">${copy.lab.emptyKicker}</div><h3>${copy.lab.emptyTitle}</h3><p>${copy.lab.emptyBody}</p></div></div>`;
 
   return `<main class="lab-page">
-    <section class="container lab-hero"><div class="eyebrow">${copy.lab.kicker}</div><h1>${display(copy.lab.title)}</h1><div class="lab-hero-bottom"><p>${copy.lab.intro}</p><span class="lab-asterisk" aria-hidden="true">✳</span></div></section>
+    <section class="container lab-hero"><div class="eyebrow">${copy.lab.kicker}</div><h1>${display(copy.lab.title)}</h1><div class="lab-hero-bottom"><p>${copy.lab.intro}</p><span class="lab-asterisk" aria-hidden="true">${sparkleIcon}</span></div></section>
     <section class="lab-categories"><div class="container"><div class="eyebrow">${copy.lab.categoriesKicker}</div><div class="lab-category-grid">${copy.lab.categories.map(({ number, title, body }) => `<article><span>${number}</span><h2>${title}</h2><p>${body}</p></article>`).join('')}</div></div></section>
     <section class="container lab-listing">${sectionIntro(copy.lab.latestKicker, display(copy.lab.latestTitle))}${entries}</section>
     <section class="container lab-now"><div class="eyebrow">${copy.lab.exploringKicker}</div><div class="lab-now-items">${copy.lab.exploring.map((topic) => `<span>${topic}</span>`).join('')}</div><p>${copy.lab.exploringNote}</p></section>
