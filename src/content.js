@@ -25,7 +25,7 @@ export const copy = {
     role: 'Independent visual designer',
     location: 'Based in Paraguay · Working worldwide',
     hero: { line1: 'I design things', line2: 'people ', accent: 'notice.' },
-    intro: 'Visual design and physical experiences with a clear point of view and a reason to exist.',
+    intro: 'Visual design and physical experiences shaped by international work, delivered through a focused independent practice.',
     exploreWorkButton: 'Explore my work',
     playlist: {
       kicker: 'FR / ON REPEAT',
@@ -74,12 +74,12 @@ export const copy = {
   services: {
     kicker: 'Services / Ways to work together',
     title: { line1: 'The right design', line2: 'for the ', accent: 'right job.' },
-    intro: "Focused projects shaped around your goals. Tell me what you're building and we'll define a useful scope together.",
+    intro: "International experience with a direct, independent way of working. We'll define the right scope for your goals and budget.",
     monthlyKicker: 'Ongoing support',
     monthlyTitle: 'Monthly design partnership.',
     monthlyBody: 'For teams with recurring design needs. The format, capacity, and monthly scope are defined together before we begin.',
     monthlyButton: 'Ask about availability',
-    note: 'Engagement details and pricing are discussed after the scope is clear.',
+    note: 'Pricing reflects the scope and the efficiency of a lean independent practice.',
   },
   about: {
     kicker: 'About / Fabrizzio Ruiz',
@@ -88,7 +88,7 @@ export const copy = {
     sectionKicker: 'A bit about me',
     sectionTitle: { line1: 'One perspective.', line2: 'Many ways to make it real.' },
     paragraph1: 'My practice moves between brand identity, websites, campaigns, and physical spaces. Across each format, I look for the idea that makes the work clear, distinctive, and useful.',
-    paragraph2: 'I work from Paraguay with an international outlook, bringing visual craft and curiosity to every brief.',
+    paragraph2: 'Working abroad shaped how I make, communicate, and deliver design. Based in Paraguay, I keep the collaboration direct and adaptable for teams wherever they are.',
     contactLink: "Let's work together",
     portraitPlaceholder: 'Portrait coming soon',
   },
