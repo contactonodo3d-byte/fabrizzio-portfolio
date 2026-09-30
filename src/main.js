@@ -35,7 +35,7 @@ function playlistDetails() {
 }
 
 const icon = (name) => ({
-  arrow: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>',
+  arrow: '<svg class="icon icon-forward-doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.3c2.2 2 4.4 4.1 6.8 6.7-2.3 2.5-4.6 4.7-6.7 6.8M10.7 5.2c2.3 2.1 4.5 4.2 6.8 6.8-2.4 2.5-4.6 4.6-6.7 6.7M19 5.4c-.1 2.2.1 4.4 0 6.6.1 2.3-.1 4.5 0 6.7"/></svg>',
   right: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>',
   plus: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
   up: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>',
