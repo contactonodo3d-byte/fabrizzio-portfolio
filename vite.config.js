@@ -15,6 +15,7 @@ export default defineConfig({
         expo: resolve(import.meta.dirname, 'expo/index.html'),
         home: resolve(import.meta.dirname, 'index.html'),
         work: resolve(import.meta.dirname, 'work.html'),
+        caseStudy: resolve(import.meta.dirname, 'case-study.html'),
         services: resolve(import.meta.dirname, 'services.html'),
         lab: resolve(import.meta.dirname, 'lab.html'),
         about: resolve(import.meta.dirname, 'about.html'),

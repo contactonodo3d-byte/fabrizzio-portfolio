@@ -48,7 +48,7 @@ export const copy = {
       kicker: '01 / Selected work',
       title: { line1: 'Work that speaks', accent: 'for itself.' },
       allWorkLink: 'All work',
-      placeholderNote: 'Project imagery and case-study details are illustrative until approved portfolio material is added.',
+      placeholderNote: 'A selection of web, brand, campaign, presentation, and spatial design work.',
     },
     services: { kicker: '02 / What I do', title: { line1: 'A broad toolkit.', accent: 'One clear vision.' } },
     approach: {
@@ -67,9 +67,9 @@ export const copy = {
   work: {
     kicker: 'Portfolio / Selected work',
     title: { line1: 'Made to', accent: 'make an impact.' },
-    intro: 'Brand, digital, and spatial work. The projects below are layout previews until final case studies and imagery are approved.',
-    guidanceTitle: 'A good case study shows',
-    guidanceBody: 'The brief. The challenge. The choices. The outcome. Each finished project page will tell that story with your real assets and role clearly credited.',
+    intro: 'Selected projects across websites, campaigns, identity, presentations, and architectural visualization.',
+    guidanceTitle: 'Across disciplines',
+    guidanceBody: 'From responsive websites and brand assets to pitch decks and spatial visualization, each project starts with a clear visual idea and carries it through to the final deliverable.',
   },
   services: {
     kicker: 'Services / Ways to work together',
@@ -151,25 +151,23 @@ export const services = [
   { id: 'spatial', number: '03', title: 'Expo & spaces', homeBody: 'Visual experiences that carry a brand into the physical world.', body: 'Brand experiences made for real-world encounters, from early concepts to production-ready visual direction.', items: ['Exhibition concepts', 'Environmental graphics', 'Experience design direction'] },
 ];
 
-// Portfolio records are intentionally illustrative until Fabrizzio supplies
-// approved project images, roles, outcomes, and permission to publish them.
 export const projects = [
-  { id: '01', label: 'Brand identity', title: 'A brand built to be remembered.', note: 'Featured project placeholder', className: 'project-brand' },
-  { id: '02', label: 'Web & digital', title: 'A clearer digital experience.', note: 'Digital project placeholder', className: 'project-digital' },
-  { id: '03', label: 'Experiential', title: 'A space people step into.', note: 'Spatial project placeholder', className: 'project-spatial' },
+  { id: '01', slug: 'skylinq', label: 'Web design', title: 'Skylinq Home', note: 'Website design for home energy and improvement services.', className: 'project-digital', thumbnail: './images/work/skylinq.jpg', href: './case-study.html?project=skylinq', externalUrl: 'https://skylinqhome.com/', role: 'Web design', overview: 'A website design project for Skylinq Home. The earlier portfolio presents home energy and improvement services including solar, roofing, HVAC, and a path to request a quote.', deliverables: ['Website design', 'Service page layout', 'Quote-request journey'], source: 'Adobe Portfolio' },
+  { id: '02', slug: 'law-group', label: 'Web design', title: 'Law Group', note: 'A website project featured in the earlier portfolio.', className: 'project-digital', thumbnail: '', href: './case-study.html?project=law-group', externalUrl: 'https://law.vistadigital.com/', role: 'Web design', overview: 'A web design project featured in the previous portfolio. The case is presented here through its original project link.', deliverables: ['Website design'], source: 'Adobe Portfolio' },
+  { id: '03', slug: 'vista-digital', label: 'Web design', title: 'Vista Digital', note: 'A website project featured in the earlier portfolio.', className: 'project-digital', thumbnail: '', href: './case-study.html?project=vista-digital', externalUrl: 'https://vistadigital.com/', role: 'Web design', overview: 'A web design project featured in the previous portfolio. The case is presented here through its original project link.', deliverables: ['Website design'], source: 'Adobe Portfolio' },
+  { id: '04', slug: 'social-media-assets', label: 'Social media', title: 'Social Media Assets', note: "Campaign visuals made to communicate a client's content.", className: 'project-brand', thumbnail: './images/work/social-media.jpg', href: './case-study.html?project=social-media-assets', role: 'Visual design', overview: "A selection of social media visuals from earlier client work. The original portfolio describes the goal as communicating the client's content through visual assets.", deliverables: ['Social media assets', 'Campaign graphics'], source: 'Upwork and Adobe Portfolio' },
+  { id: '05', slug: 'pitch-decks', label: 'Presentation design', title: 'Slides & Pitch Decks', note: 'A multinational brand report prepared to brand guidelines.', className: 'project-brand', thumbnail: './images/work/pitch-deck.jpg', href: './case-study.html?project=pitch-decks', role: 'Designer', overview: 'A multinational brand report designed according to the client’s brand guidelines, with attention to a polished corporate presentation.', deliverables: ['PDF presentation', 'Editable Google Slides file', 'PPTX file'], source: 'Upwork' },
+  { id: '06', slug: 'client-logos', label: 'Brand design', title: 'Client Logos', note: 'A selection of logo design work.', className: 'project-brand', thumbnail: './images/work/brand-identity.jpg', href: './case-study.html?project=client-logos', role: 'Logo designer', overview: 'Selected logo designs from previous client projects. The earlier listing highlights quality and timely delivery.', deliverables: ['Logo design'], source: 'Upwork and Adobe Portfolio' },
+  { id: '07', slug: 'architectural-visualization', label: 'Architectural visualization', title: 'ArchViz & Retail Design', note: 'Architectural and retail design visuals from selected projects.', className: 'project-spatial', thumbnail: './images/work/archviz.jpg', href: './case-study.html?project=architectural-visualization', role: 'Visual designer', overview: 'A selection of architectural visualization, retail design, and related visual work included in the earlier portfolio.', deliverables: ['Architectural visualization', 'Retail design visuals'], source: 'Upwork and Adobe Portfolio' },
 ];
 
-// HERO ALBUM COVERS. Replace each empty thumbnail with an image path such as
-// './images/my-project.webp'. Keep the files in public/images/ so the path
-// remains valid in local preview and on the published site. Update href to a
-// real case-study URL when that project page is ready.
 export const heroCovers = [
-  { id: '01', title: 'Brand identity', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-yellow' },
-  { id: '02', title: 'Digital experience', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-blue' },
-  { id: '03', title: 'Exhibition design', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-orange' },
-  { id: '04', title: 'Campaign design', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-pink' },
-  { id: '05', title: 'Visual systems', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-purple' },
-  { id: '06', title: 'New project', category: 'Project slot', thumbnail: '', href: './work.html', theme: 'cover-black' },
+  { id: '01', title: 'Skylinq Home', category: 'Web design', thumbnail: './images/work/skylinq.jpg', href: './case-study.html?project=skylinq', theme: 'cover-yellow' },
+  { id: '02', title: 'Social Media Assets', category: 'Campaign design', thumbnail: './images/work/social-media.jpg', href: './case-study.html?project=social-media-assets', theme: 'cover-blue' },
+  { id: '03', title: 'Pitch Decks', category: 'Presentation design', thumbnail: './images/work/pitch-deck.jpg', href: './case-study.html?project=pitch-decks', theme: 'cover-orange' },
+  { id: '04', title: 'Client Logos', category: 'Brand design', thumbnail: './images/work/brand-identity.jpg', href: './case-study.html?project=client-logos', theme: 'cover-pink' },
+  { id: '05', title: 'ArchViz & Retail', category: 'Spatial design', thumbnail: './images/work/archviz.jpg', href: './case-study.html?project=architectural-visualization', theme: 'cover-purple' },
+  { id: '06', title: 'Vista Digital', category: 'Web design', thumbnail: './images/work/skylinq.jpg', href: './case-study.html?project=vista-digital', theme: 'cover-black' },
 ];
 
 // Publish a Lab entry by adding { category, title, summary, date, url } here.

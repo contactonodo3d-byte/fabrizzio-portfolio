@@ -69,7 +69,8 @@ function footer() {
 }
 
 function projectCard(project, large = false) {
-  return `<article class="project-card ${large ? 'project-card-large' : ''}"><div class="project-art ${project.className}" role="img" aria-label="${ui.illustrative} ${project.label.toLowerCase()}"><div class="art-frame"><span class="art-overline">${project.id} / ${project.label.toUpperCase()}</span><strong>${project.title}</strong><span class="art-mark">FR<span>®</span></span></div></div><div class="project-meta"><div><span class="eyebrow">${project.label}</span><h3>${project.title}</h3><p>${project.note}</p></div><span class="project-icon" aria-hidden="true">${icon('arrow')}</span></div></article>`;
+  const image = project.thumbnail ? `<img src="${project.thumbnail}" alt="${project.title} project image" loading="lazy" />` : `<span class="project-image-fallback">${project.label}</span>`;
+  return `<a class="project-card ${large ? 'project-card-large' : ''}" href="${project.href}"><div class="project-art ${project.className}">${image}<span class="project-image-link" aria-hidden="true">${icon('arrow')}</span></div><div class="project-meta"><div><span class="eyebrow">${project.label}</span><h3>${project.title}</h3><p>${project.note}</p></div><span class="project-icon" aria-hidden="true">${icon('arrow')}</span></div></a>`;
 }
 
 function sectionIntro(kicker, title, action = '') { return `<div class="section-head"><div><div class="eyebrow">${kicker}</div><h2>${title}</h2></div>${action}</div>`; }
@@ -111,6 +112,21 @@ function home() {
 
 function work() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.work.kicker}</div><h1>${display(copy.work.title)}</h1><p>${copy.work.intro}</p></div><div class="project-grid work-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><div class="work-guidance"><div class="eyebrow">${copy.work.guidanceTitle}</div><p>${copy.work.guidanceBody}</p></div></main>`; }
 
+function caseStudy() {
+  const project = projects.find(({ slug }) => slug === new URLSearchParams(location.search).get('project'));
+  if (!project) return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
+  document.title = `${project.title} — ${site.name}`;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.label} by Fabrizzio Ruiz. ${project.note}`);
+  const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);
+  return `<main class="case-page container">
+    <a class="case-back text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a>
+    <header class="case-intro"><div class="eyebrow">${project.label} · ${project.role}</div><h1>${project.title}</h1><p>${project.overview}</p></header>
+    ${project.thumbnail ? `<figure class="case-image"><img src="${project.thumbnail}" alt="${project.title} design work" /><figcaption>${project.source}</figcaption></figure>` : ''}
+    <div class="case-details"><section><div class="eyebrow">Overview</div><p>${project.overview}</p></section><section><div class="eyebrow">Deliverables</div><ul>${project.deliverables.map((item) => `<li>${item}</li>`).join('')}</ul></section><section><div class="eyebrow">Project source</div><p>Selected work from ${project.source}.</p>${project.externalUrl ? `<a class="text-link" href="${project.externalUrl}" target="_blank" rel="noreferrer">${project.slug === 'skylinq' || project.slug === 'law-group' || project.slug === 'vista-digital' ? 'Visit website' : 'View profile'} <span>${icon('arrow')}</span></a>` : ''}</section></div>
+    <section class="case-related"><div class="section-head"><div><div class="eyebrow">More selected work</div><h2>Keep looking.</h2></div><a class="text-link" href="./work.html">All work <span>${icon('arrow')}</span></a></div><div class="project-grid">${related.map((item) => projectCard(item)).join('')}</div></section>
+  </main>`;
+}
+
 function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div><a class="round-arrow small" href="./contact.html" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="./contact.html">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
 
 function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><div class="portrait-placeholder" role="img" aria-label="Portrait placeholder"><span>FR.</span><small>${copy.about.portraitPlaceholder}</small></div><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><a class="text-link" href="./contact.html">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
@@ -151,7 +167,7 @@ function contact() {
   </main>`;
 }
 
-const pages = { '/': home, '/index.html': home, '/work.html': work, '/services.html': services, '/lab.html': lab, '/about.html': about, '/contact.html': contact };
+const pages = { '/': home, '/index.html': home, '/work.html': work, '/case-study.html': caseStudy, '/services.html': services, '/lab.html': lab, '/about.html': about, '/contact.html': contact };
 const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="./">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`);
 app.innerHTML = header() + render() + footer();
 
