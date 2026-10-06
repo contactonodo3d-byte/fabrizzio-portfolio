@@ -17,3 +17,5 @@ const brief=document.querySelector('#brief');const briefTemplate='Hola Fabrizzio
 const carousel=document.querySelector('.carousel-window');const pause=document.querySelector('.carousel-control');let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;function syncPause(){carousel.classList.toggle('paused',paused);pause.setAttribute('aria-pressed',String(paused));pause.textContent=t(paused?'Reanudar carrusel':'Pausar carrusel');}pause.addEventListener('click',()=>{paused=!paused;syncPause();});syncPause();
 imageDialog.addEventListener('close',()=>{carousel.classList.remove('dialog-open');});document.querySelectorAll('.carousel-card').forEach(button=>button.addEventListener('click',()=>carousel.classList.add('dialog-open')));
 document.addEventListener('expo-language',()=>{updateDirectContact();updateBrief();syncPause();document.querySelector('#copy-status').textContent='';const ar=document.querySelector('model-viewer [slot="ar-button"]');if(ar){ar.firstChild.nodeValue=t('Ver en tu espacio');}if(imageDialog.open)imageDialog.close();});refreshTranslations();
+
+import './expo-booth-loader.js';

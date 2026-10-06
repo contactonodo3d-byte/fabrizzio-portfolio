@@ -12,6 +12,7 @@
     "vite": "^7.1.0"
   },
   "dependencies": {
-    "@google/model-viewer": "^3.5.0"
+    "@google/model-viewer": "^3.5.0",
+    "three": "0.163.0"
   }
 }
