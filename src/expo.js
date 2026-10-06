@@ -1,3 +1,4 @@
+import { applyContactIcons } from './contact-icons.js';
 import { t, getLanguage, refreshTranslations } from './expo-i18n.js';
 import { contact } from './expo-contact.js';
 function updateDirectContact(){
@@ -6,6 +7,7 @@ const message = t( 'Hola Fabrizzio, vi tu portfolio de Exhibition & Digital Desi
 if (/^\d{8,15}$/.test(contact.whatsapp)) { const a=document.createElement('a'); a.className='button primary';a.href='https://wa.me/'+contact.whatsapp+'?text='+encodeURIComponent(message);a.textContent=t('Escríbeme por WhatsApp');a.insertAdjacentHTML('beforeend','<svg class="icon icon-forward-doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.3c2.2 2 4.4 4.1 6.8 6.7-2.3 2.5-4.6 4.7-6.7 6.8M10.7 5.2c2.3 2.1 4.5 4.2 6.8 6.8-2.4 2.5-4.6 4.6-6.7 6.7M19 5.4c-.1 2.2.1 4.4 0 6.6.1 2.3-.1 4.5 0 6.7"/></svg>');direct.replaceChildren(a);document.querySelector('.sticky').href=a.href; }
 if (contact.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)){const a=document.createElement('a');a.className='button';a.href='mailto:'+contact.email;a.textContent=contact.email;if(!contact.whatsapp)direct.replaceChildren(a);else direct.append(a);}
 
+applyContactIcons();
 }
 updateDirectContact();
 document.querySelector('#copy-brief').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.querySelector('#brief').value);document.querySelector('#copy-status').textContent=t('Mensaje copiado.');}catch{document.querySelector('#brief').select();document.querySelector('#copy-status').textContent=t('Selecciona y copia el mensaje.');}});
@@ -19,3 +21,5 @@ imageDialog.addEventListener('close',()=>{carousel.classList.remove('dialog-open
 document.addEventListener('expo-language',()=>{updateDirectContact();updateBrief();syncPause();document.querySelector('#copy-status').textContent='';const ar=document.querySelector('model-viewer [slot="ar-button"]');if(ar){ar.firstChild.nodeValue=t('Ver en tu espacio');}if(imageDialog.open)imageDialog.close();});refreshTranslations();
 
 import './expo-booth-loader.js';
+
+applyContactIcons();
