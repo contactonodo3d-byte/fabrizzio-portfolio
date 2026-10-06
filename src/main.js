@@ -118,6 +118,25 @@ function caseStudy() {
   if (!project) return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
   document.title = `${project.title} — ${site.name}`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.label} by Fabrizzio Ruiz. ${project.note}`);
+  const canonical = document.createElement('link');
+  canonical.rel = 'canonical';
+  canonical.href = `https://fabrizzioruiz.com/case-study.html?project=${encodeURIComponent(project.slug)}`;
+  document.head.append(canonical);
+  const description = document.querySelector('meta[name="description"]').content;
+  for (const [attribute, name, content] of [
+    ['property', 'og:type', 'website'],
+    ['property', 'og:title', document.title],
+    ['property', 'og:description', description],
+    ['property', 'og:url', canonical.href],
+    ['name', 'twitter:card', 'summary'],
+    ['name', 'twitter:title', document.title],
+    ['name', 'twitter:description', description],
+  ]) {
+    const meta = document.createElement('meta');
+    meta.setAttribute(attribute, name);
+    meta.content = content;
+    document.head.append(meta);
+  }
   const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);
   return `<main class="case-page container">
     <a class="case-back text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a>
