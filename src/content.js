@@ -163,13 +163,13 @@ export const projects = [
 ];
 
 export const heroCovers = [
-  { id: '01', title: 'Skylinq Home', category: 'Web design', thumbnail: './images/work/skylinq.jpg', href: './case-study.html?project=skylinq', theme: 'cover-yellow' },
-  { id: '02', title: 'Social Media Assets', category: 'Campaign design', thumbnail: './images/work/social-media.jpg', href: './case-study.html?project=social-media-assets', theme: 'cover-blue' },
-  { id: '03', title: 'Pitch Decks', category: 'Presentation design', thumbnail: './images/work/pitch-deck.jpg', href: './case-study.html?project=pitch-decks', theme: 'cover-orange' },
-  { id: '04', title: 'Client Logos', category: 'Brand design', thumbnail: './images/work/brand-identity.jpg', href: './case-study.html?project=client-logos', theme: 'cover-pink' },
-  { id: '05', title: 'ArchViz & Retail', category: 'Spatial design', thumbnail: './images/work/archviz.jpg', href: './case-study.html?project=architectural-visualization', theme: 'cover-purple' },
-  { id: '06', title: 'Vista Digital', category: 'Web design', thumbnail: '', href: './case-study.html?project=vista-digital', theme: 'cover-black' },
-  { id: '07', title: 'Law Group', category: 'Web design', thumbnail: '', href: './case-study.html?project=law-group', theme: 'cover-yellow' },
+  { id: '01', title: 'Skylinq Home', story: 'Solar · Roofing · HVAC', category: 'Web design', thumbnail: './images/work/skylinq.jpg', href: './case-study.html?project=skylinq', theme: 'cover-yellow' },
+  { id: '02', title: 'Social Media Assets', story: 'Campaigns made to connect', category: 'Campaign design', thumbnail: './images/work/social-media.jpg', href: './case-study.html?project=social-media-assets', theme: 'cover-blue' },
+  { id: '03', title: 'Pitch Decks', story: 'A clear story, slide by slide', category: 'Presentation design', thumbnail: './images/work/pitch-deck.jpg', href: './case-study.html?project=pitch-decks', theme: 'cover-orange' },
+  { id: '04', title: 'Client Logos', story: 'Identity marks for clients', category: 'Brand design', thumbnail: './images/work/brand-identity.jpg', href: './case-study.html?project=client-logos', theme: 'cover-pink' },
+  { id: '05', title: 'ArchViz & Retail', story: 'Spaces brought to life', category: 'Spatial design', thumbnail: './images/work/archviz.jpg', href: './case-study.html?project=architectural-visualization', theme: 'cover-purple' },
+  { id: '06', title: 'Vista Digital', story: 'A website design project', category: 'Web design', thumbnail: '', href: './case-study.html?project=vista-digital', theme: 'cover-black' },
+  { id: '07', title: 'Law Group', story: 'A digital presence for law', category: 'Web design', thumbnail: '', href: './case-study.html?project=law-group', theme: 'cover-yellow' },
 ];
 
 // Publish a Lab entry by adding { category, title, summary, date, url } here.
