@@ -81,7 +81,7 @@ function heroAlbum() {
   return `<section class="hero-album" aria-label="Interactive project album">
     <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span></div>
     <div class="album-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${ui.coverInstructions}">
-      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="lazy" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-orbit"></span></span>`}<span class="album-cover-overlay" aria-hidden="true"><span class="eyebrow">${cover.category}</span><strong>${cover.story}</strong><span class="album-overlay-title">${cover.title}</span></span></span></button>`).join('')}
+      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="eager" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-orbit"></span></span>`}<span class="album-cover-overlay" aria-hidden="true"><span class="eyebrow">${cover.category}</span><strong>${cover.story}</strong><span class="album-overlay-title">${cover.title}</span></span></span></button>`).join('')}
     </div>
     <div class="album-bottom"><div class="album-readout" aria-live="polite"><span class="album-count" data-album-count>01 / ${String(heroCovers.length).padStart(2, '0')}</span><span class="album-current" data-album-title>${heroCovers[0].title}</span><span class="album-category" data-album-category>${heroCovers[0].category}</span></div><div class="album-controls"><button type="button" data-album-prev aria-label="${ui.previousCover}">${icon('up')}</button><button type="button" data-album-next aria-label="${ui.nextCover}">${icon('down')}</button></div></div>
     <div class="album-foot"><a href="${heroCovers[0].href}" data-album-link>${copy.home.album.projectLink} <span>${icon('arrow')}</span></a><button type="button" data-album-pause aria-pressed="false">${copy.home.album.pause}</button></div>
@@ -390,7 +390,55 @@ function setupHeroAlbum() {
   window.setInterval(tick, 2600);
 }
 
+function setupAlbumTints() {
+  document.querySelectorAll('.album-cover img').forEach((image) => {
+    const applyTint = () => {
+      if (!image.naturalWidth) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      if (!context) return;
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      let pixels;
+      try { pixels = context.getImageData(0, 0, canvas.width, canvas.height).data; } catch { return; }
+      const hues = Array.from({ length: 24 }, () => ({ weight: 0, r: 0, g: 0, b: 0, count: 0 }));
+      let neutral = { r: 0, g: 0, b: 0, count: 0 };
+      for (let i = 0; i < pixels.length; i += 16) {
+        const r = pixels[i]; const g = pixels[i + 1]; const b = pixels[i + 2];
+        const max = Math.max(r, g, b); const min = Math.min(r, g, b);
+        const saturation = max ? (max - min) / max : 0;
+        const luminance = (r * .2126 + g * .7152 + b * .0722) / 255;
+        if (saturation > .2 && luminance > .12 && luminance < .94) {
+          const delta = max - min;
+          let hue = max === r ? ((g - b) / delta) % 6 : max === g ? (b - r) / delta + 2 : (r - g) / delta + 4;
+          hue = ((hue * 60 + 360) % 360);
+          const bucket = hues[Math.floor(hue / 15) % hues.length];
+          bucket.weight += saturation * (1 - Math.abs(luminance - .55) * .25);
+          bucket.r += r; bucket.g += g; bucket.b += b; bucket.count += 1;
+        } else if (luminance > .18 && luminance < .85) {
+          neutral.r += r; neutral.g += g; neutral.b += b; neutral.count += 1;
+        }
+      }
+      const dominant = hues.reduce((best, bucket) => bucket.weight > best.weight ? bucket : best, hues[0]);
+      const color = dominant.count
+        ? [dominant.r, dominant.g, dominant.b].map((channel) => Math.round(channel / dominant.count))
+        : neutral.count ? [neutral.r, neutral.g, neutral.b].map((channel) => Math.round(channel / neutral.count)) : [80, 80, 80];
+      const overlay = image.closest('.album-cover')?.querySelector('.album-cover-overlay');
+      if (!overlay) return;
+      const luminance = (color[0] * .2126 + color[1] * .7152 + color[2] * .0722) / 255;
+      overlay.style.setProperty('--cover-ink', luminance > .58 ? '#111' : '#fff');
+      overlay.style.setProperty('--cover-wash', `rgba(${color.join(',')},.84)`);
+      overlay.style.setProperty('--cover-wash-soft', `rgba(${color.join(',')},.4)`);
+      image.closest('.album-card')?.style.setProperty('--album-tint', `rgba(${color.join(',')},.34)`);
+    };
+    if (image.complete) applyTint();
+    else image.addEventListener('load', applyTint, { once: true });
+  });
+}
+
 setupHeroAlbum();
+setupAlbumTints();
 
 document.querySelector('#contact-form')?.addEventListener('submit', (event) => {
   event.preventDefault();
