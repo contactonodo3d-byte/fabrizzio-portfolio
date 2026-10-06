@@ -11,6 +11,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        connect: resolve(import.meta.dirname, 'connect/index.html'),
         expo: resolve(import.meta.dirname, 'expo/index.html'),
         home: resolve(import.meta.dirname, 'index.html'),
         work: resolve(import.meta.dirname, 'work.html'),
@@ -25,6 +26,7 @@ export default defineConfig({
 
 function expoRedirect(req, res, next) {
   const url = new URL(req.url, 'http://localhost');
-  if (url.pathname === '/expo') { res.writeHead(308, { Location: '/expo/' + url.search }); res.end(); }
+  if (url.pathname === '/connect') { res.writeHead(308, { Location: '/connect/' + url.search }); res.end(); }
+  else if (url.pathname === '/expo') { res.writeHead(308, { Location: '/expo/' + url.search }); res.end(); }
   else next();
 }
