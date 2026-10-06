@@ -1,5 +1,15 @@
 const hero = document.querySelector('.hero');
 const host = hero?.querySelector('.booth-art');
+// Follow the translated headline without adding space below the CTA.
+const headline = hero?.querySelector('h1');
+if (host && headline) {
+  const alignMobileBooth = () => {
+    host.style.setProperty('--booth-mobile-top', `${Math.max(0, headline.offsetTop - 20)}px`);
+    host.style.setProperty('--booth-mobile-height', `${headline.offsetHeight + 40}px`);
+  };
+  new ResizeObserver(alignMobileBooth).observe(headline);
+  alignMobileBooth();
+}
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 let cleanup, pending = false;
 // Privacy browsers may mask cores/RAM. Those values must never disable WebGL.
