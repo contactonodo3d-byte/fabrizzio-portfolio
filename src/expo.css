@@ -12,4 +12,6 @@ body{font-family:Figtree,Arial,sans-serif;font-synthesis:none;text-rendering:opt
 .booth-ready .booth-fallback{visibility:hidden}
 .hero h1{pointer-events:none}
 @media(min-width:701px) and (max-width:1100px){.booth-art{top:7%;width:39%;height:55%}}
-@media(max-width:700px){.booth-art{top:var(--booth-mobile-top,95px);bottom:auto;right:0;width:65%;height:var(--booth-mobile-height,210px);opacity:.24;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%)}}
+@media(max-width:700px){.booth-art{top:calc(var(--booth-mobile-top,95px) - 24px);bottom:auto;right:-24px;width:65%;height:var(--booth-mobile-height,210px);opacity:.24;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%)}}
+
+.network-actions{display:flex;align-items:center;flex-wrap:wrap;gap:18px;margin-top:22px}.save-contact{background:transparent;border:1px solid #7046c6;color:#7046c6;min-height:48px}.connect-link{font-size:13px;font-weight:600}.network-actions a:focus-visible{outline:3px solid #7046c6;outline-offset:4px}@media(max-width:700px){.network-actions{gap:16px}.save-contact{justify-content:center}.connect-link{font-size:12px}}
