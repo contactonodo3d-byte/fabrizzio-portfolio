@@ -70,6 +70,7 @@ export const copy = {
     intro: 'Selected projects across websites, campaigns, identity, presentations, and architectural visualization.',
     guidanceTitle: 'Across disciplines',
     guidanceBody: 'From responsive websites and brand assets to pitch decks and spatial visualization, each project starts with a clear visual idea and carries it through to the final deliverable.',
+    filters: { all: 'All work', digital: 'Digital', brand: 'Brand', spatial: 'Spatial' },
   },
   services: {
     kicker: 'Services / Ways to work together',
@@ -167,7 +168,8 @@ export const heroCovers = [
   { id: '03', title: 'Pitch Decks', category: 'Presentation design', thumbnail: './images/work/pitch-deck.jpg', href: './case-study.html?project=pitch-decks', theme: 'cover-orange' },
   { id: '04', title: 'Client Logos', category: 'Brand design', thumbnail: './images/work/brand-identity.jpg', href: './case-study.html?project=client-logos', theme: 'cover-pink' },
   { id: '05', title: 'ArchViz & Retail', category: 'Spatial design', thumbnail: './images/work/archviz.jpg', href: './case-study.html?project=architectural-visualization', theme: 'cover-purple' },
-  { id: '06', title: 'Vista Digital', category: 'Web design', thumbnail: './images/work/skylinq.jpg', href: './case-study.html?project=vista-digital', theme: 'cover-black' },
+  { id: '06', title: 'Vista Digital', category: 'Web design', thumbnail: '', href: './case-study.html?project=vista-digital', theme: 'cover-black' },
+  { id: '07', title: 'Law Group', category: 'Web design', thumbnail: '', href: './case-study.html?project=law-group', theme: 'cover-yellow' },
 ];
 
 // Publish a Lab entry by adding { category, title, summary, date, url } here.

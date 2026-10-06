@@ -69,8 +69,9 @@ function footer() {
 }
 
 function projectCard(project, large = false) {
-  const image = project.thumbnail ? `<img src="${project.thumbnail}" alt="${project.title} project image" loading="lazy" />` : `<span class="project-image-fallback">${project.label}</span>`;
-  return `<a class="project-card ${large ? 'project-card-large' : ''}" href="${project.href}"><div class="project-art ${project.className}">${image}<span class="project-image-link" aria-hidden="true">${icon('arrow')}</span></div><div class="project-meta"><div><span class="eyebrow">${project.label}</span><h3>${project.title}</h3><p>${project.note}</p></div><span class="project-icon" aria-hidden="true">${icon('arrow')}</span></div></a>`;
+  const image = project.thumbnail ? `<img src="${project.thumbnail}" alt="${project.title} project image" loading="lazy" />` : `<span class="project-image-fallback"><span class="eyebrow">${project.id} / ${project.label}</span><strong>${project.title}</strong><span class="fallback-mark" aria-hidden="true">FR.</span></span>`;
+  const category = project.className.replace('project-', '');
+  return `<a class="project-card ${large ? 'project-card-large' : ''}" data-project-category="${category}" href="${project.href}"><div class="project-art ${project.className}">${image}<span class="project-image-link" aria-hidden="true">${icon('arrow')}</span></div><div class="project-meta"><div><span class="eyebrow">${project.label}</span><h3>${project.title}</h3><p>${project.note}</p></div><span class="project-icon" aria-hidden="true">${icon('arrow')}</span></div></a>`;
 }
 
 function sectionIntro(kicker, title, action = '') { return `<div class="section-head"><div><div class="eyebrow">${kicker}</div><h2>${title}</h2></div>${action}</div>`; }
@@ -80,9 +81,9 @@ function heroAlbum() {
   return `<section class="hero-album" aria-label="Interactive project album">
     <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span></div>
     <div class="album-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${ui.coverInstructions}">
-      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="lazy" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-title">${cover.title}</span><span class="album-cover-orbit"></span><span class="album-cover-foot">${ui.portfolioSlot} · ${cover.id}</span></span>`}</span></button>`).join('')}
+      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="lazy" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-title">${cover.title}</span><span class="album-cover-orbit"></span><span class="album-cover-foot">${cover.category}</span></span>`}</span></button>`).join('')}
     </div>
-    <div class="album-bottom"><div class="album-readout" aria-live="polite"><span class="album-count" data-album-count>01 / 06</span><span class="album-current" data-album-title>${heroCovers[0].title}</span><span class="album-category" data-album-category>${heroCovers[0].category}</span></div><div class="album-controls"><button type="button" data-album-prev aria-label="${ui.previousCover}">${icon('up')}</button><button type="button" data-album-next aria-label="${ui.nextCover}">${icon('down')}</button></div></div>
+    <div class="album-bottom"><div class="album-readout" aria-live="polite"><span class="album-count" data-album-count>01 / ${String(heroCovers.length).padStart(2, '0')}</span><span class="album-current" data-album-title>${heroCovers[0].title}</span><span class="album-category" data-album-category>${heroCovers[0].category}</span></div><div class="album-controls"><button type="button" data-album-prev aria-label="${ui.previousCover}">${icon('up')}</button><button type="button" data-album-next aria-label="${ui.nextCover}">${icon('down')}</button></div></div>
     <div class="album-foot"><a href="${heroCovers[0].href}" data-album-link>${copy.home.album.projectLink} <span>${icon('arrow')}</span></a><button type="button" data-album-pause aria-pressed="false">${copy.home.album.pause}</button></div>
   </section>`;
 }
@@ -103,14 +104,14 @@ function home() {
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
       <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}</span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>${icon('arrow')}</span></span></div>
     </section>
-    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
+    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['skylinq', 'social-media-assets', 'pitch-decks'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
     <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="./services.html#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
     <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="./about.html">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
     <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="./lab.html">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
   </main>`;
 }
 
-function work() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.work.kicker}</div><h1>${display(copy.work.title)}</h1><p>${copy.work.intro}</p></div><div class="project-grid work-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><div class="work-guidance"><div class="eyebrow">${copy.work.guidanceTitle}</div><p>${copy.work.guidanceBody}</p></div></main>`; }
+function work() { const filters = copy.work.filters; return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.work.kicker}</div><h1>${display(copy.work.title)}</h1><p>${copy.work.intro}</p></div><div class="work-filters" role="group" aria-label="Filter projects">${[['all', filters.all], ['digital', filters.digital], ['brand', filters.brand], ['spatial', filters.spatial]].map(([key, label], index) => `<button type="button" data-project-filter="${key}" aria-pressed="${index === 0}">${label}</button>`).join('')}</div><div class="project-grid work-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><div class="work-guidance"><div class="eyebrow">${copy.work.guidanceTitle}</div><p>${copy.work.guidanceBody}</p></div></main>`; }
 
 function caseStudy() {
   const project = projects.find(({ slug }) => slug === new URLSearchParams(location.search).get('project'));
@@ -185,6 +186,14 @@ document.querySelectorAll('[data-language]').forEach((button) => button.addEvent
   location.reload();
 }));
 
+document.querySelectorAll('[data-project-filter]').forEach((button) => button.addEventListener('click', () => {
+  const filter = button.dataset.projectFilter;
+  document.querySelectorAll('[data-project-filter]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+  document.querySelectorAll('.work-grid .project-card').forEach((card) => {
+    card.hidden = filter !== 'all' && card.dataset.projectCategory !== filter;
+  });
+}));
+
 function setupHeroAlbum() {
   const album = document.querySelector('.hero-album');
   if (!album) return;
@@ -200,6 +209,7 @@ function setupHeroAlbum() {
     3: { y: -150, scale: .82, z: 7, opacity: 1 },
     '-1': { y: 310, scale: 1.04, z: 11, opacity: 1 },
     '-2': { y: 490, scale: 1.08, z: 6, opacity: 0 },
+    '-3': { y: 570, scale: 1.1, z: 5, opacity: 0 },
   };
 
   let active = 0;
