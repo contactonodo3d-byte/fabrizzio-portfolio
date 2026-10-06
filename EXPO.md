@@ -20,3 +20,6 @@ WhatsApp: +595 972 780 989. Correo: hello@fabrizzioruiz.com.
 
 ## Hosting
 Servir expo/index.html desde /expo/, redirigiendo /expo a /expo/. GitHub Pages hace la redirección de directorios. Base de assets configurada para raíz del dominio personalizado.
+
+## Actualización multilingüe
+Selector ES/EN/PT con banderas España, Estados Unidos y Brasil. Idioma persistente y enlaces con ?lang=. Traducciones de textos, captions, CTA y visor. Mensajes personalizados del visitante no se reemplazan al cambiar idioma. Carrusel de seis vistas extraídas del portfolio Archviz, con pausa, ampliación y movimiento reducido. Gestecner presentado como concepto y alternativa desplegable, sin etiquetas de estado.
