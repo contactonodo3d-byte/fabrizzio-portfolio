@@ -23,3 +23,5 @@ document.addEventListener('expo-language',()=>{updateDirectContact();updateBrief
 import './expo-booth-loader.js';
 
 applyContactIcons();
+
+import './expo-leads.js';
