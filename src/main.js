@@ -426,11 +426,8 @@ function setupAlbumTints() {
         : neutral.count ? [neutral.r, neutral.g, neutral.b].map((channel) => Math.round(channel / neutral.count)) : [80, 80, 80];
       const overlay = image.closest('.album-cover')?.querySelector('.album-cover-overlay');
       if (!overlay) return;
-      const luminance = (color[0] * .2126 + color[1] * .7152 + color[2] * .0722) / 255;
-      overlay.style.setProperty('--cover-ink', luminance > .58 ? '#111' : '#fff');
       overlay.style.setProperty('--cover-wash', `rgba(${color.join(',')},.84)`);
       overlay.style.setProperty('--cover-wash-soft', `rgba(${color.join(',')},.4)`);
-      image.closest('.album-card')?.style.setProperty('--album-tint', `rgba(${color.join(',')},.34)`);
     };
     if (image.complete) applyTint();
     else image.addEventListener('load', applyTint, { once: true });
