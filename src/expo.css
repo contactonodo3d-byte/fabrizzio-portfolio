@@ -15,3 +15,5 @@ body{font-family:Figtree,Arial,sans-serif;font-synthesis:none;text-rendering:opt
 @media(max-width:700px){.booth-art{top:calc(var(--booth-mobile-top,95px) - 40px);bottom:auto;right:-40px;width:65%;height:var(--booth-mobile-height,210px);opacity:.24;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%)}}
 
 .network-actions{display:flex;align-items:center;flex-wrap:wrap;gap:18px;margin-top:22px}.save-contact{background:transparent;border:1px solid #7046c6;color:#7046c6;min-height:48px}.connect-link{font-size:13px;font-weight:600}.network-actions a:focus-visible{outline:3px solid #7046c6;outline-offset:4px}@media(max-width:700px){.network-actions{gap:16px}.save-contact{justify-content:center}.connect-link{font-size:12px}}
+
+.connect-link{display:inline-flex;align-items:center;gap:8px}.sticky .icon-whatsapp{color:#fff}
