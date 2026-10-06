@@ -2,9 +2,10 @@ const hero = document.querySelector('.hero');
 const host = hero?.querySelector('.booth-art');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 let cleanup, pending = false;
-const weak = navigator.connection?.saveData || (navigator.deviceMemory && navigator.deviceMemory < 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
+// Privacy browsers may mask cores/RAM. Those values must never disable WebGL.
+const saveData = navigator.connection?.saveData;
 async function start() {
-  if (!host || weak || motion.matches || pending || cleanup) return;
+  if (!host || saveData || motion.matches || pending || cleanup) return;
   pending = true;
   try { const { mountBooth } = await import('./expo-booth.js'); if (!motion.matches) cleanup = mountBooth(host, hero); }
   catch { host.classList.remove('booth-ready'); }

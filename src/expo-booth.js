@@ -2,8 +2,9 @@ import * as THREE from 'three';
 
 export function mountBooth(host, hero) {
   const mobile = matchMedia('(max-width: 700px)').matches;
-  const renderer = new THREE.WebGLRenderer({alpha:true, antialias:!mobile, powerPreference:'low-power'});
-  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1 : 1.5));
+  const lightweight = mobile || (navigator.deviceMemory && navigator.deviceMemory < 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
+  const renderer = new THREE.WebGLRenderer({alpha:true, antialias:!lightweight, powerPreference:'low-power'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, lightweight ? 1 : 1.5));
   renderer.setClearColor(0, 0);
   host.append(renderer.domElement);
   const scene = new THREE.Scene();
@@ -27,7 +28,7 @@ export function mountBooth(host, hero) {
     return {mesh,edges,pos:new THREE.Vector3(...pos),delay:i===0?0:i<7?.1:.28};
   });
   let seed=27; const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
-  const count=mobile?260:1300, positions=new Float32Array(count*3), targets=new Float32Array(count*3), scatter=new Float32Array(count*3), colors=new Float32Array(count*3), velocity=new Float32Array(count*3);
+  const count=lightweight?260:1300, positions=new Float32Array(count*3), targets=new Float32Array(count*3), scatter=new Float32Array(count*3), colors=new Float32Array(count*3), velocity=new Float32Array(count*3);
   for(let i=0;i<count;i++) {
     const [size,pos]=specs[i%specs.length]; const axis=i%3;
     for(let a=0;a<3;a++){const k=i*3+a;targets[k]=pos[a]+size[a]*(a===axis?random()-.5:(random()>.5?.5:-.5));scatter[k]=(random()-.5)*(a===1?6:9)+(a===1?1.5:0);positions[k]=scatter[k];}
