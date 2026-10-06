@@ -1,6 +1,6 @@
 export const site = {
   name: 'Fabrizzio Ruiz',
-  email: 'hello@example.com', // Replace before publishing.
+  email: 'hello@fabrizzioruiz.com', // Replace before publishing.
   location: 'Asunción, Paraguay',
   linkedin: '',
   instagram: '',

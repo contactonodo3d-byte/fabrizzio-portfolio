@@ -2,10 +2,16 @@ import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
 export default defineConfig({
-  base: './',
+  base: '/',
+  plugins: [{
+    name: 'expo-directory-route',
+    configureServer(server) { server.middlewares.use(expoRedirect); },
+    configurePreviewServer(server) { server.middlewares.use(expoRedirect); },
+  }],
   build: {
     rollupOptions: {
       input: {
+        expo: resolve(import.meta.dirname, 'expo/index.html'),
         home: resolve(import.meta.dirname, 'index.html'),
         work: resolve(import.meta.dirname, 'work.html'),
         services: resolve(import.meta.dirname, 'services.html'),
@@ -16,3 +22,9 @@ export default defineConfig({
     },
   },
 });
+
+function expoRedirect(req, res, next) {
+  const url = new URL(req.url, 'http://localhost');
+  if (url.pathname === '/expo') { res.writeHead(308, { Location: '/expo/' + url.search }); res.end(); }
+  else next();
+}

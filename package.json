@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^7.1.0"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^3.5.0"
   }
 }
