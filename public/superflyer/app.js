@@ -28,3 +28,19 @@ if (today > '2026-10-20') {
     plan.querySelector('.regular').hidden = true;
   });
 }
+
+// El collage responde al puntero; cada muestra también puede abrirse con teclado.
+const heroArt = document.querySelector('.hero-art');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const finePointer = window.matchMedia('(pointer: fine)');
+if (!reducedMotion.matches && finePointer.matches) {
+  heroArt.addEventListener('pointermove', event => {
+    const rect = heroArt.getBoundingClientRect();
+    heroArt.style.setProperty('--move-x', `${((event.clientX - rect.left) / rect.width - .5) * 14}px`);
+    heroArt.style.setProperty('--move-y', `${((event.clientY - rect.top) / rect.height - .5) * 10}px`);
+  });
+  heroArt.addEventListener('pointerleave', () => {
+    heroArt.style.setProperty('--move-x', '0px');
+    heroArt.style.setProperty('--move-y', '0px');
+  });
+}
