@@ -96,6 +96,16 @@ function playlistWidget() {
   </section>`;
 }
 
+const boothCopy = {
+  en: { kicker: 'NODO3D / EXHIBITION DESIGN', title: 'Explore a stand.<br/><em>In your space.</em>', body: 'An interactive 3D and augmented reality viewer for exhibition booth design from Nodo3D. Explore the Gestecner concept, rotate the model, and see it in your space on a compatible device.', open: 'Explore in 3D', ar: 'View in your space', more: 'Discover the full project', hint: 'Drag to rotate · Pinch or scroll to zoom. AR requires a compatible mobile device.', loading: 'Loading the 3D viewer…', ready: 'The model is ready to explore.', error: 'The model could not load. Check your connection and try again.', alt: 'Gestecner exhibition booth concept' },
+  es: { kicker: 'NODO3D / DISEÑO DE STANDS', title: 'Explora un stand.<br/><em>En tu espacio.</em>', body: 'Un visor interactivo 3D y de realidad aumentada para diseños de stands de Nodo3D. Explora el concepto Gestecner, gira el modelo y visualízalo en tu espacio desde un dispositivo compatible.', open: 'Explorar en 3D', ar: 'Ver en tu espacio', more: 'Descubrir el proyecto completo', hint: 'Arrastra para girar · Pellizca o desplaza para acercar. La realidad aumentada requiere un dispositivo móvil compatible.', loading: 'Cargando el visor 3D…', ready: 'El modelo está listo para explorar.', error: 'No se pudo cargar el modelo. Revisa tu conexión e intenta nuevamente.', alt: 'Concepto de stand Gestecner' },
+  pt: { kicker: 'NODO3D / DESIGN DE ESTANDES', title: 'Explore um estande.<br/><em>No seu espaço.</em>', body: 'Um visualizador interativo 3D e de realidade aumentada para projetos de estandes da Nodo3D. Explore o conceito Gestecner, gire o modelo e veja a proposta no seu espaço em um dispositivo compatível.', open: 'Explorar em 3D', ar: 'Ver no seu espaço', more: 'Descobrir o projeto completo', hint: 'Arraste para girar · Use a pinça ou role para ampliar. A realidade aumentada requer um dispositivo móvel compatível.', loading: 'Carregando o visualizador 3D…', ready: 'O modelo está pronto para explorar.', error: 'Não foi possível carregar o modelo. Verifique sua conexão e tente novamente.', alt: 'Conceito de estande Gestecner' },
+}[language];
+
+function boothShowcase() {
+  return `<section class="section container home-booth" id="nodo3d" aria-labelledby="booth-heading"><div class="booth-intro"><span class="eyebrow">${boothCopy.kicker}</span><h2 id="booth-heading">${boothCopy.title}</h2><p>${boothCopy.body}</p><a class="text-link" href="/expo/">${boothCopy.more} <span>${icon('arrow')}</span></a></div><div class="booth-experience"><div class="booth-viewer" id="home-booth-viewer"><div class="booth-poster"><img src="/expo/assets/gestecner-op1-render.webp" alt="${boothCopy.alt}" width="1800" height="1004" loading="lazy"/><button class="button button-dark" type="button" id="home-booth-load">${boothCopy.open} <span>${icon('arrow')}</span></button></div></div><p class="booth-status" id="home-booth-status" role="status" aria-live="polite"></p><p class="booth-hint">${boothCopy.hint}</p></div></section>`;
+}
+
 function home() {
   return `<main>
     <section class="hero container"><div class="hero-top"><div class="hero-identity"><span class="eyebrow status"><span class="status-dot"></span> ${copy.home.role}</span><span class="eyebrow hero-location">${copy.home.location}</span></div></div>
@@ -104,6 +114,7 @@ function home() {
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
       <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}</span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>${icon('arrow')}</span></span></div>
     </section>
+    ${boothShowcase()}
     <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['skylinq', 'social-media-assets', 'pitch-decks'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
     <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="./services.html#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
     <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="./about.html">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
@@ -468,4 +479,35 @@ document.querySelector('#contact-form')?.addEventListener('submit', (event) => {
   const body = encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company')}\nProject: ${data.get('projectType')}\nBudget: ${data.get('budget')}\nTimeline: ${data.get('timeline')}\n\n${data.get('message')}`);
   location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
   status.textContent = ui.emailPrepared;
+});
+
+const boothButton = document.querySelector('#home-booth-load');
+boothButton?.addEventListener('click', async () => {
+  const shell = document.querySelector('#home-booth-viewer');
+  const status = document.querySelector('#home-booth-status');
+  boothButton.disabled = true;
+  status.textContent = boothCopy.loading;
+  let viewer;
+  const fail = () => {
+    viewer?.remove();
+    shell.querySelector('.booth-poster').hidden = false;
+    boothButton.disabled = false;
+    status.textContent = boothCopy.error;
+  };
+  try {
+    await import('@google/model-viewer');
+    viewer = document.createElement('model-viewer');
+    for (const [key, value] of Object.entries({ src: '/expo/assets/model.glb', 'ios-src': '/expo/assets/model.usdz', alt: boothCopy.alt, ar: '', 'ar-modes': 'webxr scene-viewer quick-look', 'camera-controls': '', 'shadow-intensity': '1', exposure: '0.9' })) viewer.setAttribute(key, value);
+    const arButton = document.createElement('button');
+    arButton.type = 'button';
+    arButton.slot = 'ar-button';
+    arButton.className = 'button button-dark booth-ar';
+    arButton.textContent = boothCopy.ar;
+    viewer.append(arButton);
+    viewer.addEventListener('load', () => { status.textContent = boothCopy.ready; }, { once: true });
+    viewer.addEventListener('error', fail, { once: true });
+    viewer.addEventListener('ar-status', (event) => { if (event.detail.status === 'failed') status.textContent = boothCopy.error; });
+    shell.querySelector('.booth-poster').hidden = true;
+    shell.append(viewer);
+  } catch { fail(); }
 });
