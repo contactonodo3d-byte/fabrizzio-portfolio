@@ -36,3 +36,15 @@
 @keyframes hero-copy-in{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
 @keyframes hero-flyer-in{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.hero-copy,.hero-flyer img{animation:none}.hero-flyer{translate:none;transition:none}.hero-flyer:hover img,.hero-flyer:focus-visible img{transform:none}}
+
+/* Sello de oferta con texto editable y signos de la misma familia. */
+.promo-callout{position:relative;isolation:isolate;width:460px;max-width:460px;flex-shrink:0;background:transparent;border:0;box-shadow:none;padding:62px 48px;filter:drop-shadow(7px 7px 0 var(--red));text-align:center}
+.promo-callout::before{content:"";position:absolute;inset:0;z-index:-1;background:url("assets/estrella-oferta.svg") center/100% 100% no-repeat;pointer-events:none}
+.promo-title{font-size:23px;line-height:1.4}
+.promo-title .punctuation{display:inline-block;font-family:Akira;font-size:1em;transform:rotate(180deg);margin-right:.08em}
+.section-heading .promo-callout p{font-size:18px;line-height:1.45}
+.promo-callout.expired{filter:none;width:auto;text-align:left}
+.promo-callout.expired::before{display:none}
+@media(max-width:900px){.promo-callout{margin:32px auto 0;width:460px;max-width:100%;padding:58px 44px}}
+@media(max-width:480px){.promo-callout{padding:48px 30px}.promo-title{font-size:20px}.section-heading .promo-callout p{font-size:17px}}
+@media(max-width:380px){.promo-callout{padding:46px 27px}.promo-title{font-size:18px}.section-heading .promo-callout p{font-size:16px}}
