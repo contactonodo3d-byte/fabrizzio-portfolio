@@ -1,6 +1,7 @@
 import { applyContactIcons } from './contact-icons.js';
 import { t, getLanguage, refreshTranslations } from './expo-i18n.js';
 import { contact } from './expo-contact.js';
+import './expo-carousel.css';
 function updateDirectContact(){
 const direct = document.querySelector('#direct-contact');
 const message = t( 'Hola Fabrizzio, vi tu portfolio de Exhibition & Digital Design. Quiero conversar sobre un proyecto para mi empresa.');
@@ -16,8 +17,54 @@ document.querySelector('#load-viewer').addEventListener('click',async(event)=>{e
 const imageDialog=document.querySelector('#image-dialog');document.querySelectorAll('[data-image]').forEach(button=>button.addEventListener('click',()=>{document.querySelector('#dialog-image').src=button.dataset.image;document.querySelector('#dialog-image').alt=button.dataset.caption;document.querySelector('#dialog-caption').textContent=button.dataset.caption;imageDialog.showModal();}));document.querySelector('#close-image').addEventListener('click',()=>imageDialog.close());imageDialog.addEventListener('click',event=>{if(event.target===imageDialog){const rect=imageDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)imageDialog.close();}});
 
 const brief=document.querySelector('#brief');const briefTemplate='Hola Fabrizzio, soy [nombre] de [empresa]. Nos conocimos en Boat Port Show. Nuestra próxima feria es [evento / fecha]. Necesitamos [stand / 3D / gráfica / contenido / web]. ¿Podemos coordinar una conversación?';let generatedBrief=brief.value;function updateBrief(){if(brief.value===generatedBrief){generatedBrief=t(briefTemplate);brief.value=generatedBrief;}}updateBrief();
-const carousel=document.querySelector('.carousel-window');const pause=document.querySelector('.carousel-control');let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;function syncPause(){carousel.classList.toggle('paused',paused);pause.setAttribute('aria-pressed',String(paused));pause.textContent=t(paused?'Reanudar carrusel':'Pausar carrusel');}pause.addEventListener('click',()=>{paused=!paused;syncPause();});syncPause();
-imageDialog.addEventListener('close',()=>{carousel.classList.remove('dialog-open');});document.querySelectorAll('.carousel-card').forEach(button=>button.addEventListener('click',()=>carousel.classList.add('dialog-open')));
+const carousel=document.querySelector('.carousel-window');
+const carouselTrack=carousel.querySelector('.carousel-track');
+const pause=document.querySelector('.carousel-control');
+let paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let carouselDrag=null;
+let dragEndedAt=0;
+function syncPause(){carousel.classList.toggle('paused',paused);pause.setAttribute('aria-pressed',String(paused));pause.textContent=t(paused?'Reanudar carrusel':'Pausar carrusel');}
+pause.addEventListener('click',()=>{paused=!paused;syncPause();});
+syncPause();
+
+function trackTimeForOffset(offset, animation){
+  const loopWidth=carouselTrack.scrollWidth/2;
+  const duration=Number(animation.effect?.getTiming().duration);
+  if(!loopWidth||!Number.isFinite(duration))return;
+  const wrapped=((offset%loopWidth)+loopWidth)%loopWidth-loopWidth;
+  animation.currentTime=((wrapped+loopWidth)/loopWidth)*duration;
+}
+carousel.addEventListener('pointerdown',event=>{
+  if(event.button!==0||event.target.closest('.carousel-control'))return;
+  carousel.classList.add('is-pressed');
+  const transform=getComputedStyle(carouselTrack).transform;
+  const offset=transform==='none'?0:new DOMMatrixReadOnly(transform).m41;
+  const animation=carouselTrack.getAnimations().find(item=>item.effect?.getTiming().duration!=='auto')||null;
+  const captureTarget=event.target.closest('.carousel-card')||carousel;
+  carouselDrag={pointerId:event.pointerId,startX:event.clientX,startOffset:offset,animation,moved:false,captureTarget};
+  captureTarget.setPointerCapture(event.pointerId);
+});
+carousel.addEventListener('pointermove',event=>{
+  if(!carouselDrag||event.pointerId!==carouselDrag.pointerId)return;
+  const delta=event.clientX-carouselDrag.startX;
+  if(!carouselDrag.moved&&Math.abs(delta)>6){carouselDrag.moved=true;carousel.classList.add('is-dragging');}
+  if(!carouselDrag.moved)return;
+  event.preventDefault();
+  const offset=carouselDrag.startOffset+delta;
+  if(carouselDrag.animation)trackTimeForOffset(offset,carouselDrag.animation);
+  else{carousel.classList.add('is-manual');carouselTrack.style.setProperty('--carousel-drag-x',`${offset}px`);}
+});
+function finishCarouselDrag(event){
+  if(!carouselDrag||event.pointerId!==carouselDrag.pointerId)return;
+  const drag=carouselDrag;carouselDrag=null;
+  if(drag.moved){dragEndedAt=performance.now();const offset=drag.startOffset+event.clientX-drag.startX;if(drag.animation){trackTimeForOffset(offset,drag.animation);if(!paused)drag.animation.play();}}
+  carousel.classList.remove('is-pressed','is-dragging');
+}
+carousel.addEventListener('pointerup',finishCarouselDrag);
+carousel.addEventListener('pointercancel',finishCarouselDrag);
+carousel.addEventListener('lostpointercapture',finishCarouselDrag);
+
+imageDialog.addEventListener('close',()=>{carousel.classList.remove('dialog-open');});document.querySelectorAll('.carousel-card').forEach(button=>button.addEventListener('click',event=>{if(dragEndedAt&&performance.now()-dragEndedAt<450){event.preventDefault();return;}carousel.classList.add('dialog-open');}));
 document.addEventListener('expo-language',()=>{updateDirectContact();updateBrief();syncPause();document.querySelector('#copy-status').textContent='';const ar=document.querySelector('model-viewer [slot="ar-button"]');if(ar){ar.firstChild.nodeValue=t('Ver en tu espacio');}if(imageDialog.open)imageDialog.close();});refreshTranslations();
 
 import './expo-booth-loader.js';

@@ -1,0 +1,6 @@
+.carousel-window{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.carousel-window.is-pressed,.carousel-window.is-dragging{cursor:grabbing}
+.carousel-window.is-pressed .carousel-track{animation-play-state:paused}
+.carousel-window.is-manual .carousel-track{animation:none!important;transform:translateX(var(--carousel-drag-x,0px))}
+.carousel-card{cursor:grab;touch-action:pan-y;-webkit-user-drag:none}
+.carousel-window.is-dragging .carousel-card{cursor:grabbing}
