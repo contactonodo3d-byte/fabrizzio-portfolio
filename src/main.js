@@ -68,8 +68,12 @@ function footer() {
   <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./about.html">${copy.navigation.about}</a><a href="./contact.html">${copy.navigation.contact}</a><a href="/expo/">Exhibition &amp; 3D</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
+const imageDimensions = (src) => src?.includes('/skylinq.')
+  ? 'width="1600" height="1250"'
+  : 'width="1200" height="938"';
+
 function projectCard(project, large = false) {
-  const image = project.thumbnail ? `<img src="${project.thumbnail}" alt="${project.title} project image" loading="lazy" />` : `<span class="project-image-fallback"><span class="eyebrow">${project.id} / ${project.label}</span><strong>${project.title}</strong><span class="fallback-mark" aria-hidden="true">FR.</span></span>`;
+  const image = project.thumbnail ? `<img src="${project.thumbnail}" ${imageDimensions(project.thumbnail)} alt="${project.title} project image" loading="lazy" />` : `<span class="project-image-fallback"><span class="eyebrow">${project.id} / ${project.label}</span><strong>${project.title}</strong><span class="fallback-mark" aria-hidden="true">FR.</span></span>`;
   const category = project.className.replace('project-', '');
   return `<a class="project-card ${large ? 'project-card-large' : ''}" data-project-category="${category}" href="${project.href}"><div class="project-art ${project.className}">${image}<span class="project-image-link" aria-hidden="true">${icon('arrow')}</span></div><div class="project-meta"><div><span class="eyebrow">${project.label}</span><h3>${project.title}</h3><p>${project.note}</p></div><span class="project-icon" aria-hidden="true">${icon('arrow')}</span></div></a>`;
 }
@@ -81,7 +85,7 @@ function heroAlbum() {
   return `<section class="hero-album" aria-label="Interactive project album">
     <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span></div>
     <div class="album-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${ui.coverInstructions}">
-      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" alt="" loading="eager" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-orbit"></span></span>`}<span class="album-cover-overlay" aria-hidden="true"><span class="eyebrow">${cover.category}</span><strong>${cover.story}</strong><span class="album-overlay-title">${cover.title}</span></span></span></button>`).join('')}
+      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" ${imageDimensions(cover.thumbnail)} alt="" loading="eager" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-orbit"></span></span>`}<span class="album-cover-overlay" aria-hidden="true"><span class="eyebrow">${cover.category}</span><strong>${cover.story}</strong><span class="album-overlay-title">${cover.title}</span></span></span></button>`).join('')}
     </div>
     <div class="album-bottom"><div class="album-readout" aria-live="polite"><span class="album-count" data-album-count>01 / ${String(heroCovers.length).padStart(2, '0')}</span><span class="album-current" data-album-title>${heroCovers[0].title}</span><span class="album-category" data-album-category>${heroCovers[0].category}</span></div><div class="album-controls"><button type="button" data-album-prev aria-label="${ui.previousCover}">${icon('up')}</button><button type="button" data-album-next aria-label="${ui.nextCover}">${icon('down')}</button></div></div>
     <div class="album-foot"><a href="${heroCovers[0].href}" data-album-link>${copy.home.album.projectLink} <span>${icon('arrow')}</span></a><button type="button" data-album-pause aria-pressed="false">${copy.home.album.pause}</button></div>
@@ -159,7 +163,7 @@ function caseStudy() {
   return `<main class="case-page container">
     <a class="case-back text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a>
     <header class="case-intro"><div class="eyebrow">${project.label} · ${project.role}</div><h1>${project.title}</h1><p>${project.overview}</p></header>
-    ${project.thumbnail ? `<figure class="case-image"><img src="${project.thumbnail}" alt="${project.title} design work" /><figcaption>${project.source}</figcaption></figure>` : ''}
+    ${project.thumbnail ? `<figure class="case-image"><img src="${project.thumbnail}" ${imageDimensions(project.thumbnail)} alt="${project.title} design work" /><figcaption>${project.source}</figcaption></figure>` : ''}
     <div class="case-details"><section><div class="eyebrow">Overview</div><p>${project.overview}</p></section><section><div class="eyebrow">Deliverables</div><ul>${project.deliverables.map((item) => `<li>${item}</li>`).join('')}</ul></section><section><div class="eyebrow">Project source</div><p>Selected work from ${project.source}.</p>${project.externalUrl ? `<a class="text-link" href="${project.externalUrl}" target="_blank" rel="noreferrer">${project.slug === 'skylinq' || project.slug === 'law-group' || project.slug === 'vista-digital' ? 'Visit website' : 'View profile'} <span>${icon('arrow')}</span></a>` : ''}</section></div>
     <section class="case-related"><div class="section-head"><div><div class="eyebrow">More selected work</div><h2>Keep looking.</h2></div><a class="text-link" href="./work.html">All work <span>${icon('arrow')}</span></a></div><div class="project-grid">${related.map((item) => projectCard(item)).join('')}</div></section>
   </main>`;
