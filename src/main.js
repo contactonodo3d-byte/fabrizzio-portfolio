@@ -65,7 +65,7 @@ function header() {
 
 function footer() {
   return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2></div><a class="round-arrow" href="./contact.html" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
-  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./about.html">${copy.navigation.about}</a><a href="./contact.html">${copy.navigation.contact}</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
+  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="./work.html">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./about.html">${copy.navigation.about}</a><a href="./contact.html">${copy.navigation.contact}</a><a href="/expo/">Exhibition &amp; 3D</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
 function projectCard(project, large = false) {
@@ -126,7 +126,14 @@ function work() { const filters = copy.work.filters; return `<main class="inner-
 
 function caseStudy() {
   const project = projects.find(({ slug }) => slug === new URLSearchParams(location.search).get('project'));
-  if (!project) return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
+  if (!project) {
+    document.title = `${ui.notFound} — ${site.name}`;
+    const robots = document.createElement('meta');
+    robots.name = 'robots';
+    robots.content = 'noindex';
+    document.head.append(robots);
+    return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="./work.html">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
+  }
   document.title = `${project.title} — ${site.name}`;
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.label} by Fabrizzio Ruiz. ${project.note}`);
   const canonical = document.createElement('link');
@@ -201,6 +208,16 @@ function contact() {
 const pages = { '/': home, '/index.html': home, '/work.html': work, '/case-study.html': caseStudy, '/services.html': services, '/lab.html': lab, '/about.html': about, '/contact.html': contact };
 const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="./">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`);
 app.innerHTML = header() + render() + footer();
+const mainContent = app.querySelector('main');
+if (mainContent) {
+  mainContent.id = 'main-content';
+  mainContent.tabIndex = -1;
+  const skip = document.createElement('a');
+  skip.className = 'skip-link';
+  skip.href = '#main-content';
+  skip.textContent = ({ en: 'Skip to content', es: 'Ir al contenido', pt: 'Ir para o conteúdo' })[language];
+  app.prepend(skip);
+}
 
 const menuButton = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
