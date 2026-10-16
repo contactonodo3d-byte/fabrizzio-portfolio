@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import {AnimalDimensions} from '../config/BrandConfig';
+import {modelBounds} from '../engine/ModelBounds';
+import { useLayoutEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { SphereGeometry, type Group } from 'three';
 import type { Animal } from '../engine/AnimalAI';
@@ -10,17 +12,19 @@ function Ball({at,scale,color}:{at:[number,number,number];scale:[number,number,n
 function AnimalModel({animal,paused}:{animal:Animal;paused:boolean}){
  const root=useRef<Group>(null),body=useRef<Group>(null),head=useRef<Group>(null);
  const rabbit=animal.species==='rabbit',chick=animal.species==='chick';
+ const floorOffset=useRef(0);
+ useLayoutEffect(()=>{if(!root.current||!body.current)return;const bounds=modelBounds(body.current),height=bounds.max.y-bounds.min.y;const scale=AnimalDimensions[animal.species].height/height;root.current.scale.setScalar(scale);floorOffset.current=-bounds.min.y*scale;},[animal.species]);
  const coat=rabbit?'#e1c9ac':chick?'#ffe078':'#fff5df';
  useFrame(()=>{
   if(!root.current||!body.current||!head.current)return;
-  root.current.position.set(animal.position.x,.025,animal.position.z);root.current.rotation.y=animal.heading;
+  root.current.position.set(animal.position.x,floorOffset.current,animal.position.z);root.current.rotation.y=animal.heading;
   const bounce=!paused&&animal.moving?Math.max(0,Math.sin(animal.phase*(rabbit?10:16)))*(rabbit?.12:.025):0;
   body.current.position.y=bounce;
   body.current.rotation.z=!paused&&animal.moving&&!rabbit?Math.sin(animal.phase*16)*.055:0;
   head.current.rotation.x=!paused&&(animal.state==='peck'||animal.state==='eat')?Math.max(0,Math.sin(animal.phase*13))*.85:0;
   if(!paused&&animal.state==='happy')body.current.position.y=Math.abs(Math.sin(animal.phase*14))*.09;
  });
- return <group ref={root} name={animal.id} scale={chick?.62:1}>
+ return <group ref={root} name={animal.id} >
  <group ref={body}>
  <Ball at={[0,.2,0]} scale={rabbit?[.15,.14,.23]:[.17,.19,.19]} color={coat}/>
  <Ball at={[-.145,.21,0]} scale={[.045,.10,.12]} color={rabbit?'#d6b895':chick?'#f6c551':'#eadbb9'}/>

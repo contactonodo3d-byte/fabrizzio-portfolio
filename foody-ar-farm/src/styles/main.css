@@ -25,12 +25,48 @@
 
 .sdk-license{font-size:10px;text-decoration:underline}footer{flex-wrap:wrap}
 
-.placement-controls{position:fixed;z-index:12;top:calc(env(safe-area-inset-top) + 170px);left:12px;width:min(310px,calc(100vw - 24px));color:#244b40;background:#fffaf0;border-radius:16px;box-shadow:0 4px 22px #153b3226}
-.placement-controls summary{padding:12px 16px;cursor:pointer;font-weight:700;min-height:44px}
-.placement-body{padding:0 16px 16px;max-height:40dvh;overflow:auto;overscroll-behavior:contain}
-.placement-body p{font-size:13px;line-height:1.4;margin:0 0 12px}
-.placement-body label{display:grid;grid-template-columns:1fr auto;gap:4px;margin:10px 0;font-size:14px}
-.placement-body input{grid-column:1/-1;width:100%;min-height:32px;accent-color:#366b48}
-.placement-body output{font-variant-numeric:tabular-nums}
-.placement-actions{display:flex;gap:8px;flex-wrap:wrap}
-.placement-actions button{font-size:13px;min-height:44px;padding:8px}
+/* Camera first: compact HUD, full-height video and no persistent adjustment windows. */
+.spatial-ui .farm{height:100dvh!important}
+.spatial-ui .camera-feed,.spatial-ui .world-feed{border-radius:0}
+.spatial-ui header{top:calc(env(safe-area-inset-top) + 10px);left:14px;right:110px;gap:12px;justify-content:flex-start;pointer-events:none}
+.spatial-ui .brand{font-size:25px;letter-spacing:-1.4px;padding:4px 10px;pointer-events:auto}
+.spatial-ui .brand span{display:none}
+.spatial-ui .mode{font-size:10px;padding:6px 8px;background:#fffdf2d9}
+.spatial-ui .exit-spatial{top:calc(env(safe-area-inset-top) + 10px);right:12px;padding:8px 12px;font-size:12px;min-height:44px}
+.spatial-ui .scoreboard{top:calc(env(safe-area-inset-top) + 62px);left:14px;right:112px;margin:0;max-width:290px;padding:7px 12px;border-radius:18px;gap:10px;pointer-events:none}
+.spatial-ui .scoreboard span{font-size:10px}.spatial-ui .scoreboard strong{font-size:21px}
+.spatial-ui .farm .status,.spatial-ui.phase-ready .farm .status{top:calc(env(safe-area-inset-top) + 124px);font-size:12px;padding:8px 14px;pointer-events:none}
+.spatial-ui .farm .status.SAFE{display:none}
+.spatial-ui .spatial-help,.spatial-ui.phase-ready .spatial-help,.spatial-ui:has(.world-placement) .spatial-help{top:calc(env(safe-area-inset-top) + 124px);padding:8px 12px;font-size:12px;pointer-events:none}
+.spatial-help:empty{display:none}
+.spatial-ui .farm .status:has(+.spatial-help:not(:empty)){display:none}
+.spatial-ui .play-panel{left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);padding:10px;max-width:380px;border-radius:22px;background:#fffdf2e8;box-shadow:0 4px 18px #183f3020}
+.spatial-ui.phase-ready .play-panel h2,.spatial-ui.phase-ready .play-panel p,.spatial-ui.phase-playing .play-panel h2,.spatial-ui .serve,.spatial-ui .placeholder-note{display:none}
+.spatial-ui.phase-playing .foods{margin:0;gap:6px}
+.spatial-ui.phase-playing .foods button{min-height:62px;padding:5px 8px;border-radius:15px;background:#fffdf2d0}
+.spatial-ui.phase-playing .foods button[aria-pressed=true]{background:#dcedbc}
+.spatial-ui.phase-playing .foods span{display:inline-block;font-size:22px;margin:0 6px 0 0;vertical-align:middle}
+.spatial-ui.phase-playing .foods strong{display:inline;font-size:12px}
+.spatial-ui.phase-playing .foods small{font-size:10px;margin:3px 0 0}
+.spatial-ui.phase-playing .game-message{min-height:0;margin:8px 0 0;font-size:11px}
+.spatial-ui.phase-playing .game-message[data-blocked=false]{display:none}
+.spatial-ui .world-placement{bottom:calc(env(safe-area-inset-bottom) + 16px)}
+.spatial-ui .world-placement small{background:#183d32bd;color:white;font-size:10px;text-align:center}
+.ar-tools{position:fixed;z-index:5;right:12px;top:calc(env(safe-area-inset-top) + 64px);display:flex;gap:6px;pointer-events:auto}
+.ar-tools>button{border-radius:16px;background:#fffdf2e8;color:#274e43;font-size:12px;padding:8px 12px;min-height:44px}
+.ar-tools .adjust-toggle[aria-pressed=true]{background:#dcedbc}
+.gesture-hint{position:fixed;left:20px;right:20px;bottom:calc(env(safe-area-inset-bottom) + 94px);margin:0;text-align:center;font-size:11px;color:white;text-shadow:0 1px 4px #000;pointer-events:none;z-index:4}
+.placement-options{width:min(340px,calc(100vw - 32px));max-height:70dvh;overflow:auto;overscroll-behavior:contain;border:0;border-radius:22px;padding:20px;color:#274e43;background:#fffdf2}
+.placement-options::backdrop{background:#183c3255}
+.placement-options p{font-size:12px}.placement-options button{border-radius:12px;background:#e2ebd0;color:#274e43;padding:10px;margin:4px 0;min-height:44px;width:100%;font-size:12px}
+.placement-options .primary{background:#d94b2c;color:white}
+.placement-nudges{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.marker-exit{position:fixed;right:12px;top:calc(env(safe-area-inset-top) + 64px);z-index:5;font-size:10px;border-radius:14px;padding:8px;background:#fffdf2}
+.spatial-ui:has(.camera-feed:not([hidden])):not(:has(.world-feed:not([hidden]))) .spatial-help{background:#183d32bd;color:white;left:25%;right:25%;font-size:10px;top:calc(env(safe-area-inset-top) + 65px)}
+.spatial-ui.phase-results .play-panel{max-height:65dvh}
+.spatial-ui.phase-results .share-card img{display:none}
+.ar-tools button:focus-visible,summary:focus-visible{outline:3px solid #244e49;outline-offset:3px}
+
+.gesture-hint output{display:block;margin-top:5px;font-variant-numeric:tabular-nums;font-size:12px}
+
+.spatial-ui:has(.camera-feed:not([hidden])) .farm .motion{display:block;top:calc(env(safe-area-inset-top) + 64px);right:12px;background:#fffdf2e8;z-index:4}

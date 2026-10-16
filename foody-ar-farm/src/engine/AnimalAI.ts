@@ -1,3 +1,4 @@
+import {AnimalDimensions} from '../config/BrandConfig';
 import { contain, type Position } from './BoundarySystem';
 export type Species = 'chicken' | 'chick' | 'rabbit';
 export type AnimalState = 'idle' | 'wander' | 'follow' | 'peck' | 'approach' | 'eat' | 'happy';
@@ -6,7 +7,7 @@ export interface Animal {
  state: AnimalState; remaining: number; phase: number; moving: boolean;
 }
 export const animalConfig: Record<Species, { radius: number; speed: number }> = {
- chicken: { radius: .18, speed: .22 }, chick: { radius: .10, speed: .37 }, rabbit: { radius: .17, speed: .32 },
+ chicken: { radius: AnimalDimensions.chicken.radius, speed: .22 }, chick: { radius: AnimalDimensions.chick.radius, speed: .37 }, rabbit: { radius: AnimalDimensions.rabbit.radius, speed: .32 },
 };
 export function walkable(p: Position, radius: number): Position {
  const q = contain(p, radius);

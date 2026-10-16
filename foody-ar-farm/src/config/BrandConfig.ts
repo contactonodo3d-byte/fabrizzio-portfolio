@@ -8,4 +8,7 @@ export const BrandConfig = {
   {id:'greens',name:'Verdecitos',animalLabel:'Conejos',species:'rabbit',color:'#75ab5b',icon:'🥬'},
  ] satisfies FoodProduct[],
 };
-export const FarmConfig = { halfSize: 1.5, warningDistance: 0.6, dangerDistance: 0.3, duration: 60 };
+export const FarmConfig = { halfSize: 1.5, wallHeight: 1.5, warningDistance: 0.6, dangerDistance: 0.3, duration: 60 };
+
+// Nominal adult/chick reference heights, not breed-specific measurements. Rabbit includes ears.
+export const AnimalDimensions = {chicken:{height:.50,radius:.36},chick:{height:.14,radius:.12},rabbit:{height:.40,radius:.22}} satisfies Record<Species,{height:number;radius:number}>;

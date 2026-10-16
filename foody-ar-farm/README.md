@@ -108,7 +108,11 @@ The prepared SDK mode uses responsive/approximate scale. It does not enforce or 
 
 ## Colocación manual y publicación
 
-En AR sin marcador, después de colocar la granja, abrí **Ajustar granja**. Tamaño, X/Z, altura y giro afectan a toda la escena y al cálculo inverso de límites. **Volver a colocar** permite elegir otro punto del suelo. Los ajustes son por sesión; no establecen escala métrica ni se conservan tras salir.
+En AR sin marcador, después de colocar la granja, arrastrá con un dedo para trasladar sobre el suelo; pellizcá para escalar y girá dos dedos para rotar. Antes de jugar los gestos están habilitados. Durante una partida, **Ajustar** pausa el juego y habilita la colocación; **Listo** devuelve los toques al alimento. No hay sliders. El menú **Más opciones de colocación**, cerrado por defecto, ofrece controles de teclado/tap alternativos, altura, restablecer y **Volver a colocar**. Los ajustes son por sesión; no establecen escala métrica ni se conservan tras salir.
+
+La cámara ocupa todo el viewport y la selección de comida se reduce a una bandeja inferior. Avisos normales y texto de ayuda permanente se ocultan durante juego con seguimiento estable. El suelo AR tiene opacidad 0.10 y no muestra cuadrícula. La demo virtual conserva los controles de prueba.
+
+Proporciones nominales en coordenadas del juego: área 3 × 3, pared 1.50 de altura, gallina 0.50, pollito 0.14 y conejo 0.40 incluyendo orejas. Los modelos procedurales se normalizan por sus límites geométricos locales y apoyan sus pies en el suelo; no se distorsionan según la escala/giro de su padre AR. Estos tamaños aproximados no representan una raza específica. El tamaño físico absoluto requiere calibración; la escala manual conserva todas las proporciones.
 
 La subpágina de GitHub Pages se compila con `FOODY_BASE_PATH=/lab/foody-ar-game/ npm run build`. El workflow del portfolio ensambla ese resultado en `dist/lab/foody-ar-game/`. SDK, WASM, marcador y enlaces se sirven bajo la misma subruta. Los binarios del SDK se reconstruyen desde la versión fijada de npm y conservan sus avisos y licencia. No se guardan dependencias ni resultados de pruebas en Git.
 

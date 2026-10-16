@@ -11,7 +11,7 @@ test('camera overlay starts a video and stops its tracks on return',async({page}
  await page.goto('/');await page.getByRole('button',{name:'Activar cámara',exact:true}).click();
  await expect(page.getByText('Cámara + granja',{exact:true})).toBeVisible();
  await expect(page.locator('video')).toBeVisible();
- await expect(page.getByText('Superposición · sin rastreo físico',{exact:true})).toBeVisible();
+ await expect(page.getByText('Superposición sin rastreo físico',{exact:true})).toBeVisible();
  await page.screenshot({path:'test-results/camera-overlay.png',fullPage:true});
  await page.getByRole('button',{name:'Volver a modo virtual'}).click();
  await expect(page.locator('video')).toBeHidden();

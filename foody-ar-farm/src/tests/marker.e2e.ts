@@ -12,14 +12,14 @@ test('real marker detector tracks synthetic video, pauses on loss, and restores 
  await expect(page.getByText('AR con marcador',{exact:true})).toBeVisible();
  await expect(page.getByText('Marcador reconocido. Mantenelo dentro de la imagen.',{exact:true})).toBeVisible({timeout:15000});
  await page.getByRole('button',{name:'¡A jugar! · 60 segundos'}).click();
- await expect(page.getByRole('button',{name:'Servir en el explorador'})).toBeEnabled();
+ await expect(page.locator('button.serve')).toBeEnabled();
  await page.screenshot({path:'test-results/marker-tracked.png',fullPage:true});
  await page.evaluate(()=>{(window as unknown as {showMarker:boolean}).showMarker=false;});
- await expect(page.getByRole('button',{name:'Servir en el explorador'})).toBeDisabled();
+ await expect(page.locator('button.serve')).toBeDisabled();
  const frozen=await page.getByTestId('timer').innerText();await page.waitForTimeout(1200);await expect(page.getByTestId('timer')).toHaveText(frozen);
  await page.evaluate(()=>{(window as unknown as {showMarker:boolean}).showMarker=true;});
  await page.locator('.farm').scrollIntoViewIfNeeded();
- await expect(page.getByRole('button',{name:'Servir en el explorador'})).toBeEnabled({timeout:10000});
+ await expect(page.locator('button.serve')).toBeEnabled({timeout:10000});
  await page.getByRole('button',{name:'Dejar de rastrear marcador'}).click();await expect(page.getByText('Cámara + granja',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'Volver a modo virtual'}).click();await expect(page.getByText('Demo virtual',{exact:true})).toBeVisible();
  expect(errors).toEqual([]);
