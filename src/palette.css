@@ -1,11 +1,13 @@
-/* Color direction drawn from Designjoy's public stylesheet: pale blush canvas,
-   black editorial type, and vivid color in graphic panels. */
+/* Cool, soft blue-gray canvas that supports the existing high-contrast type
+   and vivid graphic accents without changing the site's visual structure. */
 :root {
-  --bg: #ece6e8;
-  --surface: #ffffff;
+  --bg: #e9eef6;
+  --surface: #f8faff;
   --ink: #000000;
-  --muted: #5b5559;
-  --line: #c9bec3;
+  --muted: #505b6b;
+  --line: #c4cedd;
+  --magenta: #e60080;
+  --magenta-rgb: 230, 0, 128;
   --accent: #ffdb01;
   color: var(--ink);
   background: var(--bg);
@@ -13,8 +15,8 @@
 
 body { color: var(--ink); background: var(--bg); }
 ::selection { background: #ffdb01; color: #000; }
-.site-header { background: rgb(236 230 232 / 96%); border-color: var(--line); }
-.wordmark-dot { color: #ff0084; }
+.site-header { background: color-mix(in srgb, var(--bg) 96%, transparent); border-color: var(--line); }
+.wordmark-dot { color: var(--magenta); }
 .desktop-nav a { color: #4d454a; }
 .desktop-nav a:hover, .desktop-nav a[aria-current=page] { color: #000; }
 .header-cta, .button-light { background: #000; color: #fff; }
@@ -22,15 +24,15 @@ body { color: var(--ink); background: var(--bg); }
 .menu-toggle span { background: #000; }
 .hero-top, .hero-bottom p, .showcase-caption { color: #5b5559; }
 .status { color: #000; }
-.status-dot { background: #ff0084; box-shadow: 0 0 0 4px #ff008425; }
+.status-dot { background: var(--magenta); box-shadow: 0 0 0 4px rgb(var(--magenta-rgb) / 15%); }
 .hero h1 em, .page-intro h1 em { color: #3a2099; }
-.section h2 em, .perspective h2 em { color: #ff0084; }
+.section h2 em, .perspective h2 em { color: var(--magenta); }
 .showcase-one { background: #ffdb01; color: #000; }
 .showcase-two { background: #097fff; }
 .outline-circle { border-color: #ffdb01; box-shadow: 0 0 65px #0002; }
 .showcase-two .showcase-label { color: #fff; }
 .showcase-three { background: #ff5a00; color: #000; }
-.project-brand { background: linear-gradient(125deg, #ff0084, #3a2099); color: #fff; }
+.project-brand { background: linear-gradient(125deg, var(--magenta), #3a2099); color: #fff; }
 .project-digital { background: linear-gradient(135deg, #097fff, #0052ff 62%, #3a2099); color: #fff; }
 .project-spatial { background: linear-gradient(125deg, #ffdb01, #ff5a00); color: #000; }
 .project-meta .eyebrow, .project-meta p, .editorial-note { color: #5b5559; }
@@ -39,8 +41,8 @@ body { color: var(--ink); background: var(--bg); }
 .service-rows a, .service-rows a:last-child { border-color: #4a4a4a; }
 .service-rows p { color: #bbb; }
 .perspective p { color: #4d454a; }
-.lab-teaser { background: #ff0084; color: #000; }
-.lab-teaser p { color: #25101b; }
+.lab-teaser { background: var(--magenta); color: #000; }
+.lab-teaser p { color: #000; }
 .lab-shape { color: #ffdb01; }
 .footer { background: #000; color: #fff; border-color: #000; }
 .footer h2 em { color: #ffdb01; }
@@ -55,7 +57,7 @@ body { color: var(--ink); background: var(--bg); }
 .monthly { background: #000; color: #fff; }
 .monthly .button-dark { background: #ffdb01; color: #000; }
 .monthly .button-dark:hover { background: #fff; }
-.portrait-placeholder { background: linear-gradient(145deg, #ff0084, #ff5a00); color: #000; }
+.portrait-placeholder { background: linear-gradient(145deg, var(--magenta), #ff5a00); color: #000; }
 .portrait-placeholder span { color: #000; }
 .contact-direct span:last-child { color: #4d454a; }
 .contact-form input, .contact-form select, .contact-form textarea { background: #fff; color: #000; border-color: #a99da3; }
