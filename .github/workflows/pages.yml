@@ -23,10 +23,26 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            foody-ar-farm/package-lock.json
       - name: Install dependencies
         run: npm ci
       - name: Build site
         run: npm run build
+      - name: Install Foody dependencies
+        run: npm ci --prefix foody-ar-farm
+      - name: Verify Foody gameplay
+        run: npm test --prefix foody-ar-farm
+      - name: Build Foody subpage
+        working-directory: foody-ar-farm
+        env:
+          FOODY_BASE_PATH: /lab/foody-ar-game/
+        run: npm run build
+      - name: Include Foody in the site
+        run: |
+          mkdir -p dist/lab/foody-ar-game
+          cp -R foody-ar-farm/dist/. dist/lab/foody-ar-game/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
