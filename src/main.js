@@ -1,8 +1,13 @@
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
 
-const chosenLanguage = localStorage.getItem('fabrizzio-language');
-const language = ['en', 'es', 'pt'].includes(chosenLanguage) ? chosenLanguage : 'en';
+const supportedLanguages = ['en', 'es', 'pt'];
+let chosenLanguage;
+try { chosenLanguage = localStorage.getItem('fabrizzio-language'); } catch { /* Browser storage may be unavailable. */ }
+const browserLanguage = (navigator.languages?.length ? navigator.languages : [navigator.language])
+  .map((locale) => locale?.toLowerCase().split(/[-_]/)[0])
+  .find((locale) => supportedLanguages.includes(locale));
+const language = supportedLanguages.includes(chosenLanguage) ? chosenLanguage : browserLanguage || 'en';
 document.documentElement.lang = language;
 const translated = locales[language] || {};
 function merge(base, override) {
