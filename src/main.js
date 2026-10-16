@@ -17,8 +17,17 @@ function merge(base, override) {
   return override ?? base;
 }
 const copy = merge(englishCopy, translated.copy);
-const projects = merge(englishProjects, translated.projects);
-const heroCovers = merge(englishCovers, translated.heroCovers);
+// Temporarily hidden until agency credits are added. Filter after translation to preserve index alignment.
+const hiddenProjects = new Set(['skylinq']);
+const projects = merge(englishProjects, translated.projects).filter((project) => !hiddenProjects.has(project.slug));
+const heroCovers = merge(englishCovers, translated.heroCovers).filter((cover) =>
+  !hiddenProjects.has(new URL(cover.href, location.href).searchParams.get('project')));
+if (hiddenProjects.has(new URLSearchParams(location.search).get('project'))) {
+  const robots = document.createElement('meta');
+  robots.name = 'robots';
+  robots.content = 'noindex';
+  document.head.append(robots);
+}
 const serviceOptions = merge(englishServices, translated.services);
 const englishUi = { select: 'Select', coverInstructions: 'Project covers. Use the arrow keys, mouse wheel, or drag to browse.', portfolioSlot: 'PORTFOLIO SLOT', illustrative: 'Illustrative composition for a future', service: 'SERVICE', inquire: 'Inquire about', notFound: 'PAGE NOT FOUND', notFoundTitle: 'Nothing here<br/><em>yet.</em>', backHome: 'Back home ↗', emailSetup: 'The contact address has not been configured yet. Please add it in src/content.js before launch.', emailPrepared: 'Your email app should open with a prepared message. Please send it there to complete your inquiry.', contactPage: 'Go to contact page', previousCover: 'Previous cover', nextCover: 'Next cover', openMenu: 'Open menu', closeMenu: 'Close menu' };
 const ui = { ...englishUi, ...translated.ui };
