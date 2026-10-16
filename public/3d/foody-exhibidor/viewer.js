@@ -79,7 +79,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   viewer.fieldOfView = 'auto';
 });
 viewer.addEventListener('load', () => {
-  if(viewer.canActivateAR) status.textContent = 'Modelo listo. Toca “Ver en tu espacio” para abrir la cámara y colocar la propuesta.';
+  if(viewer.canActivateAR) status.textContent = 'Modelo listo. Toca “Ver con tu cámara” para abrir la cámara y colocar la propuesta.';
 });
 viewer.addEventListener('ar-status', (event) => {
   if(event.detail.status === 'failed') status.textContent = 'No se pudo iniciar AR. Abre este enlace en Safari de iPhone/iPad o Chrome de Android compatible y vuelve a intentar.';
@@ -90,4 +90,16 @@ document.getElementById('shareBtn').addEventListener('click', async () => {
     if(navigator.share) await navigator.share({title:'FOODY · Exhibidor 3D / AR', url});
     else { await navigator.clipboard.writeText(url); status.textContent = 'Enlace copiado. Puedes enviarlo al cliente para abrirlo desde su teléfono.'; }
   } catch(error) { if(error.name !== 'AbortError') status.textContent = 'Puedes compartir este enlace: ' + url; }
+});
+
+// WCAG: let users pause the decorative, repeating camera cue.
+const motionBtn = document.getElementById('motionBtn');
+viewer.addEventListener('load', () => { motionBtn.hidden = !viewer.canActivateAR; });
+motionBtn.addEventListener('click', () => {
+  const paused = viewer.classList.toggle('camera-motion-paused');
+  motionBtn.setAttribute('aria-pressed', String(paused));
+  motionBtn.textContent = paused ? 'Reanudar animación' : 'Pausar animación';
+});
+viewer.addEventListener('ar-status', (event) => {
+  viewer.classList.toggle('camera-ar-active', ['session-started', 'object-placed'].includes(event.detail.status));
 });

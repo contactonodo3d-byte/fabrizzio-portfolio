@@ -1,0 +1,14 @@
+/* Motion Design tokens: looping.duration.normal and easing.standard (M3).
+   Decorative cue only: never represents an active camera or requests permission. */
+:root{--motion-looping-duration-normal:3s;--motion-easing-standard:cubic-bezier(0.2,0,0,1)}
+.camera-cta{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;background:#7046c6;border-color:#7046c6;box-shadow:0 3px 12px #17171924}
+.camera-cta:hover{background:#58329f;border-color:#58329f}
+.camera-cta:active{background:#482780}
+.camera-cue{display:grid;place-items:center;width:32px;height:32px;flex:none}
+.camera-cue svg{width:32px;height:32px;overflow:visible}
+.camera-lens,.camera-focus{transform-box:fill-box;transform-origin:center;animation:camera-wake var(--motion-looping-duration-normal) var(--motion-easing-standard) infinite}
+.camera-focus{animation-name:camera-focus;opacity:.6}
+@keyframes camera-wake{0%,15%,70%,100%{transform:scale(.72);opacity:.65}32%,48%{transform:scale(1);opacity:1}}
+@keyframes camera-focus{0%,15%,70%,100%{transform:scale(1.08);opacity:.4}32%,48%{transform:scale(1);opacity:1}}
+.camera-motion-paused .camera-cue *,.camera-ar-active .camera-cue *{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.camera-cue *{animation:none!important;transform:none;opacity:1}#motionBtn{display:none}}
