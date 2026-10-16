@@ -29,5 +29,7 @@ function expoRedirect(req, res, next) {
   const url = new URL(req.url, 'http://localhost');
   if (url.pathname === '/connect') { res.writeHead(308, { Location: '/connect/' + url.search }); res.end(); }
   else if (url.pathname === '/expo') { res.writeHead(308, { Location: '/expo/' + url.search }); res.end(); }
+  else if (['/3d', '/3d/foody-exhibidor'].includes(url.pathname)) { res.writeHead(308, { Location: url.pathname + '/' + url.search }); res.end(); }
+  else if (['/3d/', '/3d/foody-exhibidor/'].includes(url.pathname)) { req.url = url.pathname + 'index.html' + url.search; next(); }
   else next();
 }
