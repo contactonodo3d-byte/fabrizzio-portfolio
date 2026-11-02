@@ -14,6 +14,8 @@ export const site = {
 export const copy = {
   navigation: {
     work: 'Work',
+    expo: 'Expo',
+    whiteLabel: 'White-label',
     services: 'Services',
     lab: 'Lab',
     about: 'About',
@@ -22,11 +24,29 @@ export const copy = {
     playlist: 'My playlist',
   },
   home: {
-    role: 'Independent visual designer',
+    role: 'Senior graphic designer',
     location: 'Based in Paraguay · Working worldwide',
-    hero: { line1: 'I design things', line2: 'people ', accent: 'notice.' },
-    intro: 'Visual design and physical experiences shaped by international work, delivered through a focused independent practice.',
+    hero: { line1: 'Booths for builders.', line2: 'White-label for ', accent: 'agencies.' },
+    intro: 'Exhibition stands for booth builders and exhibitors, and design support that ships under an agency’s name.',
     exploreWorkButton: 'Explore my work',
+    paths: {
+      boothKicker: 'For booth builders and exhibitors',
+      boothTitle: 'Stands, renders, and show-floor graphics.',
+      boothBody: 'Concepts, 3D visualization, and graphics for trade show booths.',
+      boothCta: 'See exhibition work',
+      agencyKicker: 'For agencies',
+      agencyTitle: 'White-label design, under your brand.',
+      agencyBody: 'Design support for agencies that need the work to go out under their name.',
+      agencyCta: 'White-label for agencies',
+    },
+    proof: {
+      kicker: 'Indufar El Delta',
+      caption: 'Render → built',
+      renderLabel: 'Render',
+      builtLabel: 'Built',
+      renderAlt: 'Indufar El Delta design render',
+      builtAlt: 'Indufar El Delta built space',
+    },
     playlist: {
       kicker: 'FR / ON REPEAT',
       title: 'My playlist',
@@ -48,7 +68,7 @@ export const copy = {
       kicker: '01 / Selected work',
       title: { line1: 'Work that speaks', accent: 'for itself.' },
       allWorkLink: 'All work',
-      placeholderNote: 'A selection of web, brand, campaign, presentation, and spatial design work.',
+      placeholderNote: '',
     },
     services: { kicker: '02 / What I do', title: { line1: 'A broad toolkit.', accent: 'One clear vision.' } },
     approach: {
@@ -67,10 +87,10 @@ export const copy = {
   work: {
     kicker: 'Portfolio / Selected work',
     title: { line1: 'Made to', accent: 'make an impact.' },
-    intro: 'Selected projects across websites, campaigns, identity, presentations, and architectural visualization.',
+    intro: 'Selected projects, led by exhibition stands, then identity, campaigns, presentations, and architectural visualization.',
     guidanceTitle: 'Across disciplines',
-    guidanceBody: 'From responsive websites and brand assets to pitch decks and spatial visualization, each project starts with a clear visual idea and carries it through to the final deliverable.',
-    filters: { all: 'All work', digital: 'Digital', brand: 'Brand', spatial: 'Spatial' },
+    guidanceBody: 'From booth concepts and brand assets to pitch decks and spatial visualization, each project starts with a clear visual idea and carries it through to the final deliverable.',
+    filters: { all: 'All work', brand: 'Brand', spatial: 'Spatial' },
   },
   services: {
     kicker: 'Services / Ways to work together',
@@ -88,7 +108,7 @@ export const copy = {
     intro: "I'm a visual designer based in Asunción, Paraguay, working with brands and teams across borders.",
     sectionKicker: 'A bit about me',
     sectionTitle: { line1: 'One perspective.', line2: 'Many ways to make it real.' },
-    paragraph1: 'My practice moves between brand identity, websites, campaigns, and physical spaces. Across each format, I look for the idea that makes the work clear, distinctive, and useful.',
+    paragraph1: 'My practice moves between brand identity, campaigns, presentations, and physical spaces. Across each format, I look for the idea that makes the work clear, distinctive, and useful.',
     paragraph2: 'Working abroad shaped how I make, communicate, and deliver design. Based in Paraguay, I keep the collaboration direct and adaptable for teams wherever they are.',
     contactLink: "Let's work together",
     portraitPlaceholder: 'Portrait coming soon',
@@ -109,7 +129,7 @@ export const copy = {
     emptyTitle: "Ideas are better when they're tested and shared.",
     emptyBody: 'The first articles and experiments will appear here. For now, this is the space where the work will live.',
     exploringKicker: 'Currently exploring',
-    exploring: ['AI-assisted exhibition workflows', 'Brand-aware design tools', 'Creative web experiences'],
+    exploring: ['AI-assisted exhibition workflows', 'Brand-aware design tools', 'Booth graphics and 3D workflows'],
     exploringNote: 'These are topics in exploration, not published case studies.',
   },
   contact: {
@@ -127,7 +147,7 @@ export const copy = {
       optional: 'Optional',
       projectType: 'What do you need?',
       projectTypePlaceholder: 'Select a project type',
-      projectTypes: ['Brand & campaigns', 'Web & digital', 'Expo & spaces', 'Ongoing design partnership', 'Something else'],
+      projectTypes: ['Brand & campaigns', 'White-label for agencies', 'Expo & spaces', 'Ongoing design partnership', 'Something else'],
       budget: 'Approximate budget',
       budgetPlaceholder: 'Select a range (optional)',
       budgetRanges: ['Under $2,500', '$2,500–$5,000', '$5,000–$10,000', '$10,000+', 'Not sure yet'],
@@ -141,21 +161,30 @@ export const copy = {
   footer: {
     kicker: 'Have a project in mind?',
     title: { line1: "Let's make it", accent: 'matter.' },
-    descriptor: 'Independent visual designer',
+    descriptor: 'Senior graphic designer',
     worldwide: 'Working worldwide',
+  },
+  whiteLabel: {
+    kicker: 'White-label / For agencies',
+    title: { line1: 'Design that ships', accent: 'under your name.' },
+    introTodo: 'TODO: Replace this with the approved one-sentence offer for agencies. Do not add client names, numbers, testimonials, or a degree.',
+    ctaKicker: 'Next step',
+    ctaTitle: 'Send a brief.',
+    ctaTodo: 'TODO: Replace this with the approved call to action, including any booking link. The email below is the real address.',
+    emailLabel: 'Email',
+    expoLink: 'Published exhibition work',
   },
 };
 
 export const services = [
-  { id: 'brand', number: '01', title: 'Brand & campaigns', homeBody: 'Identity systems, launches, and creative that keeps a brand recognizable.', body: 'Identity systems, campaign concepts, and visual assets that help a business show up consistently.', items: ['Brand direction & identity', 'Campaign creative', 'Digital and print assets'] },
-  { id: 'digital', number: '02', title: 'Web & digital', homeBody: 'Websites and digital experiences built around clarity and impact.', body: 'Websites and landing pages that make a strong first impression and guide people toward action.', items: ['Website visual direction', 'Landing page design', 'Digital design systems'] },
-  { id: 'spatial', number: '03', title: 'Expo & spaces', homeBody: 'Visual experiences that carry a brand into the physical world.', body: 'Brand experiences made for real-world encounters, from early concepts to production-ready visual direction.', items: ['Exhibition concepts', 'Environmental graphics', 'Experience design direction'] },
+  { id: 'brand', number: '01', title: 'Brand & campaigns', homeBody: 'Identity systems, launches, and creative that keeps a brand recognizable.', body: 'Identity systems, campaign concepts, and visual assets that help a business show up consistently.', items: ['Brand direction & identity', 'Campaign creative', 'Campaign and print assets'] },
+  { id: 'spatial', number: '02', title: 'Expo & spaces', homeBody: 'Visual experiences that carry a brand into the physical world.', body: 'Brand experiences made for real-world encounters, from early concepts to production-ready visual direction.', items: ['Exhibition concepts', 'Environmental graphics', 'Experience design direction'] },
 ];
 
 export const projects = [
-  { id: '01', slug: 'skylinq', label: 'Web design', title: 'Skylinq Home', note: 'Website design for home energy and improvement services.', className: 'project-digital', thumbnail: './images/work/skylinq.webp', href: './case-study.html?project=skylinq', externalUrl: 'https://skylinqhome.com/', role: 'Web design', overview: 'A website design project for Skylinq Home. The earlier portfolio presents home energy and improvement services including solar, roofing, HVAC, and a path to request a quote.', deliverables: ['Website design', 'Service page layout', 'Quote-request journey'], source: 'Adobe Portfolio' },
-  { id: '02', slug: 'law-group', label: 'Web design', title: 'Law Group', note: 'A website project featured in the earlier portfolio.', className: 'project-digital', thumbnail: '', href: './case-study.html?project=law-group', externalUrl: 'https://law.vistadigital.com/', role: 'Web design', overview: 'A web design project featured in the previous portfolio. The case is presented here through its original project link.', deliverables: ['Website design'], source: 'Adobe Portfolio' },
-  { id: '03', slug: 'vista-digital', label: 'Web design', title: 'Vista Digital', note: 'A website project featured in the earlier portfolio.', className: 'project-digital', thumbnail: '', href: './case-study.html?project=vista-digital', externalUrl: 'https://vistadigital.com/', role: 'Web design', overview: 'A web design project featured in the previous portfolio. The case is presented here through its original project link.', deliverables: ['Website design'], source: 'Adobe Portfolio' },
+  { id: '01', slug: 'el-delta', label: 'Exhibition design', title: 'El Delta', note: 'Indufar activation spaces. The render sits beside photographs of the built space.', className: 'project-spatial', thumbnail: '/expo/assets/delta-hero.webp', href: '/expo/#indufar', role: 'Designer', overview: 'Brand spaces for Indufar El Delta, with a nutrition bar, a photo opportunity, and an activation area. The project was built. The exhibition page pairs the design renders with photographs from the event.', deliverables: ['Spatial concept', '3D visualization', 'Environmental graphics'], source: 'Commissioned work through Péscalo' },
+  { id: '02', slug: 'indufar-run', label: 'Exhibition design', title: 'Indufar Run', note: 'Five booth designs for six brands at one event.', className: 'project-spatial', thumbnail: '/expo/assets/run-tg.webp', href: '/expo/#indufar-run', role: 'Designer', overview: 'A family of booth designs for Indufar Run: TG, Banes, Mentovick, Vitamina C, Arsetonic, and Indufar. The images on the exhibition page are design renders from the presentation.', deliverables: ['Booth concepts', '3D visualization', 'Brand application across a family of spaces'], source: 'Commissioned work through Péscalo' },
+  { id: '03', slug: 'gestecner', label: 'Exhibition concept', title: 'Gestecner', note: 'Stand Navegestic, with plan views and a 3D / AR viewer.', className: 'project-spatial', thumbnail: '/expo/assets/gestecner-op1-render.webp', href: '/expo/#gestecner', role: 'Designer', overview: 'A booth concept for Gestecner Navegestic, with an alternate layout, dimensioned views, and a 3D viewer. Design and visualization by Fabrizzio Ruiz, commissioned through Péscalo.', deliverables: ['Booth concept', 'Dimensioned views', '3D / AR viewer'], source: 'Commissioned work through Péscalo' },
   { id: '04', slug: 'social-media-assets', label: 'Social media', title: 'Social Media Assets', note: "Campaign visuals made to communicate a client's content.", className: 'project-brand', thumbnail: './images/work/social-media.webp', href: './case-study.html?project=social-media-assets', role: 'Visual design', overview: "A selection of social media visuals from earlier client work. The original portfolio describes the goal as communicating the client's content through visual assets.", deliverables: ['Social media assets', 'Campaign graphics'], source: 'Upwork and Adobe Portfolio' },
   { id: '05', slug: 'pitch-decks', label: 'Presentation design', title: 'Slides & Pitch Decks', note: 'A multinational brand report prepared to brand guidelines.', className: 'project-brand', thumbnail: './images/work/pitch-deck.webp', href: './case-study.html?project=pitch-decks', role: 'Designer', overview: 'A multinational brand report designed according to the client’s brand guidelines, with attention to a polished corporate presentation.', deliverables: ['PDF presentation', 'Editable Google Slides file', 'PPTX file'], source: 'Upwork' },
   { id: '06', slug: 'client-logos', label: 'Brand design', title: 'Client Logos', note: 'A selection of logo design work.', className: 'project-brand', thumbnail: './images/work/brand-identity.webp', href: './case-study.html?project=client-logos', role: 'Logo designer', overview: 'Selected logo designs from previous client projects. The earlier listing highlights quality and timely delivery.', deliverables: ['Logo design'], source: 'Upwork and Adobe Portfolio' },
@@ -163,13 +192,24 @@ export const projects = [
 ];
 
 export const heroCovers = [
-  { id: '01', title: 'Skylinq Home', story: 'Solar · Roofing · HVAC', category: 'Web design', thumbnail: './images/work/skylinq.webp', href: './case-study.html?project=skylinq', theme: 'cover-yellow' },
-  { id: '02', title: 'Social Media Assets', story: 'Campaigns made to connect', category: 'Campaign design', thumbnail: './images/work/social-media.webp', href: './case-study.html?project=social-media-assets', theme: 'cover-blue' },
-  { id: '03', title: 'Pitch Decks', story: 'A clear story, slide by slide', category: 'Presentation design', thumbnail: './images/work/pitch-deck.webp', href: './case-study.html?project=pitch-decks', theme: 'cover-orange' },
-  { id: '04', title: 'Client Logos', story: 'Identity marks for clients', category: 'Brand design', thumbnail: './images/work/brand-identity.webp', href: './case-study.html?project=client-logos', theme: 'cover-pink' },
-  { id: '05', title: 'ArchViz & Retail', story: 'Spaces brought to life', category: 'Spatial design', thumbnail: './images/work/archviz.webp', href: './case-study.html?project=architectural-visualization', theme: 'cover-purple' },
-  { id: '06', title: 'Vista Digital', story: 'A website design project', category: 'Web design', thumbnail: '', href: './case-study.html?project=vista-digital', theme: 'cover-black' },
-  { id: '07', title: 'Law Group', story: 'A digital presence for law', category: 'Web design', thumbnail: '', href: './case-study.html?project=law-group', theme: 'cover-yellow' },
+  { id: '01', title: 'El Delta', story: 'Render → built', category: 'Exhibition design', thumbnail: '/expo/assets/delta-hero.webp', href: '/expo/#indufar', theme: 'cover-yellow' },
+  { id: '02', title: 'Indufar Run', story: 'Five booths, six brands', category: 'Exhibition design', thumbnail: '/expo/assets/run-tg.webp', href: '/expo/#indufar-run', theme: 'cover-orange' },
+  { id: '03', title: 'Gestecner', story: 'A stand you can orbit', category: 'Exhibition concept', thumbnail: '/expo/assets/gestecner-op1-render.webp', href: '/expo/#gestecner', theme: 'cover-purple' },
+  { id: '04', title: 'Social Media Assets', story: 'Campaigns made to connect', category: 'Campaign design', thumbnail: './images/work/social-media.webp', href: './case-study.html?project=social-media-assets', theme: 'cover-blue' },
+  { id: '05', title: 'Pitch Decks', story: 'A clear story, slide by slide', category: 'Presentation design', thumbnail: './images/work/pitch-deck.webp', href: './case-study.html?project=pitch-decks', theme: 'cover-pink' },
+  { id: '06', title: 'Client Logos', story: 'Identity marks for clients', category: 'Brand design', thumbnail: './images/work/brand-identity.webp', href: './case-study.html?project=client-logos', theme: 'cover-black' },
+  { id: '07', title: 'ArchViz & Retail', story: 'Spaces brought to life', category: 'Spatial design', thumbnail: './images/work/archviz.webp', href: './case-study.html?project=architectural-visualization', theme: 'cover-yellow' },
+];
+
+// Shell copy for /white-label.html. Replace each TODO before publishing.
+// Do not add client names, counts, testimonials, degrees, or unconfirmed terms.
+export const whiteLabelSections = [
+  { kicker: '01 / Who it is for', title: 'Agencies with overflow.', todo: 'TODO: Describe the agencies this is for. Do not add a client list.' },
+  { kicker: '02 / What you can send', title: 'The brief.', todo: 'TODO: List what an agency should send, such as a brief, brand guide, structural file, or deadline. Confirm each item with Fabrizzio before publishing.' },
+  { kicker: '03 / What comes back', title: 'The files.', todo: 'TODO: List only deliverables Fabrizzio will commit to. Do not promise a tool, file type, or turnaround that is not confirmed.' },
+  { kicker: '04 / How a project runs', title: 'A simple sequence.', todo: 'TODO: Confirm the steps and the timing. Leave the number of days blank until Fabrizzio approves it.' },
+  { kicker: '05 / Working terms', title: 'Under your brand.', todo: 'TODO: Add only confirmed terms, such as white-label, NDA, software licenses, hours, and time zone. Do not state pricing or availability until the wording is approved.' },
+  { kicker: '06 / Proof', title: 'Examples to add.', todo: 'TODO: Add approved white-label samples only. Do not invent results, quotes, or client names. Published booth work can be linked as exhibition proof, not as an agency testimonial.' },
 ];
 
 // Publish a Lab entry by adding { category, title, summary, date, url } here.

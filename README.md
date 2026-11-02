@@ -17,7 +17,7 @@ For example, to change the first headline, edit `copy.home.hero.line1`, `line2`,
 
 The hero's looping project album uses `heroCovers` in the same file. Put approved cover images in `public/images/`, then set each cover's `thumbnail` to a relative path such as `./images/my-project.webp`. Update its `title`, `category`, and `href` at the same time. Empty thumbnails show the colorful placeholder design.
 
-The compact Spotify playlist embed above the project album uses `site.playlistUrl` in `src/content.js`. Visitors can play the playlist in Spotify’s embedded player or open it in Spotify. Change the embed URL there to use another playlist.
+The home page opens with two paths: exhibition work (`/expo/`) and white-label design for agencies (`white-label.html`). The white-label page is a shell. Replace each visible TODO before publishing, and do not add client names, counts, testimonials, or a degree. Do not add web-design projects or Vista Digital. Lab, the Spotify playlist, and Superflyer stay in the repo but are not linked from the main navigation or the home page.
 
 English is the editable source in `src/content.js`. Spanish and Portuguese text is in `src/translations.js`. The EN / ES / PT switch saves the visitor's choice in the browser and uses it across pages.
 
@@ -43,9 +43,11 @@ The production files are written to `dist/`.
 
 - `/` — Home
 - `/work.html` — Work
+- `/expo/` — Exhibition work (English by default)
+- `/white-label.html` — White-label page for agencies
 - `/services.html` — Services
-- `/lab.html` — Lab: articles, use cases, and experiments
 - `/about.html` — About
 - `/contact.html` — Contact
+- `/lab.html` — Lab, kept but not linked in the main navigation
 
 Lab entries are listed in `src/content.js`. Keep the list empty until real work is ready to publish; each entry needs a category, title, summary, date, and URL.
