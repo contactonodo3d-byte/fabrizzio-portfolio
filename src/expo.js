@@ -4,7 +4,7 @@ import { contact } from './expo-contact.js';
 import './expo-carousel.css';
 function updateDirectContact(){
 const direct = document.querySelector('#direct-contact');
-const message = t( 'Hola Fabrizzio, vi tu portfolio de Exhibition & Digital Design. Quiero conversar sobre un proyecto para mi empresa.');
+const message = t( 'Hola Fabrizzio, vi tu portfolio de diseño de stands. Quiero conversar sobre un proyecto para mi empresa.');
 if (/^\d{8,15}$/.test(contact.whatsapp)) { const a=document.createElement('a'); a.className='button primary';a.href='https://wa.me/'+contact.whatsapp+'?text='+encodeURIComponent(message);a.textContent=t('Escríbeme por WhatsApp');a.insertAdjacentHTML('beforeend','<svg class="icon icon-forward-doodle" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.3c2.2 2 4.4 4.1 6.8 6.7-2.3 2.5-4.6 4.7-6.7 6.8M10.7 5.2c2.3 2.1 4.5 4.2 6.8 6.8-2.4 2.5-4.6 4.6-6.7 6.7M19 5.4c-.1 2.2.1 4.4 0 6.6.1 2.3-.1 4.5 0 6.7"/></svg>');direct.replaceChildren(a);document.querySelector('.sticky').href=a.href; }
 if (contact.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)){const a=document.createElement('a');a.className='button';a.href='mailto:'+contact.email;a.textContent=contact.email;if(!contact.whatsapp)direct.replaceChildren(a);else direct.append(a);}
 
@@ -16,7 +16,7 @@ document.querySelector('#load-viewer').addEventListener('click',async(event)=>{e
 
 const imageDialog=document.querySelector('#image-dialog');document.querySelectorAll('[data-image]').forEach(button=>button.addEventListener('click',()=>{document.querySelector('#dialog-image').src=button.dataset.image;document.querySelector('#dialog-image').alt=button.dataset.caption;document.querySelector('#dialog-caption').textContent=button.dataset.caption;imageDialog.showModal();}));document.querySelector('#close-image').addEventListener('click',()=>imageDialog.close());imageDialog.addEventListener('click',event=>{if(event.target===imageDialog){const rect=imageDialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)imageDialog.close();}});
 
-const brief=document.querySelector('#brief');const briefTemplate='Hola Fabrizzio, soy [nombre] de [empresa]. Nos conocimos en Boat Port Show. Nuestra próxima feria es [evento / fecha]. Necesitamos [stand / 3D / gráfica / contenido / web]. ¿Podemos coordinar una conversación?';let generatedBrief=brief.value;function updateBrief(){if(brief.value===generatedBrief){generatedBrief=t(briefTemplate);brief.value=generatedBrief;}}updateBrief();
+const brief=document.querySelector('#brief');const briefTemplate='Hola Fabrizzio, soy [nombre] de [empresa]. Nos conocimos en Boat Port Show. Nuestra próxima feria es [evento / fecha]. Necesitamos [stand / 3D / gráfica / contenido]. ¿Podemos coordinar una conversación?';let generatedBrief=brief.value;function updateBrief(){if(brief.value===generatedBrief){generatedBrief=t(briefTemplate);brief.value=generatedBrief;}}updateBrief();
 const carousel=document.querySelector('.carousel-window');
 const carouselTrack=carousel.querySelector('.carousel-track');
 const pause=document.querySelector('.carousel-control');
