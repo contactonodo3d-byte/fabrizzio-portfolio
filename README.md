@@ -23,6 +23,14 @@ English is the editable source in `src/content.js`. Spanish and Portuguese text 
 
 Save the file while `npm run dev` is running; the preview updates automatically. Run `npm run build` to check the site before committing. The site's layout and colors remain in `src/main.js`, `src/styles.css`, `src/palette.css`, and `src/lab.css`.
 
+## Foody AR Farm
+
+https://fabrizzioruiz.com/lab/foody-ar-game/ is built from the public repo [foody-ar-farm](https://github.com/contactonodo3d-byte/foody-ar-farm) during the Pages workflow. The workflow clones `main`, installs it, and builds with `FOODY_BASE_PATH=/lab/foody-ar-game/` and `VITE_PUBLIC_URL=https://fabrizzioruiz.com/lab/foody-ar-game/`. The result is copied to `dist/lab/foody-ar-game/` before the site artifact is uploaded. `/lab/foody-ar-game` redirects to the trailing-slash URL in local preview; GitHub Pages does the same for the directory.
+
+The workflow also runs on **Run workflow** and on a `repository_dispatch` of type `foody-updated`. **Run workflow** accepts a `foody_ref` (branch or tag, default `main`). A dispatch may send the same name as `client_payload.ref`. Triggering that dispatch from foody-ar-farm needs a token that can start workflows in this repository. The default `GITHUB_TOKEN` cannot. Until that secret exists, run **Deploy portfolio to GitHub Pages** from the Actions tab after Foody changes land on `main`.
+
+`scripts/foody-public-url.patch` is applied only while Foody `main` still defaults the QR to `contactonodo3d-byte.github.io`. It sets the default public URL, adds that URL to the share caption, and serves the 8th Wall manifest under the lab path. Delete the patch and this step after those changes are on Foody `main`. The deploy token for this repository cannot push that pull request.
+
 ## Build
 
 ```bash
