@@ -33,6 +33,13 @@ jobs:
             *[!A-Za-z0-9._/-]*|'') echo "Refusing Foody ref: $FOODY_REF" >&2; exit 1;;
           esac
           git clone --depth 1 --branch "$FOODY_REF" https://github.com/contactonodo3d-byte/foody-ar-farm.git foody-ar-farm-src
+      - name: Point Foody QR and share text at fabrizzioruiz.com
+        run: |
+          if grep -q 'https://contactonodo3d-byte.github.io/foody-ar-farm/' foody-ar-farm-src/src/config/BrandConfig.ts; then
+            git -C foody-ar-farm-src apply "$GITHUB_WORKSPACE/scripts/foody-public-url.patch"
+          else
+            echo "Foody already defaults to the portfolio URL; skipping scripts/foody-public-url.patch"
+          fi
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
