@@ -1,5 +1,6 @@
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
+import { expoModelUrl } from 'virtual:expo-models';
 
 const supportedLanguages = ['en', 'es', 'pt'];
 let chosenLanguage;
@@ -532,7 +533,7 @@ boothButton?.addEventListener('click', async () => {
   try {
     await import('@google/model-viewer');
     viewer = document.createElement('model-viewer');
-    for (const [key, value] of Object.entries({ src: '/expo/assets/model.glb', 'ios-src': '/expo/assets/model.usdz', alt: boothCopy.alt, ar: '', 'ar-modes': 'webxr scene-viewer quick-look', 'camera-controls': '', 'shadow-intensity': '1', exposure: '0.9' })) viewer.setAttribute(key, value);
+    for (const [key, value] of Object.entries({ src: expoModelUrl('glb'), 'ios-src': expoModelUrl('usdz'), alt: boothCopy.alt, ar: '', 'ar-modes': 'webxr scene-viewer quick-look', 'camera-controls': '', 'shadow-intensity': '1', exposure: '0.9' })) viewer.setAttribute(key, value);
     const arButton = document.createElement('button');
     arButton.type = 'button';
     arButton.slot = 'ar-button';

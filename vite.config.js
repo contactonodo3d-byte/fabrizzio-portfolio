@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
+import { expoModelCache } from './scripts/expo-model-cache.js';
 
 export default defineConfig({
   base: '/',
-  plugins: [{
+  plugins: [expoModelCache(), {
     name: 'expo-directory-route',
     configureServer(server) { server.middlewares.use(expoRedirect); },
     configurePreviewServer(server) { server.middlewares.use(expoRedirect); },
