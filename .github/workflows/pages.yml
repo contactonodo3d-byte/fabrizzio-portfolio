@@ -4,6 +4,13 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      foody_ref:
+        description: Branch or tag of foody-ar-farm to build
+        default: main
+        required: false
+  repository_dispatch:
+    types: [foody-updated]
 
 permissions:
   contents: read
@@ -18,6 +25,21 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Check out Foody AR Farm
+        env:
+          FOODY_REF: ${{ github.event.inputs.foody_ref || github.event.client_payload.ref || 'main' }}
+        run: |
+          case "$FOODY_REF" in
+            *[!A-Za-z0-9._/-]*|'') echo "Refusing Foody ref: $FOODY_REF" >&2; exit 1;;
+          esac
+          git clone --depth 1 --branch "$FOODY_REF" https://github.com/contactonodo3d-byte/foody-ar-farm.git foody-ar-farm-src
+      - name: Point Foody QR and share text at fabrizzioruiz.com
+        run: |
+          if grep -q 'https://contactonodo3d-byte.github.io/foody-ar-farm/' foody-ar-farm-src/src/config/BrandConfig.ts; then
+            git -C foody-ar-farm-src apply "$GITHUB_WORKSPACE/scripts/foody-public-url.patch"
+          else
+            echo "Foody already defaults to the portfolio URL; skipping scripts/foody-public-url.patch"
+          fi
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -25,24 +47,36 @@ jobs:
           cache: npm
           cache-dependency-path: |
             package-lock.json
-            foody-ar-farm/package-lock.json
+            foody-ar-farm-src/package-lock.json
       - name: Install dependencies
         run: npm ci
       - name: Build site
         run: npm run build
       - name: Install Foody dependencies
-        run: npm ci --prefix foody-ar-farm
+        run: npm ci --prefix foody-ar-farm-src
       - name: Verify Foody gameplay
-        run: npm test --prefix foody-ar-farm
+        run: npm test --prefix foody-ar-farm-src
       - name: Build Foody subpage
-        working-directory: foody-ar-farm
+        working-directory: foody-ar-farm-src
         env:
           FOODY_BASE_PATH: /lab/foody-ar-game/
+          VITE_PUBLIC_URL: https://fabrizzioruiz.com/lab/foody-ar-game/
         run: npm run build
       - name: Include Foody in the site
         run: |
           mkdir -p dist/lab/foody-ar-game
-          cp -R foody-ar-farm/dist/. dist/lab/foody-ar-game/
+          cp -R foody-ar-farm-src/dist/. dist/lab/foody-ar-game/
+          test -f dist/lab/foody-ar-game/index.html
+          test -f dist/lab/foody-ar-game/marker.html
+          test -f dist/lab/foody-ar-game/models/chicken.glb
+          test -f dist/lab/foody-ar-game/models/chick.glb
+          test -f dist/lab/foody-ar-game/models/rabbit.glb
+          test -f dist/lab/foody-ar-game/branding/foody-mark.svg
+          test -f dist/lab/foody-ar-game/branding/foody-marker.svg
+          test -f dist/lab/foody-ar-game/vendor/xr8/xr.js
+          test -f dist/lab/foody-ar-game/vendor/xr8/xr-slam.js
+          grep -q '/lab/foody-ar-game/assets/' dist/lab/foody-ar-game/index.html
+          grep -R -q 'https://fabrizzioruiz.com/lab/foody-ar-game/' dist/lab/foody-ar-game
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

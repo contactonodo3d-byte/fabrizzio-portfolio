@@ -1,0 +1,227 @@
+diff --git a/.env b/.env
+new file mode 100644
+index 0000000..0ae8c48
+--- /dev/null
++++ b/.env
+@@ -0,0 +1 @@
++VITE_PUBLIC_URL=https://fabrizzioruiz.com/lab/foody-ar-game/
+diff --git a/.github/workflows/pages.yml b/.github/workflows/pages.yml
+index 0417737..0697fea 100644
+--- a/.github/workflows/pages.yml
++++ b/.github/workflows/pages.yml
+@@ -29,10 +29,11 @@ jobs:
+         run: npm run build
+         env:
+           FOODY_BASE_PATH: /foody-ar-farm/
+-          VITE_PUBLIC_URL: https://contactonodo3d-byte.github.io/foody-ar-farm/
++          VITE_PUBLIC_URL: https://fabrizzioruiz.com/lab/foody-ar-game/
+       - name: Check the subpath build
+         run: |
+           grep -q '/foody-ar-farm/assets/' dist/index.html
++          grep -q 'https://fabrizzioruiz.com/lab/foody-ar-game/' dist/index.html
+           test -f dist/marker.html
+           test -f dist/models/chicken.glb
+           test -f dist/models/chick.glb
+diff --git a/README.md b/README.md
+index af07365..fc458e3 100644
+--- a/README.md
++++ b/README.md
+@@ -4,21 +4,35 @@ Mobile-first expo game for the Foody stand at Expo Vet 2026 (Asunción). Virtual
+ 
+ ## Public link tonight
+ 
+-The GitHub Pages address is **https://contactonodo3d-byte.github.io/foody-ar-farm/**
++The stand URL is **https://fabrizzioruiz.com/lab/foody-ar-game/**
+ 
+-After this pull request is merged into `main`:
++That address is the portfolio site. `fabrizzio-portfolio` checks out this repo on each Pages deploy, builds with `FOODY_BASE_PATH=/lab/foody-ar-game/`, and publishes the result at that path. `/lab/foody-ar-game` without a trailing slash redirects to the slash URL.
+ 
+-1. Open the repository on GitHub → **Settings** → **Pages**.
+-2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+-3. Open the **Actions** tab. The workflow **Deploy GitHub Pages** starts on the merge. If it does not, open that workflow and choose **Run workflow**.
+-4. When the job is green, open the URL above on the phone (Safari or Chrome). Accept the camera only from the “Activar cámara” or “Probar AR” buttons.
+-5. On the stand tablet, open the same URL with `?stand=1` for the QR poster. The QR reads `VITE_PUBLIC_URL`, which the workflow sets to that Pages URL.
++On the stand tablet, open **https://fabrizzioruiz.com/lab/foody-ar-game/?stand=1** for the QR poster. The QR and the share caption use `VITE_PUBLIC_URL` (default `https://fabrizzioruiz.com/lab/foody-ar-game/`). Open the same URL without `?stand=1` on a phone (Safari or Chrome). Accept the camera only from the “Activar cámara” or “Probar AR” buttons.
+ 
+-`npm run build` runs `prebuild`, which runs `npm run sync:xr8` and copies the pinned `@8thwall/engine-binary` into `public/vendor/xr8` before Vite runs. The Pages workflow installs with `npm ci`, so that sync works in CI. The engine loads `xr-slam.js` relative to the script URL, so the `/foody-ar-farm/` base path stays on the same origin.
++`npm run build` runs `prebuild`, which runs `npm run sync:xr8` and copies the pinned `@8thwall/engine-binary` into `public/vendor/xr8` before Vite runs. The manifest script path uses the same base, and the engine loads `xr-slam.js` relative to that script URL.
+ 
+-**Vercel (alternative, often faster):** [vercel.com/new](https://vercel.com/new) → import this repo → Framework **Vite** → leave `FOODY_BASE_PATH` empty (the site is the domain root) → Deploy. Then set `VITE_PUBLIC_URL` to the Vercel URL and redeploy so the QR matches. `vercel.json` is already in the repo.
++This repo's own GitHub Pages workflow still publishes **https://contactonodo3d-byte.github.io/foody-ar-farm/** with `FOODY_BASE_PATH=/foody-ar-farm/`. Its QR and share text point at fabrizzioruiz.com, not github.io.
+ 
+-**Netlify:** Add site → import the repo → build `npm run build`, publish `dist`. `netlify.toml` is included. Set `VITE_PUBLIC_URL` the same way if the QR should point at Netlify instead of Pages.
++**Vercel (alternative):** [vercel.com/new](https://vercel.com/new) → import this repo → Framework **Vite** → set `FOODY_BASE_PATH=/` (empty also means the domain root) → Deploy. Set `VITE_PUBLIC_URL` to the URL you want on the QR. `vercel.json` is already in the repo.
++
++**Netlify:** Add site → import the repo → build `npm run build`, publish `dist`. `netlify.toml` is included. Set `FOODY_BASE_PATH=/` when the site is the domain root, and set `VITE_PUBLIC_URL` to that public URL.
++
++### Redeploy fabrizzioruiz.com after a Foody change
++
++The portfolio workflow **Deploy portfolio to GitHub Pages** runs on push to its `main`, on **Run workflow** (optional `foody_ref`, default `main`), and on `repository_dispatch` with event type `foody-updated` (`client_payload.ref` can name a branch).
++
++A workflow in this repo cannot send that dispatch with the default `GITHUB_TOKEN`: that token cannot start a workflow in another repository, and storing a personal access token is required. Until that secret exists, merge here and then run **Deploy portfolio to GitHub Pages** from the portfolio Actions tab.
++
++With a fine-grained token that can write `workflow` on `contactonodo3d-byte/fabrizzio-portfolio` stored as a secret:
++
++```sh
++curl -sS -X POST \
++  -H "Authorization: Bearer $TOKEN" \
++  -H "Accept: application/vnd.github+json" \
++  https://api.github.com/repos/contactonodo3d-byte/fabrizzio-portfolio/dispatches \
++  -d '{"event_type":"foody-updated"}'
++```
+ 
+ ## Preview
+ 
+@@ -33,8 +47,9 @@ Local HTTPS:
+ HTTPS=1 npm run dev -- --port 5175 --strictPort
+ ```
+ 
+-- Mac: https://localhost:5175/
+-- iPhone on the same Wi-Fi: https://192.168.100.2:5175/ (the LAN address can change).
++- Mac: https://localhost:5175/lab/foody-ar-game/
++- iPhone on the same Wi-Fi: https://192.168.100.2:5175/lab/foody-ar-game/ (the LAN address can change).
++- `FOODY_BASE_PATH=/ npm run dev` serves the game at the domain root instead.
+ - Allow incoming Node connections in macOS Firewall if prompted.
+ - Virtual mode needs no camera. Camera opens only from the explicit “Activar cámara” button.
+ 
+@@ -115,7 +130,8 @@ Edit only `src/config/BrandConfig.ts`, then replace files under `public/branding
+ - `logo` and each food `iconSrc` are paths under `public/`. Drop a sponsor SVG or PNG on the same path, or point the field at a new file. Buttons and the stand QR page pick them up. No remote fetch.
+ - Social handles are config: `instagram`, `facebook` and `tiktok` are `@foody`; `parent` is `@Agroalimentos_SA`; hashtags are `#FoodyARFarm` and `#ExpoVet2026`. The story hint is the string `storyHint` (`Etiquetá a @foody en tu historia`). The share image prints `@foody` plus the hashtags. The share caption adds a second line with `@Agroalimentos_SA`. These handles came from the owner and should be double-checked on Instagram before the stand opens.
+ - Studio credit (`studio`) is the Fabrizzio Ruiz line, site and WhatsApp deep link on the start screen, the results screen and the QR poster.
+-- `VITE_PUBLIC_URL` overrides the QR target. The default is the GitHub Pages URL.
++- `VITE_PUBLIC_URL` overrides the QR target and the link in the share caption. The default is `https://fabrizzioruiz.com/lab/foody-ar-game/`.
++- `FOODY_BASE_PATH` overrides where assets are served. Unset, dev and production use `/lab/foody-ar-game/`. Set it to `/` (or leave it empty) when this app is the whole domain. Playwright sets `/` so the existing root-relative browser tests keep working.
+ 
+ Results sharing uses the Web Share API with the PNG and the caption when the browser allows both. If it rejects the combination, the sheet gets the image alone. **Copiar texto** and the selectable caption are the fallback, plus **Guardar imagen**. Instagram cannot be prefilled by URL; the hint tells the visitor to tag `@foody` in the story.
+ 
+diff --git a/index.html b/index.html
+index 96c8179..04a3a65 100644
+--- a/index.html
++++ b/index.html
+@@ -1 +1 @@
+-<!doctype html><html lang="es"><head><!-- This product includes the XR Engine software developed by Niantic Spatial, Inc. Copyright © 2026 Niantic Spatial, Inc. All rights reserved. License and warranty disclaimer: /vendor/xr8/LICENSE --><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="theme-color" content="#dff3ff"/><meta name="description" content="Foody AR Farm, un minuto de granja en realidad aumentada para Expo Vet 2026."/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="mobile-web-app-capable" content="yes"/><title>Foody AR Farm</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
+\ No newline at end of file
++<!doctype html><html lang="es"><head><!-- This product includes the XR Engine software developed by Niantic Spatial, Inc. Copyright © 2026 Niantic Spatial, Inc. All rights reserved. License and warranty disclaimer: /vendor/xr8/LICENSE --><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="theme-color" content="#dff3ff"/><link rel="icon" href="branding/foody-mark.svg" type="image/svg+xml"/><meta name="description" content="Foody AR Farm, un minuto de granja en realidad aumentada para Expo Vet 2026."/><link rel="canonical" href="%VITE_PUBLIC_URL%"/><meta property="og:type" content="website"/><meta property="og:site_name" content="Foody AR Farm"/><meta property="og:title" content="Foody AR Farm"/><meta property="og:description" content="Foody AR Farm, un minuto de granja en realidad aumentada para Expo Vet 2026."/><meta property="og:url" content="%VITE_PUBLIC_URL%"/><meta property="og:image" content="%VITE_PUBLIC_URL%branding/foody-mark.svg"/><meta name="twitter:card" content="summary"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="mobile-web-app-capable" content="yes"/><title>Foody AR Farm</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
+\ No newline at end of file
+diff --git a/playwright.config.ts b/playwright.config.ts
+index dc089dc..8ac1091 100644
+--- a/playwright.config.ts
++++ b/playwright.config.ts
+@@ -1,2 +1,2 @@
+ import { defineConfig } from '@playwright/test';
+-export default defineConfig({ testDir:'./src/tests', testMatch:'**/*.e2e.ts', use:{channel:'chrome',baseURL:'http://127.0.0.1:5176',viewport:{width:390,height:844},hasTouch:true}, webServer:{command:'npm run dev -- --port 5176 --strictPort',url:'http://127.0.0.1:5176',reuseExistingServer:true} });
++export default defineConfig({ testDir:'./src/tests', testMatch:'**/*.e2e.ts', use:{channel:'chrome',baseURL:'http://127.0.0.1:5176',viewport:{width:390,height:844},hasTouch:true}, webServer:{command:'FOODY_BASE_PATH=/ npm run dev -- --port 5176 --strictPort',url:'http://127.0.0.1:5176',reuseExistingServer:true} });
+diff --git a/scripts/base-path.d.mts b/scripts/base-path.d.mts
+new file mode 100644
+index 0000000..a04e972
+--- /dev/null
++++ b/scripts/base-path.d.mts
+@@ -0,0 +1 @@
++export function foodyBasePath(env?: string): string;
+diff --git a/scripts/base-path.mjs b/scripts/base-path.mjs
+new file mode 100644
+index 0000000..e0c80e9
+--- /dev/null
++++ b/scripts/base-path.mjs
+@@ -0,0 +1,11 @@
++/**
++ * Public path the built game is served from.
++ * Unset → the portfolio lab URL. Empty or "/" → domain root (Vercel/local).
++ * Keep the trailing slash Vite requires.
++ */
++export function foodyBasePath(env = process.env.FOODY_BASE_PATH) {
++  if (env === undefined) return '/lab/foody-ar-game/';
++  const trimmed = env.trim();
++  if (trimmed === '' || trimmed === '/') return '/';
++  return trimmed.endsWith('/') ? trimmed : `${trimmed}/`;
++}
+diff --git a/scripts/sync-xr8.mjs b/scripts/sync-xr8.mjs
+index 65f430a..b5fe83f 100644
+--- a/scripts/sync-xr8.mjs
++++ b/scripts/sync-xr8.mjs
+@@ -2,6 +2,7 @@ import {cpSync,existsSync,mkdirSync,readFileSync,writeFileSync,readdirSync} from
+ import {createHash} from 'node:crypto';
+ import {fileURLToPath} from 'node:url';
+ import path from 'node:path';
++import {foodyBasePath} from './base-path.mjs';
+ const root=fileURLToPath(new URL('../',import.meta.url));
+ const consent=JSON.parse(readFileSync(path.join(root,'xr8-installation.json'),'utf8'));
+ const source=path.join(root,'node_modules/@8thwall/engine-binary');
+@@ -22,5 +23,5 @@ function inventory(directory,prefix=''){
+ }
+ inventory(path.join(source,'dist'));
+ writeFileSync(path.join(target,'installation.json'),JSON.stringify({package:pkg.name,version:pkg.version,acceptedOn:consent.acceptedOn,license:consent.license,sha256:hashes},null,2)+'\n');
+-writeFileSync(path.join(target,'manifest.json'),JSON.stringify({enabled:true,licenseAccepted:true,script:'/vendor/xr8/xr.js',version:pkg.version},null,2)+'\n');
++writeFileSync(path.join(target,'manifest.json'),JSON.stringify({enabled:true,licenseAccepted:true,script:`${foodyBasePath()}vendor/xr8/xr.js`,version:pkg.version},null,2)+'\n');
+ console.log(`Official XR8 ${pkg.version}: ${Object.keys(hashes).length} unmodified artifacts synchronized locally.`);
+diff --git a/src/ar/XR8Loader.ts b/src/ar/XR8Loader.ts
+index 1a4db6e..87ccd17 100644
+--- a/src/ar/XR8Loader.ts
++++ b/src/ar/XR8Loader.ts
+@@ -6,7 +6,7 @@ export async function inspectXR8Installation():Promise<XR8Installation>{
+   const response=await fetch(import.meta.env.BASE_URL+'vendor/xr8/manifest.json',{cache:'no-store'});
+   if(response.ok&&response.headers.get('content-type')?.includes('application/json')){
+    const data=await response.json() as {enabled?:boolean;licenseAccepted?:boolean;script?:string};
+-   if(data.enabled===true&&data.licenseAccepted===true&&(data.script==='/vendor/xr8/xr.js'||data.script===scriptPath)){
++   if(data.enabled===true&&data.licenseAccepted===true&&typeof data.script==='string'&&data.script.endsWith('vendor/xr8/xr.js')){
+     const script=await fetch(scriptPath,{method:'HEAD',cache:'no-store'});
+     if(script.ok&&/javascript/.test(script.headers.get('content-type')??''))return {installed:true,script:scriptPath,reason:''};
+    }
+diff --git a/src/config/BrandConfig.ts b/src/config/BrandConfig.ts
+index 9fd3b6d..e4a3f24 100644
+--- a/src/config/BrandConfig.ts
++++ b/src/config/BrandConfig.ts
+@@ -54,7 +54,7 @@ export const BrandConfig = {
+   },
+ };
+ 
+-export const PUBLIC_GAME_URL_DEFAULT = 'https://contactonodo3d-byte.github.io/foody-ar-farm/';
++export const PUBLIC_GAME_URL_DEFAULT = 'https://fabrizzioruiz.com/lab/foody-ar-game/';
+ 
+ /** Public play URL for the stand QR. Override at build time with VITE_PUBLIC_URL. */
+ export function gamePublicUrl() {
+@@ -73,6 +73,7 @@ export function shareCaption(result: { points: number; fed: number }) {
+   const meals = `${result.fed} ${result.fed === 1 ? 'comida' : 'comidas'}`;
+   return [
+     `¡Jugué ${BrandConfig.name} AR Farm en ${social.event}! ${result.points} puntos y ${meals}.`,
++    gamePublicUrl(),
+     `Etiquetá a ${social.instagram}`,
+     social.parent,
+     social.hashtags.join(' '),
+diff --git a/src/tests/Stand.test.ts b/src/tests/Stand.test.ts
+index 4482228..8426296 100644
+--- a/src/tests/Stand.test.ts
++++ b/src/tests/Stand.test.ts
+@@ -10,7 +10,8 @@ describe('stand copy', () => {
+   expect(caption).toContain('@Agroalimentos_SA');
+   expect(caption).toContain('#FoodyARFarm');
+   expect(caption).toContain('#ExpoVet2026');
+-  expect(PUBLIC_GAME_URL_DEFAULT).toBe('https://contactonodo3d-byte.github.io/foody-ar-farm/');
++  expect(caption).toContain('https://fabrizzioruiz.com/lab/foody-ar-game/');
++  expect(PUBLIC_GAME_URL_DEFAULT).toBe('https://fabrizzioruiz.com/lab/foody-ar-game/');
+  });
+  it('keeps only today on the local leaderboard', () => {
+   const memory = new Map<string, string>();
+diff --git a/src/tests/expo.e2e.ts b/src/tests/expo.e2e.ts
+index e7d44b9..c02ecce 100644
+--- a/src/tests/expo.e2e.ts
++++ b/src/tests/expo.e2e.ts
+@@ -29,6 +29,6 @@ test('results card names Foody and the stand QR uses the public URL', async ({ p
+  await expect(page.getByRole('link', { name: 'WhatsApp' })).toHaveAttribute('href', /wa\.me\/595972780989/);
+  await page.goto('/?stand=1');
+  await expect(page.getByRole('heading', { name: 'Foody AR Farm' })).toBeVisible();
+- await expect(page.getByText('https://contactonodo3d-byte.github.io/foody-ar-farm/')).toBeVisible();
++ await expect(page.getByText('https://fabrizzioruiz.com/lab/foody-ar-game/')).toBeVisible();
+  await expect(page.getByRole('img', { name: /Código QR/ })).toBeVisible();
+ });
+diff --git a/vite.config.ts b/vite.config.ts
+index 71c9857..ec696d2 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -1,4 +1,5 @@
+ import { defineConfig } from 'vite';
+ import react from '@vitejs/plugin-react';
+ import basicSsl from '@vitejs/plugin-basic-ssl';
+-export default defineConfig({ base:process.env.FOODY_BASE_PATH||'/', plugins: [react(), ...(process.env.HTTPS === '1' ? [basicSsl()] : [])], server: { host: '0.0.0.0' } });
++import { foodyBasePath } from './scripts/base-path.mjs';
++export default defineConfig({ base: foodyBasePath(), plugins: [react(), ...(process.env.HTTPS === '1' ? [basicSsl()] : [])], server: { host: '0.0.0.0' } });
