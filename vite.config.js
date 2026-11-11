@@ -20,6 +20,7 @@ export default defineConfig({
         lab: resolve(import.meta.dirname, 'lab.html'),
         about: resolve(import.meta.dirname, 'about.html'),
         contact: resolve(import.meta.dirname, 'contact.html'),
+        whiteLabel: resolve(import.meta.dirname, 'white-label.html'),
       },
     },
   },
@@ -30,7 +31,7 @@ function expoRedirect(req, res, next) {
   if (url.pathname === '/connect') { res.writeHead(308, { Location: '/connect/' + url.search }); res.end(); }
   else if (url.pathname === '/expo') { res.writeHead(308, { Location: '/expo/' + url.search }); res.end(); }
   else if (url.pathname === '/lab/foody-ar-game') { res.writeHead(308, { Location: '/lab/foody-ar-game/' + url.search }); res.end(); }
-  else if (['/3d', '/3d/foody-exhibidor'].includes(url.pathname)) { res.writeHead(308, { Location: url.pathname + '/' + url.search }); res.end(); }
-  else if (['/3d/', '/3d/foody-exhibidor/'].includes(url.pathname)) { req.url = url.pathname + 'index.html' + url.search; next(); }
+  else if (['/3d', '/3d/foody-exhibidor', '/expo/gestecner', '/superflyer'].includes(url.pathname)) { res.writeHead(308, { Location: url.pathname + '/' + url.search }); res.end(); }
+  else if (['/3d/', '/3d/foody-exhibidor/', '/expo/gestecner/', '/superflyer/'].includes(url.pathname)) { req.url = url.pathname + 'index.html' + url.search; next(); }
   else next();
 }
