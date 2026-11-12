@@ -1,6 +1,7 @@
 import media from './selected-media.json';
 
 const categories = {
+  social: ['Social media', 'Redes sociales', 'Redes sociais'],
   presentations: ['Pitch decks / Presentations', 'Pitch decks / Presentaciones', 'Pitch decks / Apresentações'],
   brand: ['Brand & graphic design', 'Identidad y gráfica', 'Identidade e design gráfico'],
   spatial: ['Spatial design', 'Diseño de espacios', 'Design de espaços'],
@@ -44,6 +45,10 @@ const selected = [
     'Two badge designs and a concept mockup of the mountain emblem embroidered on a field bag.',
     'Dos propuestas de insignia y un mockup del emblema de montaña bordado sobre un bolso de campo.',
     'Duas propostas de insígnia e um mockup do emblema de montanha bordado em uma bolsa de campo.'],
+  ['mosconi', 'Mosconi', 'social',
+    'Social media grids for events and promotions, and a vertical cocktail story.',
+    'Grillas de eventos y promociones para redes sociales, junto a una historia de tragos tradicionales.',
+    'Grades de eventos e promoções para redes sociais e um story vertical de coquetéis.'],
   ['pam-paiva', 'Pam Paiva', 'brand',
     'A five-part social series for a self-makeup course.',
     'Serie de cinco piezas para comunicar un curso de automaquillaje.',
@@ -74,7 +79,7 @@ export function selectedProjects(language) {
   const index = { en: 0, es: 1, pt: 2 }[language];
   return selected.map(([slug, title, category, ...notes]) => ({
     slug, title, label: categories[category][index], note: notes[index],
-    className: 'project-' + category, thumbnail: media[slug][0].url,
+    className: 'project-' + (category === 'social' ? 'brand' : category), thumbnail: media[slug][0].url,
     href: './case-study.html?project=' + slug, gallery: media[slug],
   }));
 }
