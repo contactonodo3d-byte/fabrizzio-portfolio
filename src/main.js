@@ -20,7 +20,12 @@ function merge(base, override) {
 }
 const copy = merge(englishCopy, translated.copy);
 const projects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)];
-const heroCovers = merge(englishCovers, translated.heroCovers);
+const heroCovers = ['casa-albirroja','gio-mobili','adm-human-rights-report','acuo-redes','black-sail','bad-liar','indufar-2026','kamelio'].map((slug, index) => {
+  const project = projects.find(p => p.slug === slug);
+  return {id: String(index + 1).padStart(2, '0'), title: project.title, story: project.title,
+    category: project.label, thumbnail: slug === 'gio-mobili' ? '/images/selected/gio-mobili/2.webp' : project.thumbnail,
+    href: project.href, theme: ['cover-yellow','cover-blue','cover-orange','cover-pink','cover-black','cover-purple','cover-blue','cover-yellow'][index]};
+});
 const serviceOptions = merge(englishServices, translated.services);
 const englishUi = { select: 'Select', coverInstructions: 'Project covers. Use the arrow keys, mouse wheel, or drag to browse.', portfolioSlot: 'PORTFOLIO SLOT', illustrative: 'Illustrative composition for a future', service: 'SERVICE', inquire: 'Inquire about', notFound: 'PAGE NOT FOUND', notFoundTitle: 'Nothing here<br/><em>yet.</em>', backHome: 'Back home ↗', emailSetup: 'The contact address has not been configured yet. Please add it in src/content.js before launch.', emailPrepared: 'Your email app should open with a prepared message. Please send it there to complete your inquiry.', contactPage: 'Go to contact page', previousCover: 'Previous cover', nextCover: 'Next cover', openMenu: 'Open menu', closeMenu: 'Close menu' };
 const ui = { ...englishUi, ...translated.ui };
@@ -57,22 +62,22 @@ function header() {
     <a class="wordmark" href="./" aria-label="Fabrizzio Ruiz home">FABRIZZIO<span class="wordmark-dot">.</span></a>
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="/work/" ${route === '/work/' ? 'aria-current="page"' : ''}>${copy.navigation.work}</a>
-      <a href="./services.html" ${route === '/services.html' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a>
-      <a href="./lab.html" ${route === '/lab.html' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
-      <a href="./about.html" ${route === '/about.html' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a>
+      <a href="/services/" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a>
+      <a href="/lab/" ${route === '/lab/' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
+      <a href="/about/" ${route === '/about/' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a>
     </nav>
     <div class="header-tools">${languageSwitch()}
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="${ui.openMenu}"><span></span><span></span></button>
     </div>
-    <a class="header-cta" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
+    <a class="header-cta" href="/contact/">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
   </div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="/work/">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./contact.html">${copy.navigation.startProject}</a>
+    <a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.startProject}</a>
   </nav></header>`;
 }
 
 function footer() {
-  return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2></div><a class="round-arrow" href="./contact.html" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
-  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./about.html">${copy.navigation.about}</a><a href="./contact.html">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
+  return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2></div><a class="round-arrow" href="/contact/" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
+  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
 const imageDimensions = (src) => src?.includes('/skylinq.')
@@ -121,15 +126,19 @@ function home() {
   return `<main>
     <section class="hero container"><div class="hero-top"><div class="hero-identity"><span class="eyebrow status"><span class="status-dot"></span> ${copy.home.role}</span><span class="eyebrow hero-location">${copy.home.location}</span></div></div>
       <div class="hero-main"><div class="hero-copy"><h1>${display(copy.home.hero)}</h1>
-      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="/work/">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="./contact.html">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
+      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="/work/">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="/contact/">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
-      <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}</span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>${icon('arrow')}</span></span></div>
+      <div class="hero-showcase"><div class="showcase-grid">
+        <a class="showcase-tile showcase-one" href="/work/?disciplina=marca"><img class="showcase-background" src="/images/selected/black-sail/1.webp" alt=""><span>${copy.home.showcase.bigWords.join('<br/>')}</span></a>
+        <a class="showcase-tile showcase-two" href="/work/?disciplina=web"><img class="showcase-background" src="/images/work/skylinq.webp" alt=""><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></a>
+        <a class="showcase-tile showcase-three" href="/work/?disciplina=stands"><img class="showcase-background" src="/images/selected/casa-albirroja/expo-nocturna.webp" alt=""><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></a>
+      </div></div>
     </section>
     ${boothShowcase()}
-    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="/work/">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['gio-mobili', 'casa-albirroja', 'recellebrate', 'skylinq'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
-    <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="./services.html#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
-    <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="./about.html">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
-    <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="./lab.html">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
+    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="/work/">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['casa-albirroja','gio-mobili','adm-human-rights-report','acuo-redes'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
+    <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="/services/#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
+    <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="/about/">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
+    <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="/lab/">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
   </main>`;
 }
 
@@ -149,7 +158,7 @@ function caseStudy() {
   document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.label} by Fabrizzio Ruiz. ${project.note}`);
   const canonical = document.createElement('link');
   canonical.rel = 'canonical';
-  canonical.href = `https://fabrizzioruiz.com/case-study.html?project=${encodeURIComponent(project.slug)}`;
+  canonical.href = `https://fabrizzioruiz.com/projects/?project=${encodeURIComponent(project.slug)}`;
   document.head.append(canonical);
   const description = document.querySelector('meta[name="description"]').content;
   for (const [attribute, name, content] of [
@@ -184,21 +193,32 @@ function caseStudy() {
   </main>`;
 }
 
-function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div><a class="round-arrow small" href="./contact.html" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="./contact.html">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
+function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div><a class="round-arrow small" href="/contact/" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="/contact/">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
 
-function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><div class="portrait-placeholder" role="img" aria-label="Portrait placeholder"><span>FR.</span><small>${copy.about.portraitPlaceholder}</small></div><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><a class="text-link" href="./contact.html">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
+function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait"><img src="/images/fabrizzio-x.webp" width="400" height="400" alt="Fabrizzio Ruiz"><figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><a class="text-link" href="/contact/">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
 
 function lab() {
-  const entries = labEntries.length
-    ? `<div class="lab-entry-grid">${labEntries.map(({ category, title, summary, date, url }) => `<a class="lab-entry" href="${url}"><span class="eyebrow">${category} · ${date}</span><h3>${title}</h3><p>${summary}</p><span class="lab-entry-arrow" aria-hidden="true">${icon('arrow')}</span></a>`).join('')}</div>`
-    : `<div class="lab-empty"><div><div class="eyebrow">${copy.lab.emptyKicker}</div><h3>${copy.lab.emptyTitle}</h3><p>${copy.lab.emptyBody}</p></div></div>`;
-
-  return `<main class="lab-page">
-    <section class="container lab-hero"><div class="eyebrow">${copy.lab.kicker}</div><h1>${display(copy.lab.title)}</h1><div class="lab-hero-bottom"><p>${copy.lab.intro}</p></div></section>
-    <section class="lab-categories"><div class="container"><div class="eyebrow">${copy.lab.categoriesKicker}</div><div class="lab-category-grid">${copy.lab.categories.map(({ number, title, body }) => `<article><span>${number}</span><h2>${title}</h2><p>${body}</p></article>`).join('')}</div></div></section>
-    <section class="container lab-listing">${sectionIntro(copy.lab.latestKicker, display(copy.lab.latestTitle))}${entries}</section>
-    <section class="container lab-now"><div class="eyebrow">${copy.lab.exploringKicker}</div><div class="lab-now-items">${copy.lab.exploring.map((topic) => `<span>${topic}</span>`).join('')}</div><p>${copy.lab.exploringNote}</p></section>
-  </main>`;
+  const texts = {
+    es: ['Juegos, AR y experimentos', 'Proyectos que estoy desarrollando y explorando.', 'En proceso', 'Abrir proyecto'],
+    en: ['Games, AR and experiments', 'Projects I am developing and exploring.', 'In progress', 'Open project'],
+    pt: ['Jogos, AR e experimentos', 'Projetos que estou desenvolvendo e explorando.', 'Em desenvolvimento', 'Abrir projeto'],
+  }[language];
+  const entries = [
+    ['Stickman Bowman', 'Juego de arquería en el navegador.', 'https://contactonodo3d-byte.github.io/Stickman-Bowman---Classic/', true],
+    ['Hordes', 'Arena de hordas con facciones, reclutamiento y batallas.', 'https://contactonodo3d-byte.github.io/hordes-io/', true],
+    ['Foody AR Farm', 'Juego de granja en realidad aumentada.', '/lab/foody-ar-game/'],
+    ['Gestecner · 3D / AR', 'Visor interactivo de un stand con realidad aumentada.', '/expo/gestecner/'],
+    ['Foody · Exhibidor AR', 'Exhibidor de producto para explorar en 3D y AR.', '/3d/foody-exhibidor/'],
+    ['Honor X7d · Drop Challenge', 'Experiencia interactiva de marca.', 'https://contactonodo3d-byte.github.io/honor-x7d-drop-challenge/'],
+    ['Open Devil', 'Simulador de una IA fuera de control, inspirado en Plague Inc.', 'https://contactonodo3d-byte.github.io/open-devil/'],
+    ['NODO3D', 'Proyecto de visualización 3D y AR.', 'https://github.com/contactonodo3d-byte/NODO3D'],
+    ['Vista Digital V2', 'Concepto web para explorar y revisar.', 'https://github.com/contactonodo3d-byte/vista-digital-v2-preview'],
+  ];
+  const summaries = {
+    en: ['Browser archery game.','Horde arena with factions, recruitment and battles.','An augmented-reality farming game.','Interactive exhibition stand viewer with augmented reality.','A product display to explore in 3D and AR.','An interactive brand experience.','A rogue-AI simulator inspired by Plague Inc.','A 3D and AR visualization project.','A website concept for exploration and feedback.'],
+    pt: ['Jogo de arco e flecha no navegador.','Arena de hordas com facções, recrutamento e batalhas.','Um jogo de fazenda em realidade aumentada.','Visualizador interativo de estande com realidade aumentada.','Expositor de produto para explorar em 3D e AR.','Uma experiência interativa de marca.','Simulador de uma IA fora de controle, inspirado em Plague Inc.','Um projeto de visualização 3D e AR.','Conceito de site para explorar e avaliar.'],
+  };
+  return `<main class="lab-projects container"><header><h1>Lab</h1><h2>${texts[0]}</h2><p>${texts[1]}</p></header><div class="lab-entry-grid">${entries.map(([title,summary,url,wip], index) => `<article class="lab-entry"><h3>${title}</h3>${wip ? `<p class="lab-status">${texts[2]}</p>` : ''}<p>${summaries[language]?.[index] || summary}</p><a class="text-link" href="${url}">${texts[3]} ↗</a></article>`).join('')}</div></main>`;
 }
 
 function contact() {
@@ -224,7 +244,7 @@ function contact() {
   </main>`;
 }
 
-const pages = { '/': home, '/index.html': home, '/work/': work, '/case-study.html': caseStudy, '/services.html': services, '/lab.html': lab, '/about.html': about, '/contact.html': contact };
+const pages = { '/': home, '/index.html': home, '/work/': work, '/projects/': caseStudy, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact };
 const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="./">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`);
 app.innerHTML = header() + render() + footer();
 const mainContent = app.querySelector('main');

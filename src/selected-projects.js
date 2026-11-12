@@ -84,7 +84,7 @@ export function selectedProjects(language) {
   return selected.map(([slug, title, category, ...notes]) => ({
     slug, title, label: language === 'es' && ['indufar-2026','casa-albirroja'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
     className: 'project-' + (category === 'social' ? 'brand' : category), thumbnail: media[slug][0].url,
-    href: './case-study.html?project=' + slug, gallery: media[slug],
+    href: '/projects/?project=' + slug, gallery: media[slug],
   }));
 }
 
