@@ -30,3 +30,28 @@
 
 .selected-gallery .long-web-design { grid-column: 1 / -1; }
 .selected-gallery .long-web-design img { max-height: none; }
+
+.work-directory { padding-block: clamp(24px, 3vw, 48px) clamp(64px, 8vw, 120px); }
+.directory-views, .directory-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.directory-views { align-items: baseline; border-bottom: 1px solid var(--line); gap: 20px; margin-bottom: 18px; }
+.directory-views h1 { margin: 0; padding-bottom: 10px; border-bottom: 3px solid #3a2099; font-size: clamp(36px, 4vw, 64px); letter-spacing: -.065em; line-height: 1.1; }
+.directory-views a { color: #3a2099; padding-block: 10px; font-size: clamp(19px, 2vw, 30px); letter-spacing: -.04em; font-weight: 650; }
+.directory-views a:hover { text-decoration: underline; }
+.directory-filters a { padding: 9px 14px; border-radius: 30px; border: 1px solid var(--line); font-size: 14px; font-weight: 600; }
+.directory-filters a[aria-current], .directory-filters a:hover { color: white; background: #3a2099; border-color: #3a2099; }
+.directory-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(32px,5vw,72px) 24px; margin-top: 28px; }
+.directory-card { min-width: 0; display: flex; flex-direction: column; scroll-margin-block-start: 16px; }
+.directory-meta { margin-bottom: 12px; }
+.directory-meta span { color: var(--muted); font-size: 13px; }
+.directory-meta h2, .motion-collection h2 { margin: 4px 0 0; font-size: clamp(23px,2.3vw,38px); line-height: 1.08; letter-spacing: -.045em; }
+.directory-cover { position: relative; aspect-ratio: 16/10; margin-top: auto; overflow: hidden; background: #e2dce0; }
+.directory-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.directory-cover.full-frame img { object-fit: contain; }
+.directory-card:hover h2 { color: #3a2099; }
+.work-directory a:focus-visible { outline: 3px solid #3a2099; outline-offset: 3px; }
+.directory-wordmark { display: grid; place-items: center; height: 100%; font-weight: 800; font-size: clamp(32px,5vw,76px); letter-spacing: -.06em; }
+.play-symbol { position: absolute; bottom: 12px; right: 12px; display: grid; place-items: center; width: 42px; height: 42px; background: #fff; color: #141414; border-radius: 50%; }
+.motion-collection { margin-top: 24px; }
+.motion-collection > a { text-decoration: underline; }
+.motion-collection h2 { margin: 24px 0 16px; }
+@media(max-width:700px){ .directory-grid { grid-template-columns: 1fr; } .directory-filters a { padding: 7px 12px; } }

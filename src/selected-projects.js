@@ -78,7 +78,7 @@ const selected = [
 export function selectedProjects(language) {
   const index = { en: 0, es: 1, pt: 2 }[language];
   return selected.map(([slug, title, category, ...notes]) => ({
-    slug, title, label: categories[category][index], note: notes[index],
+    slug, title, label: language === 'es' && ['indufar-2026','casa-albirroja'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
     className: 'project-' + (category === 'social' ? 'brand' : category), thumbnail: media[slug][0].url,
     href: './case-study.html?project=' + slug, gallery: media[slug],
   }));
@@ -106,17 +106,20 @@ export function caseGallery(project) {
   }).join('');
 }
 
-export function motionSection() {
+export function motionSection(language) {
   const collections = [
-    ['Indufar Run', media['indufar-2026']],
-    ['ACUO', [...media['acuo-outro'], ...media.acuo, ...media['acuo-redes']]],
-    ['Alien · Pixel art', media.alien],
-    ['Bar de Cejas', media['bar-de-cejas']],
+    { id: 'indufar-run', title: 'Indufar Run', clips: media['indufar-2026'].filter(item => item.video) },
+    { id: 'acuo', title: 'ACUO', clips: [...media.acuo, ...media['acuo-outro'], ...media['acuo-redes'].filter(item => item.video)] },
+    { id: 'alien', title: 'Alien · Pixel art', clips: media.alien },
+    { id: 'bar-de-cejas', title: 'Bar de Cejas', clips: media['bar-de-cejas'] },
   ];
-  const galleries = collections.map(([title, items]) => {
-    const clips = items.filter(item => item.video);
-    const figures = clips.map(item => mediaFigure(item, title)).join('');
-    return `<section class="campaign-gallery"><h3>${title}</h3><div class="selected-gallery">${figures}</div></section>`;
-  }).join('');
-  return `<section id="motion" class="motion-section" aria-labelledby="motion-heading"><h2 id="motion-heading">Motion graphics</h2>${galleries}</section>`;
+  const id = new URLSearchParams(location.search).get('coleccion');
+  const selected = collections.find(group => group.id === id);
+  if (selected) {
+    const back = {en:'All collections', es:'Todas las colecciones', pt:'Todas as coleções'}[language];
+    const figures = selected.clips.map(item => mediaFigure({...item, label: item.label + ' · ' + item.duration}, selected.title)).join('');
+    return `<section class="motion-collection"><a href="/work/#motion">← ${back}</a><h2>${selected.title}</h2><div class="selected-gallery">${figures}</div></section>`;
+  }
+  return `<div class="directory-grid motion-index">${collections.map(({id,title,clips}) =>
+    `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover"><img src="${clips[0].url}" alt=""><span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
 }

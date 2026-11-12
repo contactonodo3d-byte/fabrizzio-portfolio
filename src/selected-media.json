@@ -606,7 +606,8 @@
       "width": 960,
       "height": 532,
       "label": "Recorrido 3D",
-      "video": "/images/selected/bar-de-cejas/bar-de-cejas.mp4"
+      "video": "/images/selected/bar-de-cejas/bar-de-cejas.mp4",
+      "duration": "0:25"
     }
   ],
   "acuo": [
@@ -615,7 +616,8 @@
       "width": 540,
       "height": 960,
       "label": "Cosmic",
-      "video": "/images/selected/acuo/acuo.mp4"
+      "video": "/images/selected/acuo/acuo.mp4",
+      "duration": "0:30"
     }
   ],
   "acuo-outro": [
@@ -624,7 +626,8 @@
       "width": 540,
       "height": 960,
       "label": "ACUO · Outro",
-      "video": "/images/selected/acuo-outro/acuo-outro.mp4"
+      "video": "/images/selected/acuo-outro/acuo-outro.mp4",
+      "duration": "0:07"
     }
   ],
   "alien": [
@@ -633,7 +636,8 @@
       "width": 960,
       "height": 960,
       "label": "Alien · Pixel art",
-      "video": "/images/selected/alien/alien.mp4"
+      "video": "/images/selected/alien/alien.mp4",
+      "duration": "0:06"
     }
   ],
   "indufar-2026": [
@@ -650,7 +654,8 @@
       "label": "Reel 1",
       "video": "/images/selected/indufar-2026/010.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:15"
     },
     {
       "url": "/images/selected/indufar-2026/011.webp",
@@ -658,7 +663,8 @@
       "label": "Reel 2",
       "video": "/images/selected/indufar-2026/011.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:15"
     },
     {
       "url": "/images/selected/indufar-2026/012.webp",
@@ -666,7 +672,8 @@
       "label": "Pantalla de escenario",
       "video": "/images/selected/indufar-2026/012.mp4",
       "width": 480,
-      "height": 960
+      "height": 960,
+      "duration": "0:29"
     },
     {
       "url": "/images/selected/indufar-2026/013.webp",
@@ -674,7 +681,8 @@
       "label": "E-póster",
       "video": "/images/selected/indufar-2026/013.mp4",
       "width": 360,
-      "height": 960
+      "height": 960,
+      "duration": "0:12"
     },
     {
       "url": "/images/selected/indufar-2026/014.webp",
@@ -964,7 +972,8 @@
       "label": "ACUO How to apply 1",
       "video": "/images/selected/acuo-redes/110.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:59"
     },
     {
       "url": "/images/selected/acuo-redes/111.webp",
@@ -986,7 +995,8 @@
       "label": "Winner Announcement Giveaway 2",
       "video": "/images/selected/acuo-redes/118.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "1:29"
     },
     {
       "url": "/images/selected/acuo-redes/120.webp",
@@ -994,7 +1004,8 @@
       "label": "Reel 2 ACUO Interview Bryant",
       "video": "/images/selected/acuo-redes/120.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/122.webp",
@@ -1002,7 +1013,8 @@
       "label": "Reel 4 ACUO Interview Bryant",
       "video": "/images/selected/acuo-redes/122.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/124.webp",
@@ -1017,7 +1029,8 @@
       "label": "Skylar The Foundry Reel 1",
       "video": "/images/selected/acuo-redes/125.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/126.webp",
@@ -1025,7 +1038,8 @@
       "label": "Skylar The Foundry Reel 2",
       "video": "/images/selected/acuo-redes/126.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/129.webp",
@@ -1033,7 +1047,8 @@
       "label": "Skylar The Foundry Reel 5",
       "video": "/images/selected/acuo-redes/129.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:26"
     },
     {
       "url": "/images/selected/acuo-redes/131.webp",
@@ -1041,7 +1056,8 @@
       "label": "Reel 1 interview BB",
       "video": "/images/selected/acuo-redes/131.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/132.webp",
@@ -1049,7 +1065,8 @@
       "label": "Reel 2 interview BB",
       "video": "/images/selected/acuo-redes/132.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/133.webp",
@@ -1057,7 +1074,8 @@
       "label": "Reel 3-interview BB",
       "video": "/images/selected/acuo-redes/133.mp4",
       "width": 540,
-      "height": 960
+      "height": 960,
+      "duration": "0:30"
     },
     {
       "url": "/images/selected/acuo-redes/139.webp",

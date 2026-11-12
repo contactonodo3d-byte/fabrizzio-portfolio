@@ -1,4 +1,5 @@
-import { selectedProjects, caseGallery, motionSection } from './selected-projects.js';
+import { workBrowser, returnToProject } from './work-browser.js';
+import { selectedProjects, caseGallery } from './selected-projects.js';
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
 
@@ -71,7 +72,7 @@ function header() {
 
 function footer() {
   return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2></div><a class="round-arrow" href="./contact.html" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
-  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./about.html">${copy.navigation.about}</a><a href="./contact.html">${copy.navigation.contact}</a><a href="/expo/">Exhibition &amp; 3D</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
+  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="./services.html">${copy.navigation.services}</a><a href="./lab.html">${copy.navigation.lab}</a><a href="./about.html">${copy.navigation.about}</a><a href="./contact.html">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
 const imageDimensions = (src) => src?.includes('/skylinq.')
@@ -132,7 +133,7 @@ function home() {
   </main>`;
 }
 
-function work() { const filters = copy.work.filters; return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.work.kicker}</div><h1>${display(copy.work.title)}</h1><p>${copy.work.intro}</p><a class="text-link" href="/work/#motion">Motion graphics ↓</a></div><div class="work-filters" role="group" aria-label="Filter projects">${[['all', filters.all], ['digital', filters.digital], ['brand', filters.brand], ['spatial', filters.spatial], ['presentations', filters.presentations]].map(([key, label], index) => `<button type="button" data-project-filter="${key}" aria-pressed="${index === 0}">${label}</button>`).join('')}</div><div class="project-grid work-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div>${motionSection()}<div class="work-guidance"><div class="eyebrow">${copy.work.guidanceTitle}</div><p>${copy.work.guidanceBody}</p></div></main>`; }
+function work() { return workBrowser(projects, language); }
 
 function caseStudy() {
   const project = projects.find(({ slug }) => slug === new URLSearchParams(location.search).get('project'));
@@ -165,16 +166,17 @@ function caseStudy() {
     meta.content = content;
     document.head.append(meta);
   }
+  const backLabel = {en:'Back to projects', es:'Volver a proyectos', pt:'Voltar aos projetos'}[language];
   if (project.gallery) {
     return `<main class="case-page container">
-      <a class="case-back text-link" href="/work/">${copy.navigation.work} ${icon('arrow')}</a>
+      <a class="case-back text-link" href="${returnToProject(project.slug)}">← ${backLabel}</a>
       <header class="case-intro"><div class="eyebrow">${project.label}</div><h1>${project.title}</h1><p>${project.note}</p></header>
       ${caseGallery(project)}
     </main>`;
   }
   const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);
   return `<main class="case-page container">
-    <a class="case-back text-link" href="/work/">${copy.navigation.work} <span>${icon('arrow')}</span></a>
+    <a class="case-back text-link" href="${returnToProject(project.slug)}">← ${backLabel}</a>
     <header class="case-intro"><div class="eyebrow">${project.label} · ${project.role}</div><h1>${project.title}</h1><p>${project.overview}</p></header>
     ${project.thumbnail ? `<figure class="case-image"><img src="${project.thumbnail}" ${imageDimensions(project.thumbnail)} alt="${project.title} design work" /><figcaption>${project.source}</figcaption></figure>` : ''}
     <div class="case-details"><section><div class="eyebrow">Overview</div><p>${project.overview}</p></section><section><div class="eyebrow">Deliverables</div><ul>${project.deliverables.map((item) => `<li>${item}</li>`).join('')}</ul></section><section><div class="eyebrow">Project source</div><p>Selected work from ${project.source}.</p>${project.externalUrl ? `<a class="text-link" href="${project.externalUrl}" target="_blank" rel="noreferrer">${project.slug === 'skylinq' || project.slug === 'law-group' || project.slug === 'vista-digital' ? 'Visit website' : 'View profile'} <span>${icon('arrow')}</span></a>` : ''}</section></div>
@@ -231,8 +233,13 @@ if (mainContent) {
   mainContent.tabIndex = -1;
   const skip = document.createElement('a');
   skip.className = 'skip-link';
-  skip.href = '#main-content';
+  skip.href = location.pathname + location.search + '#main-content';
   skip.textContent = ({ en: 'Skip to content', es: 'Ir al contenido', pt: 'Ir para o conteúdo' })[language];
+  skip.addEventListener('click', event => {
+    event.preventDefault();
+    mainContent.focus();
+    mainContent.scrollIntoView();
+  });
   app.prepend(skip);
 }
 
@@ -250,14 +257,17 @@ document.querySelectorAll('[data-language]').forEach((button) => button.addEvent
   location.reload();
 }));
 
-document.querySelectorAll('[data-project-filter]').forEach((button) => button.addEventListener('click', () => {
-  const filter = button.dataset.projectFilter;
-  document.querySelectorAll('[data-project-filter]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-  document.querySelectorAll('.work-grid .project-card').forEach((card) => {
-    card.hidden = filter !== 'all' && card.dataset.projectCategory !== filter;
+if (route === '/work/') {
+  const initialMotion = location.hash === '#motion';
+  window.addEventListener('hashchange', () => {
+    if ((location.hash === '#motion') !== initialMotion) location.reload();
   });
-}));
-
+  if (location.hash.startsWith('#proyecto-')) {
+    const card = document.getElementById(location.hash.slice(1));
+    card?.focus({ preventScroll: true });
+    card?.scrollIntoView({ behavior: 'instant', block: 'start' });
+  }
+}
 function setupHeroAlbum() {
   const album = document.querySelector('.hero-album');
   if (!album) return;
