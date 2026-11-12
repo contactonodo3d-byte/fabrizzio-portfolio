@@ -455,7 +455,7 @@ function setupHeroAlbum() {
     let change = 0;
     if (Math.abs(movement) > 25) {
       const steps = Math.min(3, Math.max(1, Math.round(Math.abs(movement) / 110)));
-      change = (movement < 0 ? 1 : -1) * steps;
+      change = (axis === 'y' ? Math.sign(movement) : -Math.sign(movement)) * steps;
     }
     settleDrag(change);
   });
