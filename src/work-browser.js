@@ -11,7 +11,7 @@ const disciplines = {
 };
 
 const assignments = {
-  marca: ['gio-mobili', 'black-sail', 'vegas-valley', 'client-logos', 'protein-bar'],
+  marca: ['kamelio', 'gio-mobili', 'black-sail', 'vegas-valley', 'client-logos', 'protein-bar'],
   redes: ['acuo-redes', 'mosconi', 'recellebrate', 'pam-paiva', 'protein-bar', 'social-media-assets', 'acuo'],
   web: ['bad-liar', 'skylinq', 'law-group', 'vista-digital', 'acuo'],
   stands: ['casa-albirroja', 'indufar-2026'],
@@ -43,7 +43,7 @@ export function workBrowser(projects, language) {
   const ordered = [...featured.map(slug => projects.find(p => p.slug === slug)), ...projects.filter(p => !featured.includes(p.slug))];
   const visible = ordered.filter(p => key === 'todo' || assignments[key].includes(p.slug));
   const filters = Object.entries(disciplines).map(([id, names]) =>
-    `<a href="${workUrl(id)}" ${id === key ? 'aria-current="page"' : ''}>${names[index]}</a>`).join('');
+    `<a href="${workUrl(id)}" ${!motion && id === key ? 'aria-current="page"' : ''}>${names[index]}</a>`).join('');
   const cards = visible.map((p, i) => {
     const names = Object.keys(assignments).filter(id => assignments[id].includes(p.slug)).map(id => disciplines[id][index]);
     const href = p.href + (key === 'todo' ? '' : '&amp;disciplina=' + key);
@@ -55,7 +55,7 @@ export function workBrowser(projects, language) {
       <div class="directory-meta"><span>${names.join(' · ')}</span><h2>${p.title}</h2></div>
       <div class="directory-cover ${fullFrame.has(p.slug) ? 'full-frame' : ''}">${visual}</div></a>`;
   }).join('');
-  return `<main class="work-directory container"><nav class="directory-views" aria-label="Portfolio">
-    ${motion ? `<a href="${workUrl(key)}">${title}</a><h1>Motion graphics</h1>` : `<h1>${title}</h1><a href="/work/#motion">Motion</a>`}</nav>
-    ${motion ? motionSection(language) : `<nav class="directory-filters" aria-label="${['Disciplines','Disciplinas','Disciplinas'][index]}">${filters}</nav><div class="directory-grid">${cards}</div>`}</main>`;
+  return `<main class="work-directory container"><div class="directory-views"><h1>${title}</h1></div>
+    <nav class="directory-filters" aria-label="${['Disciplines','Disciplinas','Disciplinas'][index]}">${filters}<a href="/work/#motion" ${motion ? 'aria-current="page"' : ''}>Motion</a></nav>
+    ${motion ? motionSection(language) : `<div class="directory-grid">${cards}</div>`}</main>`;
 }

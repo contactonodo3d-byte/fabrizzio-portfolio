@@ -9,6 +9,10 @@ const categories = {
 };
 
 const selected = [
+  ['kamelio', 'Kamelio', 'brand',
+    'Chameleon identity with concept mockups for vehicle graphics and stationery.',
+    'Identidad del camaleón con mockups conceptuales de vehículo y papelería.',
+    'Identidade do camaleão com mockups conceituais para veículo e papelaria.'],
   ['adm-human-rights-report', 'ADM · Human Rights Policy Implementation', 'presentations',
     'A 30-slide presentation of ADM’s 2022 human rights report, with supply-chain maps, performance indicators and community programs.',
     'Presentación de 30 diapositivas del informe de derechos humanos de ADM de 2022, con mapas, indicadores y programas comunitarios.',
