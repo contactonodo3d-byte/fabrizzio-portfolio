@@ -73,5 +73,8 @@
 @media(min-width:1000px){ .desktop-nav{gap:22px} }
 
 .showcase-one > span,
-.showcase-three > span:first-of-type { opacity: .58; }
-.showcase-two .outline-circle { opacity: .48; }
+.showcase-three > span:first-of-type,
+.showcase-two .outline-circle { transition: opacity .2s; }
+.showcase-one:is(:hover, :focus-visible) > span,
+.showcase-three:is(:hover, :focus-visible) > span:first-of-type { opacity: .58; }
+.showcase-two:is(:hover, :focus-visible) .outline-circle { opacity: .48; }
