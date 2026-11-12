@@ -27,3 +27,6 @@
 
 .campaign-gallery + .campaign-gallery { margin-top: clamp(48px, 7vw, 100px); }
 .campaign-gallery h2 { font-size: clamp(28px, 4vw, 54px); letter-spacing: -.04em; }
+
+.selected-gallery .long-web-design { grid-column: 1 / -1; }
+.selected-gallery .long-web-design img { max-height: none; }

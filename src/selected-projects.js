@@ -57,9 +57,9 @@ const selected = [
     'Presentación para una agencia de agromarketing, desde la portada hasta la infografía de servicios.',
     'Apresentação para uma agência de agromarketing, da capa ao infográfico de serviços.'],
   ['bad-liar', 'Bad Liar', 'digital',
-    'Website concept for Bad Liar, pairing its opening artwork with the original page wireframe.',
-    'Concepto web de Bad Liar, con la imagen de apertura y el esquema original de la página.',
-    'Conceito web para Bad Liar, com a imagem de abertura e o wireframe original da página.'],
+    'The full Bad Liar website design, from the opening artwork to the cocktail recipes, contact form and footer.',
+    'Diseño web de Bad Liar, desde la portada hasta las recetas de cócteles, el formulario de contacto y el pie de página.',
+    'Design do site da Bad Liar, da abertura às receitas de coquetéis, ao formulário de contato e ao rodapé.'],
   ['protein-bar', 'Protein Bar', 'brand',
     'Social posts for Protein Bar’s smoothies, cold-pressed juices and café, alongside its printed delivery piece.',
     'Piezas para redes sobre los smoothies, los jugos prensados en frío y el café de Protein Bar, junto a su gráfica de delivery.',
@@ -84,7 +84,7 @@ export function mediaFigure(item, title) {
   const visual = item.video
     ? `<video controls playsinline preload="none" poster="${item.url}" ${dimensions} aria-label="${title} · ${item.label}" src="${item.video}"></video>`
     : `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="lazy">`;
-  return `<figure>${item.expandable ? `<a href="${item.url}">${visual}</a>` : visual}<figcaption>${item.label}</figcaption></figure>`;
+  return `<figure${item.longPage ? ' class="long-web-design"' : ''}>${item.expandable ? `<a href="${item.url}">${visual}</a>` : visual}<figcaption>${item.label}</figcaption></figure>`;
 }
 
 export function caseGallery(project) {

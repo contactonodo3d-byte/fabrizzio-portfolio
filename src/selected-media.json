@@ -513,13 +513,26 @@
       "url": "/images/selected/bad-liar/1.webp",
       "width": 1345,
       "height": 807,
-      "label": "Bad Liar"
+      "label": "Bad Liar",
+      "group": "Proceso de diseño",
+      "expandable": true
     },
     {
       "url": "/images/selected/bad-liar/2.webp",
       "width": 410,
       "height": 1500,
-      "label": "Wireframe"
+      "label": "Wireframe",
+      "group": "Proceso de diseño",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/bad-liar/website-draft-1.webp",
+      "width": 1920,
+      "height": 7035,
+      "label": "Bad Liar · Website Design, Draft 1",
+      "group": "Diseño web completo",
+      "expandable": true,
+      "longPage": true
     }
   ],
   "protein-bar": [
