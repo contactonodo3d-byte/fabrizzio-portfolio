@@ -1,13 +1,12 @@
-/* Cool, soft blue-gray canvas that supports the existing high-contrast type
-   and vivid graphic accents without changing the site's visual structure. */
+/* Original portfolio palette, September 2026. */
 :root {
-  --bg: #e9eef6;
-  --surface: #f8faff;
+  --bg: #ece6e8;
+  --surface: #ffffff;
   --ink: #000000;
-  --muted: #505b6b;
-  --line: #c4cedd;
-  --magenta: #e60080;
-  --magenta-rgb: 230, 0, 128;
+  --muted: #5b5559;
+  --line: #c9bec3;
+  --magenta: #ff0084;
+  --magenta-rgb: 255, 0, 132;
   --accent: #ffdb01;
   color: var(--ink);
   background: var(--bg);
