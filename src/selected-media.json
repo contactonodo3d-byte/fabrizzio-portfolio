@@ -254,5 +254,436 @@
       "label": "Alien · Pixel art",
       "video": "/images/selected/alien/alien.mp4"
     }
+  ],
+  "indufar-2026": [
+    {
+      "url": "/images/selected/indufar-2026/001.webp",
+      "group": "Indufar Run",
+      "label": "Gráfica oficial",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/indufar-2026/010.webp",
+      "group": "Indufar Run",
+      "label": "Reel 1",
+      "video": "/images/selected/indufar-2026/010.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/indufar-2026/011.webp",
+      "group": "Indufar Run",
+      "label": "Reel 2",
+      "video": "/images/selected/indufar-2026/011.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/indufar-2026/012.webp",
+      "group": "Indufar Run",
+      "label": "Pantalla de escenario",
+      "video": "/images/selected/indufar-2026/012.mp4",
+      "width": 480,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/indufar-2026/013.webp",
+      "group": "Indufar Run",
+      "label": "E-póster",
+      "video": "/images/selected/indufar-2026/013.mp4",
+      "width": 360,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/indufar-2026/014.webp",
+      "group": "Indufar Run",
+      "label": "Stand interactivo",
+      "width": 1600,
+      "height": 1218
+    },
+    {
+      "url": "/images/selected/indufar-2026/015.webp",
+      "group": "Indufar Run",
+      "label": "Stand Indufar",
+      "width": 1600,
+      "height": 1045
+    },
+    {
+      "url": "/images/selected/indufar-2026/023.webp",
+      "group": "TG",
+      "label": "Stand TG",
+      "width": 1600,
+      "height": 809
+    },
+    {
+      "url": "/images/selected/indufar-2026/026.webp",
+      "group": "Mentovick",
+      "label": "Stand Mentovick",
+      "width": 1600,
+      "height": 970
+    },
+    {
+      "url": "/images/selected/indufar-2026/031.webp",
+      "group": "Banes Fem",
+      "label": "Gráfica horizontal",
+      "width": 1600,
+      "height": 575
+    },
+    {
+      "url": "/images/selected/indufar-2026/033.webp",
+      "group": "Banes Fem",
+      "label": "Banner vertical",
+      "width": 641,
+      "height": 1600
+    },
+    {
+      "url": "/images/selected/indufar-2026/035.webp",
+      "group": "Banes Fem",
+      "label": "Metegol",
+      "width": 1600,
+      "height": 1501
+    },
+    {
+      "url": "/images/selected/indufar-2026/041.webp",
+      "group": "El Delta",
+      "label": "Vista 1",
+      "width": 1125,
+      "height": 843
+    },
+    {
+      "url": "/images/selected/indufar-2026/042.webp",
+      "group": "El Delta",
+      "label": "Vista 2",
+      "width": 1125,
+      "height": 843
+    },
+    {
+      "url": "/images/selected/indufar-2026/044.webp",
+      "group": "Black Friday",
+      "label": "Stand · Vista 2",
+      "width": 1600,
+      "height": 814
+    },
+    {
+      "url": "/images/selected/indufar-2026/045.webp",
+      "group": "Black Friday",
+      "label": "Stand · Vista 3",
+      "width": 1600,
+      "height": 814
+    },
+    {
+      "url": "/images/selected/indufar-2026/046.webp",
+      "group": "Black Friday",
+      "label": "Stand · Vista 4",
+      "width": 1600,
+      "height": 814
+    },
+    {
+      "url": "/images/selected/indufar-2026/049.webp",
+      "group": "Black Friday",
+      "label": "Stand · Vista general",
+      "width": 1600,
+      "height": 814
+    },
+    {
+      "url": "/images/selected/indufar-2026/050.webp",
+      "group": "Vitamina C y Arsetonic · stand compartido",
+      "label": "Stand compartido",
+      "width": 1600,
+      "height": 993
+    }
+  ],
+  "acuo-redes": [
+    {
+      "url": "/images/selected/acuo-redes/052.webp",
+      "group": "2022 · Identidad de campaña",
+      "label": "Aquo KV 2022-02",
+      "width": 1081,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/054.webp",
+      "group": "2022 · Identidad de campaña",
+      "label": "Aquo KV 2022-04",
+      "width": 1080,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/055.webp",
+      "group": "2022 · Identidad de campaña",
+      "label": "Aquo KV 2022-05",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/056.webp",
+      "group": "2022 · Identidad de campaña",
+      "label": "Aquo KV 2022-06",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/059.webp",
+      "group": "2022 · Identidad de campaña",
+      "label": "Aquo KV 2022-09",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/061.webp",
+      "group": "2022 · Julio",
+      "label": "Acuo July 2022-02",
+      "width": 1081,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/064.webp",
+      "group": "2022 · Julio",
+      "label": "Content Coming",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/065.webp",
+      "group": "2022 · Julio",
+      "label": "Thank you all for your trust",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/068.webp",
+      "group": "2022 · Julio",
+      "label": "Acuo July 2022-06",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/069.webp",
+      "group": "2022 · Julio",
+      "label": "Acuo July 2022-07",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/072.webp",
+      "group": "2022 · Agosto",
+      "label": "Acuo August 2022-09",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/075.webp",
+      "group": "2022 · Agosto",
+      "label": "Acuo Aug 2022-12",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/076.webp",
+      "group": "2022 · Agosto",
+      "label": "Infographies Acuo-01",
+      "width": 612,
+      "height": 792
+    },
+    {
+      "url": "/images/selected/acuo-redes/080.webp",
+      "group": "2022 · Septiembre",
+      "label": "Acuo SEP 2022-15-15",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/082.webp",
+      "group": "2022 · Septiembre",
+      "label": "Acuo Sep 2022-13",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/084.webp",
+      "group": "2022 · Septiembre",
+      "label": "Fasting",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/085.webp",
+      "group": "2022 · Septiembre",
+      "label": "Supertan",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/087.webp",
+      "group": "2022 · Septiembre",
+      "label": "Cold Plunge",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/088.webp",
+      "group": "2022 · Septiembre",
+      "label": "Coaching Spots",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/089.webp",
+      "group": "2022 · Septiembre",
+      "label": "Full Coaching Spots",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/090.webp",
+      "group": "2022 · Septiembre",
+      "label": "Sleep tracking",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/091.webp",
+      "group": "2022 · Septiembre",
+      "label": "Cialis",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/094.webp",
+      "group": "2022 · Octubre",
+      "label": "Acuo ocT W1 2022-17",
+      "width": 1081,
+      "height": 1081
+    },
+    {
+      "url": "/images/selected/acuo-redes/096.webp",
+      "group": "2022 · Octubre",
+      "label": "Coffee Jetters",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/098.webp",
+      "group": "2023 · Enero",
+      "label": "Carnivore",
+      "width": 1012,
+      "height": 1800
+    },
+    {
+      "url": "/images/selected/acuo-redes/104.webp",
+      "group": "2023 · Enero",
+      "label": "brain",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/110.webp",
+      "group": "2023 · Cómo postular",
+      "label": "ACUO How to apply 1",
+      "video": "/images/selected/acuo-redes/110.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/111.webp",
+      "group": "2024 · Giveaway de octubre",
+      "label": "Giveaway",
+      "width": 1012,
+      "height": 1800
+    },
+    {
+      "url": "/images/selected/acuo-redes/113.webp",
+      "group": "2024 · Giveaway de octubre",
+      "label": "Winner Announcement",
+      "width": 1012,
+      "height": 1800
+    },
+    {
+      "url": "/images/selected/acuo-redes/118.webp",
+      "group": "2024 · Giveaway de octubre",
+      "label": "Winner Announcement Giveaway 2",
+      "video": "/images/selected/acuo-redes/118.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/120.webp",
+      "group": "2024 · Entrevista Bryant",
+      "label": "Reel 2 ACUO Interview Bryant",
+      "video": "/images/selected/acuo-redes/120.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/122.webp",
+      "group": "2024 · Entrevista Bryant",
+      "label": "Reel 4 ACUO Interview Bryant",
+      "video": "/images/selected/acuo-redes/122.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/124.webp",
+      "group": "2025 · Código promocional",
+      "label": "Code Update ACUO",
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "url": "/images/selected/acuo-redes/125.webp",
+      "group": "2025 · The Foundry",
+      "label": "Skylar The Foundry Reel 1",
+      "video": "/images/selected/acuo-redes/125.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/126.webp",
+      "group": "2025 · The Foundry",
+      "label": "Skylar The Foundry Reel 2",
+      "video": "/images/selected/acuo-redes/126.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/129.webp",
+      "group": "2025 · The Foundry",
+      "label": "Skylar The Foundry Reel 5",
+      "video": "/images/selected/acuo-redes/129.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/131.webp",
+      "group": "2025 · BB Interview",
+      "label": "Reel 1 interview BB",
+      "video": "/images/selected/acuo-redes/131.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/132.webp",
+      "group": "2025 · BB Interview",
+      "label": "Reel 2 interview BB",
+      "video": "/images/selected/acuo-redes/132.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/133.webp",
+      "group": "2025 · BB Interview",
+      "label": "Reel 3-interview BB",
+      "video": "/images/selected/acuo-redes/133.mp4",
+      "width": 540,
+      "height": 960
+    },
+    {
+      "url": "/images/selected/acuo-redes/139.webp",
+      "group": "Portada Semax and Selank",
+      "label": "Semax and Selank Thumbnail",
+      "width": 1600,
+      "height": 900
+    }
   ]
 }

@@ -24,3 +24,6 @@
 .selected-gallery figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; }
 .case-gallery figure:first-child { grid-column: 1 / -1; }
 @media (max-width: 700px) { .selected-gallery { grid-template-columns: 1fr; } }
+
+.campaign-gallery + .campaign-gallery { margin-top: clamp(48px, 7vw, 100px); }
+.campaign-gallery h2 { font-size: clamp(28px, 4vw, 54px); letter-spacing: -.04em; }

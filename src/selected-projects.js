@@ -7,6 +7,14 @@ const categories = {
 };
 
 const selected = [
+  ['indufar-2026', 'Indufar 2026', 'spatial',
+    'Race graphics, stage screens and exhibition stands for Indufar Run and the brand’s 2026 activations.',
+    'Gráfica de carrera, pantallas de escenario y stands de Indufar Run y las activaciones de la marca en 2026.',
+    'Peças de corrida, telas de palco e estandes da Indufar Run e das ativações da marca em 2026.'],
+  ['acuo-redes', 'ACUO · Social media', 'digital',
+    'Campaign artwork, infographics, interviews and reels from the ACUO social archive.',
+    'Gráficas de campaña, infografías, entrevistas y reels del archivo de redes de ACUO.',
+    'Artes de campanha, infográficos, entrevistas e reels do arquivo de redes sociais da ACUO.'],
   ['gio-mobili', 'Gio Mobili', 'brand',
     'The Gio Mobili identity across its showroom, entrance, brochure and product tags.',
     'La identidad de Gio Mobili en el showroom, la fachada, el folleto y las etiquetas de producto.',
@@ -76,6 +84,20 @@ export function mediaFigure(item, title) {
     ? `<video controls playsinline preload="none" poster="${item.url}" ${dimensions} aria-label="${title} · ${item.label}" src="${item.video}"></video>`
     : `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="lazy">`;
   return `<figure>${visual}<figcaption>${item.label}</figcaption></figure>`;
+}
+
+export function caseGallery(project) {
+  const groups = new Map();
+  for (const item of project.gallery) {
+    const key = item.group || '';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
+  }
+  return Array.from(groups, ([name, items]) => {
+    const figures = items.map(item => mediaFigure(item, project.title)).join('');
+    if (!name) return `<div class="selected-gallery case-gallery">${figures}</div>`;
+    return `<section class="campaign-gallery"><h2>${name}</h2><div class="selected-gallery">${figures}</div></section>`;
+  }).join('');
 }
 
 export function motionSection() {

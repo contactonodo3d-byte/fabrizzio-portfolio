@@ -1,4 +1,4 @@
-import { selectedProjects, mediaFigure, motionSection } from './selected-projects.js';
+import { selectedProjects, caseGallery, motionSection } from './selected-projects.js';
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
 
@@ -169,7 +169,7 @@ function caseStudy() {
     return `<main class="case-page container">
       <a class="case-back text-link" href="./work.html">${copy.navigation.work} ${icon('arrow')}</a>
       <header class="case-intro"><div class="eyebrow">${project.label}</div><h1>${project.title}</h1><p>${project.note}</p></header>
-      <div class="selected-gallery case-gallery">${project.gallery.map(item => mediaFigure(item, project.title)).join('')}</div>
+      ${caseGallery(project)}
     </main>`;
   }
   const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);
