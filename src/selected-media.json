@@ -111,20 +111,6 @@
       "label": "Identidad visual"
     }
   ],
-  "mosconi": [
-    {
-      "url": "/images/selected/mosconi/1.webp",
-      "width": 1012,
-      "height": 1800,
-      "label": "Tragos tradicionales"
-    },
-    {
-      "url": "/images/selected/mosconi/2.webp",
-      "width": 1012,
-      "height": 1800,
-      "label": "Tragos tradicionales"
-    }
-  ],
   "pam-paiva": [
     {
       "url": "/images/selected/pam-paiva/1.webp",
@@ -213,10 +199,67 @@
   ],
   "protein-bar": [
     {
+      "url": "/images/selected/protein-bar/padel.webp",
+      "width": 1080,
+      "height": 1080,
+      "label": "Un licuado después del pádel",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/jugos.webp",
+      "width": 1081,
+      "height": 1351,
+      "label": "Jugos prensados en frío",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/venice-beach.webp",
+      "width": 1080,
+      "height": 1080,
+      "label": "Venice Beach",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/green-machine.webp",
+      "width": 1081,
+      "height": 1081,
+      "label": "Green Machine",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/smoothies.webp",
+      "width": 1080,
+      "height": 1080,
+      "label": "Smoothies MVMT",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/post-entreno.webp",
+      "width": 1080,
+      "height": 1080,
+      "label": "Recordatorio postentreno",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/escalada.webp",
+      "width": 1080,
+      "height": 1080,
+      "label": "Escalada y recuperación",
+      "group": "Redes sociales"
+    },
+    {
+      "url": "/images/selected/protein-bar/horarios.webp",
+      "width": 1081,
+      "height": 1921,
+      "label": "Horarios de atención",
+      "group": "Redes sociales"
+    },
+    {
       "url": "/images/selected/protein-bar/1.webp",
       "width": 900,
       "height": 1500,
-      "label": "Delivery directo"
+      "label": "Delivery directo",
+      "group": "Delivery"
     }
   ],
   "bar-de-cejas": [
