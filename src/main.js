@@ -1,3 +1,5 @@
+import { contact as expoContact } from './expo-contact.js';
+import { applyContactIcons } from './contact-icons.js';
 import { workBrowser, returnToProject } from './work-browser.js';
 import { selectedProjects, caseGallery } from './selected-projects.js';
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
@@ -75,8 +77,19 @@ function header() {
   </nav></header>`;
 }
 
+function whatsappButton() {
+  const messages = {
+    es: 'Hola Fabrizzio, vi tu portfolio y quiero conversar sobre un proyecto.',
+    en: 'Hi Fabrizzio, I saw your portfolio and would like to discuss a project.',
+    pt: 'Olá Fabrizzio, vi seu portfólio e gostaria de conversar sobre um projeto.',
+  };
+  const labels = { es: 'Escribime por WhatsApp', en: 'Message me on WhatsApp', pt: 'Fale comigo pelo WhatsApp' };
+  const href = 'https://wa.me/' + expoContact.whatsapp + '?text=' + encodeURIComponent(messages[language]);
+  return `<a class="button whatsapp-button" href="${href}">${labels[language]}</a>`;
+}
+
 function footer() {
-  return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2></div><a class="round-arrow" href="/contact/" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
+  return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2>${whatsappButton()}</div><a class="round-arrow" href="/contact/" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
   <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
@@ -228,7 +241,7 @@ function contact() {
       <div class="eyebrow">${copy.contact.kicker}</div>
       <h1>${display(copy.contact.title)}</h1>
       <p>${copy.contact.intro}</p>
-      <div class="contact-direct"><span class="eyebrow">${copy.contact.emailLabel}</span><span>${isPlaceholderEmail ? copy.contact.emailMissing : `<a href="mailto:${site.email}">${site.email}</a>`}</span></div>
+      ${whatsappButton()}<div class="contact-direct"><span class="eyebrow">${copy.contact.emailLabel}</span><span>${isPlaceholderEmail ? copy.contact.emailMissing : `<a href="mailto:${site.email}">${site.email}</a>`}</span></div>
     </div>
     <form class="contact-form" id="contact-form">
       <label>${form.name}<input name="name" type="text" autocomplete="name" required placeholder="${form.namePlaceholder}" /></label>
@@ -247,6 +260,7 @@ function contact() {
 const pages = { '/': home, '/index.html': home, '/work/': work, '/projects/': caseStudy, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact };
 const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="./">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`);
 app.innerHTML = header() + render() + footer();
+applyContactIcons();
 const mainContent = app.querySelector('main');
 if (mainContent) {
   mainContent.id = 'main-content';

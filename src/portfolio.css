@@ -1,2 +1,7 @@
 @import "./styles.css";
 @import "./palette.css";
+
+.whatsapp-button { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; background: #075e42; color: #fff; text-decoration: none; }
+.whatsapp-button:hover { background: #064b35; }
+.whatsapp-button:focus-visible { outline: 3px solid #3a2099; outline-offset: 3px; }
+.whatsapp-button .icon { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; }
