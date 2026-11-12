@@ -1,12 +1,17 @@
 import media from './selected-media.json';
 
 const categories = {
+  presentations: ['Pitch decks / Presentations', 'Pitch decks / Presentaciones', 'Pitch decks / Apresentações'],
   brand: ['Brand & graphic design', 'Identidad y gráfica', 'Identidade e design gráfico'],
   spatial: ['Spatial design', 'Diseño de espacios', 'Design de espaços'],
   digital: ['Digital design', 'Diseño digital', 'Design digital'],
 };
 
 const selected = [
+  ['adm-human-rights-report', 'ADM · Human Rights Policy Implementation', 'presentations',
+    'A 30-slide presentation of ADM’s 2022 human rights report, with supply-chain maps, performance indicators and community programs.',
+    'Presentación de 30 diapositivas del informe de derechos humanos de ADM de 2022, con mapas, indicadores y programas comunitarios.',
+    'Apresentação de 30 slides do relatório de direitos humanos da ADM de 2022, com mapas, indicadores e programas comunitários.'],
   ['indufar-2026', 'Indufar 2026', 'spatial',
     'Race graphics, stage screens and exhibition stands for Indufar Run and the brand’s 2026 activations.',
     'Gráfica de carrera, pantallas de escenario y stands de Indufar Run y las activaciones de la marca en 2026.',
@@ -43,11 +48,11 @@ const selected = [
     'A five-part social series for a self-makeup course.',
     'Serie de cinco piezas para comunicar un curso de automaquillaje.',
     'Série de cinco peças para divulgar um curso de automaquiagem.'],
-  ['abrazo-de-oso', 'PWR × Patagonia · Abrazo de Oso', 'brand',
+  ['abrazo-de-oso', 'PWR × Patagonia · Abrazo de Oso', 'presentations',
     'Selected slides from the PWR campaign presentation for Patagonia, including the activation and retail display.',
     'Selección de la presentación de PWR para Patagonia, con la activación de campaña y su exhibición en punto de venta.',
     'Seleção da apresentação da PWR para a Patagonia, com a ativação da campanha e a exposição no ponto de venda.'],
-  ['idem', 'IDEM Agromarketing', 'brand',
+  ['idem', 'IDEM Agromarketing', 'presentations',
     'Presentation design for an agricultural marketing agency, from the opening slide to its service infographic.',
     'Presentación para una agencia de agromarketing, desde la portada hasta la infografía de servicios.',
     'Apresentação para uma agência de agromarketing, da capa ao infográfico de serviços.'],
@@ -79,7 +84,7 @@ export function mediaFigure(item, title) {
   const visual = item.video
     ? `<video controls playsinline preload="none" poster="${item.url}" ${dimensions} aria-label="${title} · ${item.label}" src="${item.video}"></video>`
     : `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="lazy">`;
-  return `<figure>${visual}<figcaption>${item.label}</figcaption></figure>`;
+  return `<figure>${item.expandable ? `<a href="${item.url}">${visual}</a>` : visual}<figcaption>${item.label}</figcaption></figure>`;
 }
 
 export function caseGallery(project) {

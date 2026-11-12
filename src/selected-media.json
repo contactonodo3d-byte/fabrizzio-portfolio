@@ -4,25 +4,269 @@
       "url": "/images/selected/gio-mobili/1.webp",
       "width": 1500,
       "height": 1500,
-      "label": "Showroom"
+      "label": "Showroom",
+      "group": "Aplicaciones de marca"
     },
     {
       "url": "/images/selected/gio-mobili/2.webp",
       "width": 1540,
       "height": 1078,
-      "label": "Fachada"
+      "label": "Fachada",
+      "group": "Aplicaciones de marca"
     },
     {
       "url": "/images/selected/gio-mobili/3.webp",
       "width": 1540,
       "height": 1232,
-      "label": "Brochure"
+      "label": "Brochure",
+      "group": "Aplicaciones de marca"
     },
     {
       "url": "/images/selected/gio-mobili/4.webp",
       "width": 1540,
       "height": 1158,
-      "label": "Etiqueta"
+      "label": "Etiqueta",
+      "group": "Aplicaciones de marca"
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-01.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 01 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-02.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 02 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-03.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 03 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-04.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 04 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-05.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 05 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-06.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 06 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-07.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 07 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-08.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 08 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-09.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 09 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-10.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 10 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-11.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 11 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-12.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 12 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-13.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 13 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-14.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 14 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-15.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 15 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-16.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 16 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-17.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 17 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-18.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 18 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-19.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 19 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-20.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 20 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-21.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 21 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-22.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 22 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-23.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 23 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-24.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 24 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-25.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 25 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-26.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 26 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-27.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 27 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-28.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 28 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-29.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 29 / 30",
+      "group": "Brandbook",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/gio-mobili/brandbook-30.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Página 30 / 30",
+      "group": "Brandbook",
+      "expandable": true
     }
   ],
   "casa-albirroja": [
@@ -727,6 +971,248 @@
       "label": "Semax and Selank Thumbnail",
       "width": 1600,
       "height": 900
+    }
+  ],
+  "adm-human-rights-report": [
+    {
+      "url": "/images/selected/adm-human-rights-report/01.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 01 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/02.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 02 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/03.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 03 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/04.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 04 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/05.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 05 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/06.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 06 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/07.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 07 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/08.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 08 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/09.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 09 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/10.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 10 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/11.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 11 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/12.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 12 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/13.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 13 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/14.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 14 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/15.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 15 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/16.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 16 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/17.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 17 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/18.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 18 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/19.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 19 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/20.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 20 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/21.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 21 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/22.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 22 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/23.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 23 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/24.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 24 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/25.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 25 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/26.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 26 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/27.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 27 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/28.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 28 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/29.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 29 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/adm-human-rights-report/30.webp",
+      "width": 1600,
+      "height": 900,
+      "label": "Diapositiva 30 / 30",
+      "group": "ADM · Human Rights Policy Implementation",
+      "expandable": true
     }
   ]
 }
