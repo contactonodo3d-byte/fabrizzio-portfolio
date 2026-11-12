@@ -14,8 +14,8 @@ const assignments = {
   marca: ['kamelio', 'gio-mobili', 'black-sail', 'vegas-valley', 'client-logos', 'protein-bar'],
   redes: ['acuo-redes', 'mosconi', 'recellebrate', 'pam-paiva', 'protein-bar', 'social-media-assets', 'acuo'],
   web: ['bad-liar', 'skylinq', 'law-group', 'vista-digital', 'acuo'],
-  stands: ['casa-albirroja', 'indufar-2026'],
-  espacios: ['gio-mobili', 'casa-albirroja', 'indufar-2026', 'bar-de-cejas', 'architectural-visualization'],
+  stands: ['foody', 'casa-albirroja', 'indufar-2026'],
+  espacios: ['foody', 'gio-mobili', 'casa-albirroja', 'indufar-2026', 'bar-de-cejas', 'architectural-visualization'],
   presentaciones: ['adm-human-rights-report', 'idem', 'abrazo-de-oso', 'pitch-decks'],
 };
 

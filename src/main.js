@@ -193,7 +193,7 @@ function caseStudy() {
     return `<main class="case-page container">
       <a class="case-back text-link" href="${returnToProject(project.slug)}">← ${backLabel}</a>
       <header class="case-intro"><div class="eyebrow">${project.label}</div><h1>${project.title}</h1><p>${project.note}</p></header>
-      ${caseGallery(project)}
+      ${caseGallery(project, language)}
     </main>`;
   }
   const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);

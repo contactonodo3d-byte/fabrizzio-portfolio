@@ -9,6 +9,10 @@ const categories = {
 };
 
 const selected = [
+  ['foody', 'Foody · ExpoVet', 'spatial',
+    'From concept to a 3 × 3 m exhibition stand: brand graphics, product display, prize wheel and a flyer linking to the product catalogue.',
+    'Del concepto a un stand de 3 × 3 m: gráfica de marca, exhibidor de productos, ruleta de premios y flyer con QR al catálogo.',
+    'Do conceito a um estande de 3 × 3 m: comunicação visual, expositor de produtos, roleta de prêmios e flyer com QR para o catálogo.'],
   ['kamelio', 'Kamelio', 'brand',
     'Chameleon identity with concept mockups for vehicle graphics and stationery.',
     'Identidad del camaleón con mockups conceptuales de vehículo y papelería.',
@@ -82,7 +86,7 @@ const selected = [
 export function selectedProjects(language) {
   const index = { en: 0, es: 1, pt: 2 }[language];
   return selected.map(([slug, title, category, ...notes]) => ({
-    slug, title, label: language === 'es' && ['indufar-2026','casa-albirroja'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
+    slug, title, label: language === 'es' && ['foody','indufar-2026','casa-albirroja'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
     className: 'project-' + (category === 'social' ? 'brand' : category), thumbnail: media[slug][0].url,
     href: '/projects/?project=' + slug, gallery: media[slug],
   }));
@@ -96,14 +100,17 @@ export function mediaFigure(item, title) {
   return `<figure${item.longPage ? ' class="long-web-design"' : ''}>${item.expandable ? `<a href="${item.url}">${visual}</a>` : visual}<figcaption>${item.label}</figcaption></figure>`;
 }
 
-export function caseGallery(project) {
+export function caseGallery(project, language = 'es') {
+  const modelLink = project.slug === 'foody'
+    ? `<p><a class="text-link" href="/3d/foody-exhibidor/">${{en:'Explore the display in 3D / AR', es:'Explorar el exhibidor en 3D / AR', pt:'Explorar o expositor em 3D / AR'}[language]} ↗</a></p>`
+    : '';
   const groups = new Map();
   for (const item of project.gallery) {
     const key = item.group || '';
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(item);
   }
-  return Array.from(groups, ([name, items]) => {
+  return modelLink + Array.from(groups, ([name, items]) => {
     const figures = items.map(item => mediaFigure(item, project.title)).join('');
     if (!name) return `<div class="selected-gallery case-gallery">${figures}</div>`;
     return `<section class="campaign-gallery"><h2>${name}</h2><div class="selected-gallery">${figures}</div></section>`;

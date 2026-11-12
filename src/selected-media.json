@@ -1403,5 +1403,95 @@
       "label": "Identidad original",
       "expandable": true
     }
+  ],
+  "foody": [
+    {
+      "url": "/images/selected/foody/foto-5.webp",
+      "width": 1280,
+      "height": 720,
+      "label": "Stand en feria · Vista general",
+      "group": "Materialización · Stand en feria",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/foto-1.webp",
+      "width": 720,
+      "height": 1280,
+      "label": "Exhibidor · Vista frontal",
+      "group": "Materialización · Stand en feria",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/foto-3.webp",
+      "width": 720,
+      "height": 1280,
+      "label": "Exhibidor · Vista lateral",
+      "group": "Materialización · Stand en feria",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/foto-2.webp",
+      "width": 720,
+      "height": 1280,
+      "label": "Flyer con QR al catálogo",
+      "group": "Materialización · Stand en feria",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/foto-4.webp",
+      "width": 1280,
+      "height": 720,
+      "label": "Ruleta y atención al público",
+      "group": "Materialización · Stand en feria",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/concepto-7.webp",
+      "width": 1553,
+      "height": 1013,
+      "label": "Stand 3 × 3 m · Render de concepto",
+      "group": "Concepto · Diseño y visualización",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/concepto-4.webp",
+      "width": 1800,
+      "height": 913,
+      "label": "Distribución del stand · Render de concepto",
+      "group": "Concepto · Diseño y visualización",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/concepto-3.webp",
+      "width": 1800,
+      "height": 913,
+      "label": "Exhibidor · Propuesta visual",
+      "group": "Concepto · Diseño y visualización",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/concepto-9.webp",
+      "width": 1800,
+      "height": 913,
+      "label": "Gráfica lateral · Propuesta visual",
+      "group": "Concepto · Diseño y visualización",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/concepto-6.webp",
+      "width": 1374,
+      "height": 1145,
+      "label": "Flyer con QR · Visualización de concepto",
+      "group": "Concepto · Diseño y visualización",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/foody/concepto-1.webp",
+      "width": 786,
+      "height": 1800,
+      "label": "Ruleta · Propuesta de activación",
+      "group": "Concepto · Diseño y visualización",
+      "expandable": true
+    }
   ]
 }
