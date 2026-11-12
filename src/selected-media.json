@@ -294,25 +294,106 @@
       "url": "/images/selected/recellebrate/1.webp",
       "width": 1081,
       "height": 1087,
-      "label": "Serie de campaña"
+      "label": "Serie de campaña",
+      "group": "Octubre"
     },
     {
       "url": "/images/selected/recellebrate/2.webp",
       "width": 1081,
       "height": 1087,
-      "label": "Serie de campaña"
+      "label": "Serie de campaña",
+      "group": "Octubre"
     },
     {
       "url": "/images/selected/recellebrate/3.webp",
       "width": 1081,
       "height": 1087,
-      "label": "Serie de campaña"
+      "label": "Serie de campaña",
+      "group": "Octubre"
     },
     {
       "url": "/images/selected/recellebrate/deck.webp",
       "width": 1400,
       "height": 788,
-      "label": "Presentación · Key visual"
+      "label": "Presentación · Key visual",
+      "group": "Presentación"
+    },
+    {
+      "url": "/images/selected/recellebrate/septiembre.webp",
+      "width": 1081,
+      "height": 1081,
+      "label": "Corredora",
+      "group": "Septiembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/atletismo-1.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Atletismo · Salto",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/atletismo-2.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Atletismo · Identidad",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/atletismo-3.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Atletismo · Carrera",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/golf-1.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Golf · Retrato",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/golf-2.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Golf · Familia",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/golf-3.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Golf · Swing",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/stress.webp",
+      "width": 1080,
+      "height": 1086,
+      "label": "From stress",
+      "group": "Noviembre"
+    },
+    {
+      "url": "/images/selected/recellebrate/masterclass.webp",
+      "width": 800,
+      "height": 1018,
+      "label": "Precision Health Span Masterclass",
+      "group": "Email"
+    },
+    {
+      "url": "/images/selected/recellebrate/sleep.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Restorative sleep",
+      "group": "Marzo"
+    },
+    {
+      "url": "/images/selected/recellebrate/social-mockup.webp",
+      "width": 619,
+      "height": 575,
+      "label": "Grilla de redes y vista móvil",
+      "group": "Aplicación digital"
     }
   ],
   "black-sail": [
