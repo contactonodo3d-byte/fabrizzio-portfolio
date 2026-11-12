@@ -107,6 +107,16 @@ export function caseGallery(project) {
 }
 
 export function motionSection() {
-  const clips = ['acuo-outro', 'alien', 'bar-de-cejas', 'acuo'];
-  return `<section id="motion" class="motion-section" aria-labelledby="motion-heading"><h2 id="motion-heading">Motion graphics</h2><div class="selected-gallery">${clips.map(slug => mediaFigure(media[slug][0], slug === 'bar-de-cejas' ? 'Bar de Cejas' : media[slug][0].label)).join('')}</div></section>`;
+  const collections = [
+    ['Indufar Run', media['indufar-2026']],
+    ['ACUO', [...media['acuo-outro'], ...media.acuo, ...media['acuo-redes']]],
+    ['Alien · Pixel art', media.alien],
+    ['Bar de Cejas', media['bar-de-cejas']],
+  ];
+  const galleries = collections.map(([title, items]) => {
+    const clips = items.filter(item => item.video);
+    const figures = clips.map(item => mediaFigure(item, title)).join('');
+    return `<section class="campaign-gallery"><h3>${title}</h3><div class="selected-gallery">${figures}</div></section>`;
+  }).join('');
+  return `<section id="motion" class="motion-section" aria-labelledby="motion-heading"><h2 id="motion-heading">Motion graphics</h2>${galleries}</section>`;
 }
