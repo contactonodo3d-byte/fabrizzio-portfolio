@@ -50,7 +50,7 @@ The production files are written to `dist/`.
 ## Pages
 
 - `/` — Home
-- `/work.html` — Work
+- `/work/` — Work
 - `/services.html` — Services
 - `/lab.html` — Lab: articles, use cases, and experiments
 - `/about.html` — About
