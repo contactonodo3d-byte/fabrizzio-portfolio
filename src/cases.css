@@ -71,3 +71,7 @@
 .lab-projects .lab-entry { display: block; }
 .lab-status { color: #3a2099; font-weight: 700; }
 @media(min-width:1000px){ .desktop-nav{gap:22px} }
+
+.showcase-one > span,
+.showcase-three > span:first-of-type { opacity: .58; }
+.showcase-two .outline-circle { opacity: .48; }
