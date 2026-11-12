@@ -7,7 +7,7 @@ export const locales = {
       home: {
         role: 'Diseñador visual independiente', location: 'Desde Paraguay · Para todo el mundo',
         hero: { line1: 'Diseño cosas', line2: 'que la gente ', accent: 'recuerda.' },
-        intro: 'Diseño visual y experiencias físicas moldeados por experiencia internacional, desde una práctica independiente y enfocada.', exploreWorkButton: 'Ver proyectos',
+        intro: 'Soy Fabrizzio Ruiz, diseñador gráfico en Asunción, Paraguay. Diseño identidades visuales, campañas y presentaciones para empresas.', exploreWorkButton: 'Ver proyectos',
         playlist: { kicker: 'FR / EN REPRODUCCIÓN', title: 'Mi playlist', open: 'Abrir en Spotify' },
         album: { kicker: 'Álbum de proyectos', projectLink: 'Explorar proyectos', pause: 'Pausar movimiento', play: 'Activar movimiento' },
         showcase: { bigWords: ['FORMA', 'CON', 'PROPÓSITO'], middleLabel: 'DIGITAL / FÍSICO / HUMANO', rightLabel: 'EXPERIENCIAS VISUALES', caption: 'Un espacio para proyectos, ideas y lo que viene.' },

@@ -25,7 +25,7 @@ export const copy = {
     role: 'Independent visual designer',
     location: 'Based in Paraguay · Working worldwide',
     hero: { line1: 'I design things', line2: 'people ', accent: 'notice.' },
-    intro: 'Visual design and physical experiences shaped by international work, delivered through a focused independent practice.',
+    intro: 'I\'m Fabrizzio Ruiz, a graphic designer in Asunción, Paraguay. I design visual identities, campaigns and presentations for businesses.',
     exploreWorkButton: 'Explore my work',
     playlist: {
       kicker: 'FR / ON REPEAT',
