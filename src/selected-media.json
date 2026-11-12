@@ -1,0 +1,252 @@
+{
+  "gio-mobili": [
+    {
+      "url": "/images/selected/gio-mobili/1.webp",
+      "width": 1500,
+      "height": 1500,
+      "label": "Showroom"
+    },
+    {
+      "url": "/images/selected/gio-mobili/2.webp",
+      "width": 1540,
+      "height": 1078,
+      "label": "Fachada"
+    },
+    {
+      "url": "/images/selected/gio-mobili/3.webp",
+      "width": 1540,
+      "height": 1232,
+      "label": "Brochure"
+    },
+    {
+      "url": "/images/selected/gio-mobili/4.webp",
+      "width": 1540,
+      "height": 1158,
+      "label": "Etiqueta"
+    }
+  ],
+  "casa-albirroja": [
+    {
+      "url": "/images/selected/casa-albirroja/1.webp",
+      "width": 974,
+      "height": 455,
+      "label": "Stand"
+    },
+    {
+      "url": "/images/selected/casa-albirroja/2.webp",
+      "width": 1540,
+      "height": 1232,
+      "label": "Gráfica de campaña"
+    },
+    {
+      "url": "/images/selected/casa-albirroja/3.webp",
+      "width": 510,
+      "height": 414,
+      "label": "Futbolito"
+    }
+  ],
+  "recellebrate": [
+    {
+      "url": "/images/selected/recellebrate/1.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Serie de campaña"
+    },
+    {
+      "url": "/images/selected/recellebrate/2.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Serie de campaña"
+    },
+    {
+      "url": "/images/selected/recellebrate/3.webp",
+      "width": 1081,
+      "height": 1087,
+      "label": "Serie de campaña"
+    }
+  ],
+  "black-sail": [
+    {
+      "url": "/images/selected/black-sail/1.webp",
+      "width": 1536,
+      "height": 1024,
+      "label": "Mockup · Papelería corporativa"
+    },
+    {
+      "url": "/images/selected/black-sail/2.webp",
+      "width": 1540,
+      "height": 1027,
+      "label": "Identidad visual"
+    }
+  ],
+  "vegas-valley": [
+    {
+      "url": "/images/selected/vegas-valley/1.webp",
+      "width": 1536,
+      "height": 1024,
+      "label": "Mockup · Parche bordado"
+    },
+    {
+      "url": "/images/selected/vegas-valley/vehicle.webp",
+      "width": 1536,
+      "height": 1024,
+      "label": "Mockup · Vehículo"
+    },
+    {
+      "url": "/images/selected/vegas-valley/2.webp",
+      "width": 1501,
+      "height": 1501,
+      "label": "Identidad visual"
+    },
+    {
+      "url": "/images/selected/vegas-valley/3.webp",
+      "width": 1501,
+      "height": 1501,
+      "label": "Identidad visual"
+    }
+  ],
+  "mosconi": [
+    {
+      "url": "/images/selected/mosconi/1.webp",
+      "width": 1012,
+      "height": 1800,
+      "label": "Tragos tradicionales"
+    },
+    {
+      "url": "/images/selected/mosconi/2.webp",
+      "width": 1012,
+      "height": 1800,
+      "label": "Tragos tradicionales"
+    }
+  ],
+  "pam-paiva": [
+    {
+      "url": "/images/selected/pam-paiva/1.webp",
+      "width": 1081,
+      "height": 1080,
+      "label": "Curso de automaquillaje"
+    },
+    {
+      "url": "/images/selected/pam-paiva/2.webp",
+      "width": 1081,
+      "height": 1080,
+      "label": "Curso de automaquillaje"
+    },
+    {
+      "url": "/images/selected/pam-paiva/3.webp",
+      "width": 1081,
+      "height": 1080,
+      "label": "Curso de automaquillaje"
+    },
+    {
+      "url": "/images/selected/pam-paiva/4.webp",
+      "width": 1081,
+      "height": 1080,
+      "label": "Curso de automaquillaje"
+    },
+    {
+      "url": "/images/selected/pam-paiva/5.webp",
+      "width": 1081,
+      "height": 1080,
+      "label": "Curso de automaquillaje"
+    }
+  ],
+  "abrazo-de-oso": [
+    {
+      "url": "/images/selected/abrazo-de-oso/1.webp",
+      "width": 1500,
+      "height": 844,
+      "label": "Patagonia · Activación"
+    },
+    {
+      "url": "/images/selected/abrazo-de-oso/2.webp",
+      "width": 1500,
+      "height": 844,
+      "label": "Marketing directo"
+    },
+    {
+      "url": "/images/selected/abrazo-de-oso/3.webp",
+      "width": 1500,
+      "height": 844,
+      "label": "Exhibición"
+    }
+  ],
+  "idem": [
+    {
+      "url": "/images/selected/idem/1.webp",
+      "width": 1500,
+      "height": 844,
+      "label": "IDEM Agromarketing"
+    },
+    {
+      "url": "/images/selected/idem/2.webp",
+      "width": 1500,
+      "height": 844,
+      "label": "Servicios"
+    },
+    {
+      "url": "/images/selected/idem/3.webp",
+      "width": 1500,
+      "height": 844,
+      "label": "Transformación digital"
+    }
+  ],
+  "bad-liar": [
+    {
+      "url": "/images/selected/bad-liar/1.webp",
+      "width": 1345,
+      "height": 807,
+      "label": "Bad Liar"
+    },
+    {
+      "url": "/images/selected/bad-liar/2.webp",
+      "width": 410,
+      "height": 1500,
+      "label": "Wireframe"
+    }
+  ],
+  "protein-bar": [
+    {
+      "url": "/images/selected/protein-bar/1.webp",
+      "width": 900,
+      "height": 1500,
+      "label": "Delivery directo"
+    }
+  ],
+  "bar-de-cejas": [
+    {
+      "url": "/images/selected/bar-de-cejas/1.webp",
+      "width": 960,
+      "height": 532,
+      "label": "Recorrido 3D",
+      "video": "/images/selected/bar-de-cejas/bar-de-cejas.mp4"
+    }
+  ],
+  "acuo": [
+    {
+      "url": "/images/selected/acuo/1.webp",
+      "width": 540,
+      "height": 960,
+      "label": "Cosmic",
+      "video": "/images/selected/acuo/acuo.mp4"
+    }
+  ],
+  "acuo-outro": [
+    {
+      "url": "/images/selected/acuo-outro/1.webp",
+      "width": 540,
+      "height": 960,
+      "label": "ACUO · Outro",
+      "video": "/images/selected/acuo-outro/acuo-outro.mp4"
+    }
+  ],
+  "alien": [
+    {
+      "url": "/images/selected/alien/1.webp",
+      "width": 960,
+      "height": 960,
+      "label": "Alien · Pixel art",
+      "video": "/images/selected/alien/alien.mp4"
+    }
+  ]
+}

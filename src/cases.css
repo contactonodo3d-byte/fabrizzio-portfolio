@@ -14,3 +14,13 @@
 .hero-album .album-card:not(.is-active):hover{filter:drop-shadow(0 10px 16px rgba(40,111,227,.18)) brightness(1.08)}
 .hero-album .album-card.is-active{filter:drop-shadow(0 20px 25px rgba(40,111,227,.28)) drop-shadow(0 8px 10px rgba(0,0,0,.18))}
 .hero-album .album-card.is-active .album-cover{box-shadow:0 0 24px rgba(40,111,227,.2)}
+
+.motion-section { padding-block: clamp(54px, 8vw, 120px); }
+.motion-section h2 { font-size: clamp(42px, 6vw, 84px); letter-spacing: -.065em; margin: 0 0 32px; }
+.selected-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+.selected-gallery figure { margin: 0; min-width: 0; }
+.selected-gallery img, .selected-gallery video { display: block; width: 100%; height: auto; max-height: 78vh; object-fit: contain; background: var(--surface); }
+.selected-gallery video { height: clamp(260px, 36vw, 520px); background: #171317; }
+.selected-gallery figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; }
+.case-gallery figure:first-child { grid-column: 1 / -1; }
+@media (max-width: 700px) { .selected-gallery { grid-template-columns: 1fr; } }

@@ -1,3 +1,4 @@
+import { selectedProjects, mediaFigure, motionSection } from './selected-projects.js';
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
 
@@ -17,7 +18,7 @@ function merge(base, override) {
   return override ?? base;
 }
 const copy = merge(englishCopy, translated.copy);
-const projects = merge(englishProjects, translated.projects);
+const projects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)];
 const heroCovers = merge(englishCovers, translated.heroCovers);
 const serviceOptions = merge(englishServices, translated.services);
 const englishUi = { select: 'Select', coverInstructions: 'Project covers. Use the arrow keys, mouse wheel, or drag to browse.', portfolioSlot: 'PORTFOLIO SLOT', illustrative: 'Illustrative composition for a future', service: 'SERVICE', inquire: 'Inquire about', notFound: 'PAGE NOT FOUND', notFoundTitle: 'Nothing here<br/><em>yet.</em>', backHome: 'Back home ↗', emailSetup: 'The contact address has not been configured yet. Please add it in src/content.js before launch.', emailPrepared: 'Your email app should open with a prepared message. Please send it there to complete your inquiry.', contactPage: 'Go to contact page', previousCover: 'Previous cover', nextCover: 'Next cover', openMenu: 'Open menu', closeMenu: 'Close menu' };
@@ -124,14 +125,14 @@ function home() {
       <div class="hero-showcase" aria-label="Abstract visual design collage"><div class="showcase-grid"><div class="showcase-tile showcase-one"><span>${copy.home.showcase.bigWords.join('<br/>')}</span></div><div class="showcase-tile showcase-two"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></div><div class="showcase-tile showcase-three"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></div></div><span class="showcase-caption">${copy.home.showcase.caption} <span>${icon('arrow')}</span></span></div>
     </section>
     ${boothShowcase()}
-    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['skylinq', 'social-media-assets', 'pitch-decks'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
+    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="./work.html">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['gio-mobili', 'casa-albirroja', 'recellebrate', 'skylinq'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
     <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="./services.html#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
     <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="./about.html">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
     <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="./lab.html">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
   </main>`;
 }
 
-function work() { const filters = copy.work.filters; return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.work.kicker}</div><h1>${display(copy.work.title)}</h1><p>${copy.work.intro}</p></div><div class="work-filters" role="group" aria-label="Filter projects">${[['all', filters.all], ['digital', filters.digital], ['brand', filters.brand], ['spatial', filters.spatial]].map(([key, label], index) => `<button type="button" data-project-filter="${key}" aria-pressed="${index === 0}">${label}</button>`).join('')}</div><div class="project-grid work-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div><div class="work-guidance"><div class="eyebrow">${copy.work.guidanceTitle}</div><p>${copy.work.guidanceBody}</p></div></main>`; }
+function work() { const filters = copy.work.filters; return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.work.kicker}</div><h1>${display(copy.work.title)}</h1><p>${copy.work.intro}</p><a class="text-link" href="#motion">Motion graphics ↓</a></div><div class="work-filters" role="group" aria-label="Filter projects">${[['all', filters.all], ['digital', filters.digital], ['brand', filters.brand], ['spatial', filters.spatial]].map(([key, label], index) => `<button type="button" data-project-filter="${key}" aria-pressed="${index === 0}">${label}</button>`).join('')}</div><div class="project-grid work-grid">${projects.map((p, i) => projectCard(p, i === 0)).join('')}</div>${motionSection()}<div class="work-guidance"><div class="eyebrow">${copy.work.guidanceTitle}</div><p>${copy.work.guidanceBody}</p></div></main>`; }
 
 function caseStudy() {
   const project = projects.find(({ slug }) => slug === new URLSearchParams(location.search).get('project'));
@@ -163,6 +164,13 @@ function caseStudy() {
     meta.setAttribute(attribute, name);
     meta.content = content;
     document.head.append(meta);
+  }
+  if (project.gallery) {
+    return `<main class="case-page container">
+      <a class="case-back text-link" href="./work.html">${copy.navigation.work} ${icon('arrow')}</a>
+      <header class="case-intro"><div class="eyebrow">${project.label}</div><h1>${project.title}</h1><p>${project.note}</p></header>
+      <div class="selected-gallery case-gallery">${project.gallery.map(item => mediaFigure(item, project.title)).join('')}</div>
+    </main>`;
   }
   const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);
   return `<main class="case-page container">
