@@ -136,18 +136,18 @@ export function motionSection(language) {
 
 
 export function setupMediaViewer(language) {
-  document.querySelectorAll('.selected-gallery').forEach(gallery => {
+  document.querySelectorAll('.selected-gallery, .directory-grid').forEach(gallery => {
     const layout = () => {
       const styles = getComputedStyle(gallery);
       const gap = parseFloat(styles.rowGap);
       const row = parseFloat(styles.gridAutoRows);
-      gallery.querySelectorAll('figure').forEach(figure => {
+      Array.from(gallery.children).forEach(figure => {
         const height = figure.getBoundingClientRect().height;
         figure.style.gridRowEnd = 'span ' + Math.ceil((height + gap) / (row + gap));
       });
     };
     const observer = new ResizeObserver(layout);
-    gallery.querySelectorAll('figure').forEach(figure => observer.observe(figure));
+    Array.from(gallery.children).forEach(figure => observer.observe(figure));
     layout();
   });
 
