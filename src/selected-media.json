@@ -1493,5 +1493,42 @@
       "group": "Concepto · Diseño y visualización",
       "expandable": true
     }
+  ],
+  "ruisenor": [
+    {
+      "url": "/images/selected/ruisenor/hero.webp",
+      "width": 1440,
+      "height": 1000,
+      "label": "Portada · Escritorio",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/ruisenor/productos.webp",
+      "width": 1320,
+      "height": 931,
+      "label": "Catálogo de productos",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/ruisenor/formatos.webp",
+      "width": 1440,
+      "height": 681,
+      "label": "Presentaciones de 200 g y 50 g",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/ruisenor/esencia.webp",
+      "width": 1320,
+      "height": 689,
+      "label": "Identidad de marca",
+      "expandable": true
+    },
+    {
+      "url": "/images/selected/ruisenor/mobile.webp",
+      "width": 390,
+      "height": 844,
+      "label": "Portada · Celular",
+      "expandable": true
+    }
   ]
 }

@@ -9,6 +9,10 @@ const categories = {
 };
 
 const selected = [
+  ['ruisenor', 'Ruiseñor', 'digital',
+    'Website design proposal for a peanut and nut brand, with a product catalog, size selector and animated packaging.',
+    'Propuesta de diseño web para una marca de maní y frutos secos, con catálogo, selector de tamaños y envase animado.',
+    'Proposta de design de site para uma marca de amendoim e castanhas, com catálogo, seletor de tamanhos e embalagem animada.'],
   ['foody', 'Foody · ExpoVet', 'spatial',
     'From concept to a 3 × 3 m exhibition stand: brand graphics, product display, prize wheel and a flyer linking to the product catalogue.',
     'Del concepto a un stand de 3 × 3 m: gráfica de marca, exhibidor de productos, ruleta de premios y flyer con QR al catálogo.',
