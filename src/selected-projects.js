@@ -94,10 +94,9 @@ export function selectedProjects(language) {
 
 export function mediaFigure(item, title) {
   const dimensions = 'width="' + item.width + '" height="' + item.height + '"';
-  const visual = item.video
-    ? `<video controls playsinline preload="none" poster="${item.url}" ${dimensions} aria-label="${title} · ${item.label}" src="${item.video}"></video>`
-    : `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="lazy">`;
-  return `<figure${item.longPage ? ' class="long-web-design"' : ''}>${item.expandable ? `<a href="${item.url}">${visual}</a>` : visual}<figcaption>${item.label}</figcaption></figure>`;
+  const visual = `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="lazy">`;
+  return `<figure${item.longPage ? ' class="long-web-design"' : ''}><button class="media-preview" type="button" data-media-src="${item.video || item.url}" data-media-type="${item.video ? 'video' : 'image'}" data-media-label="${title} · ${item.label}" aria-label="${title} · ${item.label} · ${item.video ? '▶' : '+'}">${visual}${item.video ? '<span class="play-symbol" aria-hidden="true">▶</span>' : ''}</button><figcaption>${item.label}</figcaption></figure>`;
+
 }
 
 export function caseGallery(project, language = 'es') {
@@ -133,4 +132,57 @@ export function motionSection(language) {
   }
   return `<div class="directory-grid motion-index">${collections.map(({id,title,clips}) =>
     `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover"><img src="${clips[0].url}" alt=""><span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
+}
+
+
+export function setupMediaViewer(language) {
+  document.querySelectorAll('.selected-gallery').forEach(gallery => {
+    const layout = () => {
+      const styles = getComputedStyle(gallery);
+      const gap = parseFloat(styles.rowGap);
+      const row = parseFloat(styles.gridAutoRows);
+      gallery.querySelectorAll('figure').forEach(figure => {
+        const height = figure.getBoundingClientRect().height;
+        figure.style.gridRowEnd = 'span ' + Math.ceil((height + gap) / (row + gap));
+      });
+    };
+    const observer = new ResizeObserver(layout);
+    gallery.querySelectorAll('figure').forEach(figure => observer.observe(figure));
+    layout();
+  });
+
+  const previews = document.querySelectorAll('.media-preview');
+  if (!previews.length) return;
+  const dialog = document.createElement('dialog');
+  dialog.className = 'media-viewer';
+  const closeLabel = {es:'Cerrar',en:'Close',pt:'Fechar'}[language];
+  dialog.innerHTML = `<button type="button" class="media-viewer-close">${closeLabel} ×</button><div class="media-viewer-body"></div><p class="media-viewer-caption" id="media-viewer-caption"></p>`;
+  dialog.setAttribute('aria-labelledby', 'media-viewer-caption');
+  document.body.append(dialog);
+  const body = dialog.querySelector('.media-viewer-body');
+  const close = () => dialog.close();
+  dialog.querySelector('button').addEventListener('click', close);
+  dialog.addEventListener('click', event => { if (event.target === dialog) close(); });
+  dialog.addEventListener('close', () => {
+    body.querySelector('video')?.pause();
+    body.replaceChildren();
+    document.documentElement.classList.remove('media-viewer-open');
+  });
+  previews.forEach(button => button.addEventListener('click', () => {
+    const video = button.dataset.mediaType === 'video';
+    const media = document.createElement(video ? 'video' : 'img');
+    media.src = button.dataset.mediaSrc;
+    if (video) {
+      media.controls = true;
+      media.playsInline = true;
+      media.poster = button.querySelector('img').src;
+    } else {
+      media.alt = button.dataset.mediaLabel;
+    }
+    body.replaceChildren(media);
+    dialog.querySelector('p').textContent = button.dataset.mediaLabel;
+    document.documentElement.classList.add('media-viewer-open');
+    dialog.showModal();
+    if (video) media.play().catch(() => {});
+  }));
 }

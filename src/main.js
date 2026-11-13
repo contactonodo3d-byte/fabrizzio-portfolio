@@ -1,7 +1,7 @@
 import { contact as expoContact } from './expo-contact.js';
 import { applyContactIcons } from './contact-icons.js';
 import { workBrowser, returnToProject } from './work-browser.js';
-import { selectedProjects, caseGallery } from './selected-projects.js';
+import { selectedProjects, caseGallery, setupMediaViewer } from './selected-projects.js';
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
 
@@ -262,6 +262,7 @@ const pages = { '/': home, '/index.html': home, '/work/': work, '/projects/': ca
 const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="./">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`);
 app.innerHTML = header() + render() + footer();
 applyContactIcons();
+setupMediaViewer(language);
 const mainContent = app.querySelector('main');
 if (mainContent) {
   mainContent.id = 'main-content';
