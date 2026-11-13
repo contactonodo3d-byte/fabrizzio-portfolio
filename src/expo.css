@@ -25,3 +25,7 @@ body{font-family:Figtree,Arial,sans-serif;font-synthesis:none;text-rendering:opt
 #lead-review{margin-top:26px;border-top:1px solid var(--line);padding-top:8px}#lead-preview{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:14px;line-height:1.7;padding:16px;background:var(--bg);border-radius:4px}.lead-channels{display:flex;flex-wrap:wrap;gap:12px}.lead-channels .button{font-size:13px;margin-top:12px}.lead-form [hidden]{display:none}
 
 ::selection{background:var(--accent);color:var(--ink)}.hero h1 em{color:var(--magenta)}.services article>span{color:var(--magenta-ink)}.expo-languages button:hover:not([aria-pressed=true]){background:var(--accent);color:var(--ink)}.primary:hover{background:var(--accent);color:var(--ink)}.viewer .primary:hover{background:#fff;color:var(--ink)}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+
+#diseno-stands-asuncion p { max-width: 70ch; line-height: 1.65; }
+#diseno-stands-asuncion h3 { margin-top: 2rem; }
+#diseno-stands-asuncion { scroll-margin-top: 6rem; }
