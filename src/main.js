@@ -63,8 +63,9 @@ function header() {
   return `<header class="site-header"><div class="container header-inner">
     <a class="wordmark" href="./" aria-label="Fabrizzio Ruiz home">FABRIZZIO<span class="wordmark-dot">.</span></a>
     <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="/" ${route === '/' ? 'aria-current="page"' : ''}>Home</a>
       <a href="/work/" ${route === '/work/' ? 'aria-current="page"' : ''}>${copy.navigation.work}</a>
-      <a href="/services/" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a>
+      <a href="/services/" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a><a href="/expo/">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a>
       <a href="/lab/" ${route === '/lab/' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
       <a href="/about/" ${route === '/about/' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a>
     </nav>
@@ -73,7 +74,7 @@ function header() {
     </div>
     <a class="header-cta" href="/contact/">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
   </div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.startProject}</a>
+    <a href="/">Home</a><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/expo/">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.startProject}</a>
   </nav></header>`;
 }
 
@@ -90,7 +91,7 @@ function whatsappButton() {
 
 function footer() {
   return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2>${whatsappButton()}</div><a class="round-arrow" href="/contact/" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
-  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
+  <div class="container footer-bottom"><a class="wordmark" href="./">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/expo/">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
 const imageDimensions = (src) => src?.includes('/skylinq.')
