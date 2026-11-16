@@ -2,5 +2,7 @@ node_modules/
 dist/
 /work/*
 !/work/index.html
+!/work/*/
+!/work/*/index.html
 .DS_Store
 foody-ar-farm-src/

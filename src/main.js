@@ -4,6 +4,7 @@ import { workBrowser, returnToProject } from './work-browser.js';
 import { selectedProjects, caseGallery, setupMediaViewer } from './selected-projects.js';
 import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
+import { ORIGIN, absoluteUrl, metaFor, projectTitle, projectDescription } from './seo-meta.js';
 
 const supportedLanguages = ['en', 'es', 'pt'];
 let chosenLanguage;
@@ -22,10 +23,12 @@ function merge(base, override) {
 }
 const copy = merge(englishCopy, translated.copy);
 const projects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)];
-const heroCovers = ['casa-albirroja','gio-mobili','adm-human-rights-report','acuo-redes','black-sail','bad-liar','indufar-2026','kamelio'].map((slug, index) => {
+const heroCovers = ['foody','casa-albirroja','indufar-2026','gio-mobili','black-sail','adm-human-rights-report','kamelio','bad-liar'].map((slug, index) => {
   const project = projects.find(p => p.slug === slug);
+  const gio = slug === 'gio-mobili';
   return {id: String(index + 1).padStart(2, '0'), title: project.title, story: project.title,
-    category: project.label, thumbnail: slug === 'gio-mobili' ? '/images/selected/gio-mobili/2.webp' : project.thumbnail,
+    category: project.label, thumbnail: gio ? '/images/selected/gio-mobili/2.webp' : project.thumbnail,
+    width: gio ? 1540 : project.width, height: gio ? 1078 : project.height,
     href: project.href, theme: ['cover-yellow','cover-blue','cover-orange','cover-pink','cover-black','cover-purple','cover-blue','cover-yellow'][index]};
 });
 const serviceOptions = merge(englishServices, translated.services);
@@ -99,7 +102,10 @@ const imageDimensions = (src) => src?.includes('/skylinq.')
   : 'width="1200" height="938"';
 
 function projectCard(project, large = false) {
-  const image = project.thumbnail ? `<img src="${project.thumbnail}" ${imageDimensions(project.thumbnail)} alt="${project.title} project image" loading="lazy" />` : `<span class="project-image-fallback"><span class="eyebrow">${project.id} / ${project.label}</span><strong>${project.title}</strong><span class="fallback-mark" aria-hidden="true">FR.</span></span>`;
+  const dims = project.width ? `width="${project.width}" height="${project.height}"` : imageDimensions(project.thumbnail);
+  const label = project.gallery?.[0]?.label;
+  const alt = label ? `${project.title} · ${label}` : `${project.title}`;
+  const image = project.thumbnail ? `<img src="${project.thumbnail}" ${dims} alt="${alt}" loading="lazy" />` : `<span class="project-image-fallback"><span class="eyebrow">${project.id} / ${project.label}</span><strong>${project.title}</strong><span class="fallback-mark" aria-hidden="true">FR.</span></span>`;
   const category = project.className.replace('project-', '');
   return `<a class="project-card ${large ? 'project-card-large' : ''}" data-project-category="${category}" href="${project.href}"><div class="project-art ${project.className}">${image}<span class="project-image-link" aria-hidden="true">${icon('arrow')}</span></div><div class="project-meta"><div><span class="eyebrow">${project.label}</span><h3>${project.title}</h3><p>${project.note}</p></div><span class="project-icon" aria-hidden="true">${icon('arrow')}</span></div></a>`;
 }
@@ -111,7 +117,7 @@ function heroAlbum() {
   return `<section class="hero-album" aria-label="Interactive project album">
     <div class="album-top"><span class="eyebrow">${copy.home.album.kicker}</span></div>
     <div class="album-stage" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${ui.coverInstructions}">
-      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" ${imageDimensions(cover.thumbnail)} alt="" loading="eager" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-orbit"></span></span>`}<span class="album-cover-overlay" aria-hidden="true"><span class="eyebrow">${cover.category}</span><strong>${cover.story}</strong><span class="album-overlay-title">${cover.title}</span></span></span></button>`).join('')}
+      ${heroCovers.map((cover, index) => `<button class="album-card" type="button" data-cover-index="${index}" aria-label="${ui.select} ${cover.title}" aria-pressed="false"><span class="album-cover ${cover.theme}">${cover.thumbnail ? `<img src="${cover.thumbnail}" width="${cover.width || ''}" height="${cover.height || ''}" alt="${cover.title}" loading="${index === 0 ? 'eager' : 'lazy'}" />` : `<span class="album-cover-design" aria-hidden="true"><span class="album-cover-number">FR / ${cover.id}</span><span class="album-cover-orbit"></span></span>`}<span class="album-cover-overlay" aria-hidden="true"><span class="eyebrow">${cover.category}</span><strong>${cover.story}</strong><span class="album-overlay-title">${cover.title}</span></span></span></button>`).join('')}
     </div>
     <div class="album-bottom"><div class="album-readout" aria-live="polite"><span class="album-count" data-album-count>01 / ${String(heroCovers.length).padStart(2, '0')}</span><span class="album-current" data-album-title>${heroCovers[0].title}</span><span class="album-category" data-album-category>${heroCovers[0].category}</span></div><div class="album-controls"><button type="button" data-album-prev aria-label="${ui.previousCover}">${icon('up')}</button><button type="button" data-album-next aria-label="${ui.nextCover}">${icon('down')}</button></div></div>
     <div class="album-foot"><a href="${heroCovers[0].href}" data-album-link>${copy.home.album.projectLink} <span>${icon('arrow')}</span></a><button type="button" data-album-pause aria-pressed="false">${copy.home.album.pause}</button></div>
@@ -143,13 +149,13 @@ function home() {
       <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="/work/">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="/contact/">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
       <div class="hero-showcase"><div class="showcase-grid">
-        <a class="showcase-tile showcase-one" href="/work/?disciplina=marca"><img class="showcase-background" src="/images/selected/black-sail/1.webp" alt=""><span>${copy.home.showcase.bigWords.join('<br/>')}</span></a>
-        <a class="showcase-tile showcase-two" href="/work/?disciplina=web"><img class="showcase-background" src="/images/work/skylinq.webp" alt=""><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></a>
-        <a class="showcase-tile showcase-three" href="/work/?disciplina=stands"><img class="showcase-background" src="/images/selected/casa-albirroja/expo-nocturna.webp" alt=""><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></a>
+        <a class="showcase-tile showcase-one" href="/work/?disciplina=marca"><img class="showcase-background" src="/images/selected/black-sail/1.webp" width="1536" height="1024" alt="${{en:'Black Sail sailboat mark',es:'Marca del velero de Black Sail',pt:'Marca do veleiro da Black Sail'}[language]}" loading="lazy"><span>${copy.home.showcase.bigWords.join('<br/>')}</span></a>
+        <a class="showcase-tile showcase-two" href="/work/?disciplina=web"><img class="showcase-background" src="/images/work/skylinq.webp" width="1600" height="1250" alt="${{en:'Skylinq Home website',es:'Sitio web de Skylinq Home',pt:'Site da Skylinq Home'}[language]}" loading="lazy"><span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></a>
+        <a class="showcase-tile showcase-three" href="/work/?disciplina=stands"><img class="showcase-background" src="/images/selected/casa-albirroja/expo-nocturna.webp" width="1536" height="1024" alt="${{en:'Indufar Casa Albirroja exhibition stand',es:'Stand de Indufar · Casa Albirroja',pt:'Estande Indufar · Casa Albirroja'}[language]}" loading="lazy"><span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></a>
       </div></div>
     </section>
     ${boothShowcase()}
-    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="/work/">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${projects.filter(({ slug }) => ['casa-albirroja','gio-mobili','adm-human-rights-report','acuo-redes'].includes(slug)).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
+    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="/work/">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${['foody','casa-albirroja','indufar-2026','gio-mobili'].map((slug) => projects.find((item) => item.slug === slug)).filter(Boolean).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
     <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="/services/#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
     <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="/about/">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
     <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="/lab/">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
@@ -158,37 +164,60 @@ function home() {
 
 function work() { return workBrowser(projects, language); }
 
-function caseStudy() {
-  const project = projects.find(({ slug }) => slug === new URLSearchParams(location.search).get('project'));
+function setMeta(attribute, name, content) {
+  if (!content) return;
+  let el = document.head.querySelector(`meta[${attribute}="${name}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attribute, name);
+    document.head.append(el);
+  }
+  el.setAttribute('content', content);
+}
+
+function applyRouteMeta(path, meta) {
+  if (!meta) return;
+  document.title = meta.title;
+  setMeta('name', 'description', meta.description);
+  setMeta('property', 'og:title', meta.title);
+  setMeta('property', 'og:description', meta.description);
+  setMeta('property', 'og:url', ORIGIN + path);
+  setMeta('name', 'twitter:title', meta.title);
+  setMeta('name', 'twitter:description', meta.description);
+  if (meta.image) {
+    const image = absoluteUrl(meta.image);
+    setMeta('property', 'og:image', image);
+    setMeta('property', 'og:image:alt', meta.imageAlt || meta.title);
+    if (meta.width) setMeta('property', 'og:image:width', String(meta.width));
+    if (meta.height) setMeta('property', 'og:image:height', String(meta.height));
+    setMeta('name', 'twitter:image', image);
+    setMeta('name', 'twitter:image:alt', meta.imageAlt || meta.title);
+    setMeta('name', 'twitter:card', Number(meta.width) >= 600 ? 'summary_large_image' : 'summary');
+  }
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.append(canonical);
+  }
+  canonical.href = ORIGIN + path;
+}
+
+function caseStudy(slug) {
+  const project = projects.find((item) => item.slug === slug);
   if (!project) {
-    document.title = `${ui.notFound} — ${site.name}`;
-    const robots = document.createElement('meta');
-    robots.name = 'robots';
-    robots.content = 'noindex';
-    document.head.append(robots);
+    applyRouteMeta(route, { title: `${ui.notFound} — ${site.name}`, description: copy.work.intro });
+    setMeta('name', 'robots', 'noindex');
     return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="/work/">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
   }
-  document.title = `${project.title} — ${site.name}`;
-  document.querySelector('meta[name="description"]')?.setAttribute('content', `${project.label} by Fabrizzio Ruiz. ${project.note}`);
-  const canonical = document.createElement('link');
-  canonical.rel = 'canonical';
-  canonical.href = `https://fabrizzioruiz.com/projects/?project=${encodeURIComponent(project.slug)}`;
-  document.head.append(canonical);
-  const description = document.querySelector('meta[name="description"]').content;
-  for (const [attribute, name, content] of [
-    ['property', 'og:type', 'website'],
-    ['property', 'og:title', document.title],
-    ['property', 'og:description', description],
-    ['property', 'og:url', canonical.href],
-    ['name', 'twitter:card', 'summary'],
-    ['name', 'twitter:title', document.title],
-    ['name', 'twitter:description', description],
-  ]) {
-    const meta = document.createElement('meta');
-    meta.setAttribute(attribute, name);
-    meta.content = content;
-    document.head.append(meta);
-  }
+  applyRouteMeta(`/work/${project.slug}/`, {
+    title: projectTitle(project),
+    description: projectDescription(project),
+    image: project.thumbnail,
+    imageAlt: project.title,
+    width: project.width,
+    height: project.height,
+  });
   const backLabel = {en:'Back to projects', es:'Volver a proyectos', pt:'Voltar aos projetos'}[language];
   if (project.gallery) {
     return `<main class="case-page container">
@@ -201,7 +230,7 @@ function caseStudy() {
   return `<main class="case-page container">
     <a class="case-back text-link" href="${returnToProject(project.slug)}">← ${backLabel}</a>
     <header class="case-intro"><div class="eyebrow">${project.label} · ${project.role}</div><h1>${project.title}</h1><p>${project.overview}</p></header>
-    ${project.thumbnail ? `<figure class="case-image"><img src="${project.thumbnail}" ${imageDimensions(project.thumbnail)} alt="${project.title} design work" /><figcaption>${project.source}</figcaption></figure>` : ''}
+    ${project.thumbnail ? `<figure class="case-image"><img src="${project.thumbnail}" ${project.width ? `width="${project.width}" height="${project.height}"` : imageDimensions(project.thumbnail)} alt="${project.title} · ${project.label}" loading="lazy" /><figcaption>${project.source}</figcaption></figure>` : ''}
     <div class="case-details"><section><div class="eyebrow">Overview</div><p>${project.overview}</p></section><section><div class="eyebrow">Deliverables</div><ul>${project.deliverables.map((item) => `<li>${item}</li>`).join('')}</ul></section><section><div class="eyebrow">Project source</div><p>Selected work from ${project.source}.</p>${project.externalUrl ? `<a class="text-link" href="${project.externalUrl}" target="_blank" rel="noreferrer">${project.slug === 'skylinq' || project.slug === 'law-group' || project.slug === 'vista-digital' ? 'Visit website' : 'View profile'} <span>${icon('arrow')}</span></a>` : ''}</section></div>
     <section class="case-related"><div class="section-head"><div><div class="eyebrow">More selected work</div><h2>Keep looking.</h2></div><a class="text-link" href="/work/">All work <span>${icon('arrow')}</span></a></div><div class="project-grid">${related.map((item) => projectCard(item)).join('')}</div></section>
   </main>`;
@@ -209,7 +238,7 @@ function caseStudy() {
 
 function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div><a class="round-arrow small" href="/contact/" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="/contact/">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
 
-function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait"><img src="/images/fabrizzio-x.webp" width="400" height="400" alt="Fabrizzio Ruiz"><figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><a class="text-link" href="/contact/">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
+function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait"><img src="/images/fabrizzio-x.webp" width="400" height="400" alt="Fabrizzio Ruiz"><figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><p>${copy.about.paragraph3}</p><a class="text-link" href="/contact/">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
 
 function lab() {
   const texts = {
@@ -258,9 +287,21 @@ function contact() {
   </main>`;
 }
 
-const pages = { '/': home, '/index.html': home, '/work/': work, '/projects/': caseStudy, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact };
-const render = pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="./">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`);
-app.innerHTML = header() + render() + footer();
+const legacyProject = route === '/projects/' || route === '/projects/index.html';
+if (legacyProject) {
+  const slug = new URLSearchParams(location.search).get('project');
+  const target = slug && /^[a-z0-9-]+$/.test(slug) ? `/work/${slug}/` : '/work/';
+  location.replace(target + location.hash);
+}
+const caseSlug = route.match(/^\/work\/([a-z0-9-]+)\/$/)?.[1];
+const pages = { '/': home, '/index.html': home, '/work/': work, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact };
+const render = caseSlug
+  ? () => caseStudy(caseSlug)
+  : (pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="/">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`));
+if (app && !legacyProject) {
+  if (!caseSlug) applyRouteMeta(route === '/index.html' ? '/' : route, metaFor(language, route === '/index.html' ? '/' : route));
+  app.innerHTML = header() + render() + footer();
+}
 applyContactIcons();
 setupMediaViewer(language);
 const mainContent = app.querySelector('main');

@@ -1,0 +1,57 @@
+# Fabrizzio Ruiz
+
+> Graphic designer in Paraguay. 3D trade-show booth and stand design, scenography, environmental graphics, branding, packaging, and white-label design for agencies. Former Lead Designer at Tenth Element (Las Vegas, NV). Remote freelance designer since 2018.
+
+The HTML of the main pages is Spanish. The site also switches to English and Portuguese in the browser.
+
+## Contact
+
+- Site: https://fabrizzioruiz.com/
+- Email: hello@fabrizzioruiz.com
+- WhatsApp: https://wa.me/595972780989
+- X: https://x.com/fabrizzioruiz_
+
+## Location
+
+The website, contact card and about page say Asunción, Paraguay. Do not replace that with another city.
+
+## Pages
+
+- [Home](https://fabrizzioruiz.com/): 3D trade-show booths, scenography, environmental graphics, branding, packaging and white-label design.
+- [Work](https://fabrizzioruiz.com/work/): selected projects, each at its own URL.
+- [Services](https://fabrizzioruiz.com/services/): stands and scenography, white-label for agencies, brand and campaigns, web and digital.
+- [About](https://fabrizzioruiz.com/about/): practice, Tenth Element, freelance work since 2018.
+- [Contact](https://fabrizzioruiz.com/contact/): email and WhatsApp.
+- [Expo booths](https://fabrizzioruiz.com/expo/): stand design page with selected booths and an FAQ.
+- [Gestecner viewer](https://fabrizzioruiz.com/expo/gestecner/): 3D / AR viewer for the Gestecner stand concept.
+- [Lab](https://fabrizzioruiz.com/lab/): games, AR and experiments, including Foody AR Farm.
+- [Connect](https://fabrizzioruiz.com/connect/): contact card.
+
+## Projects
+
+- [Foody · ExpoVet](https://fabrizzioruiz.com/work/foody/): Del concepto a un stand de 3 × 3 m: gráfica de marca, exhibidor de productos, ruleta de premios y flyer con QR al catálogo.
+- [Indufar · Casa Albirroja](https://fabrizzioruiz.com/work/casa-albirroja/): De la gráfica de Somos el Aguante al stand con su propia mesa de futbolito.
+- [Indufar 2026](https://fabrizzioruiz.com/work/indufar-2026/): Gráfica de carrera, pantallas de escenario y stands de Indufar Run y las activaciones de la marca en 2026.
+- [Ruiseñor](https://fabrizzioruiz.com/work/ruisenor/): Propuesta de diseño web para una marca de maní y frutos secos, con catálogo, selector de tamaños y envase animado.
+- [Kamelio](https://fabrizzioruiz.com/work/kamelio/): Identidad del camaleón con mockups conceptuales de vehículo y papelería.
+- [ADM · Human Rights Policy Implementation](https://fabrizzioruiz.com/work/adm-human-rights-report/): Presentación de 30 diapositivas del informe de derechos humanos de ADM de 2022, con mapas, indicadores y programas comunitarios.
+- [ACUO · Social media](https://fabrizzioruiz.com/work/acuo-redes/): Gráficas de campaña, infografías, entrevistas y reels del archivo de redes de ACUO.
+- [Gio Mobili](https://fabrizzioruiz.com/work/gio-mobili/): La identidad de Gio Mobili en el showroom, la fachada, el folleto y las etiquetas de producto.
+- [ReCELLebrate](https://fabrizzioruiz.com/work/recellebrate/): Series para redes sociales, gráfica de email y aplicaciones móviles de ReCELLebrate.
+- [Bar de Cejas](https://fabrizzioruiz.com/work/bar-de-cejas/): Un recorrido 3D por el bar de cejas muestra la distribución de los mostradores y los puestos de atención.
+- [Black Sail](https://fabrizzioruiz.com/work/black-sail/): El velero de Black Sail en recepción y en un nuevo mockup de papelería corporativa.
+- [Vegas Valley SAR](https://fabrizzioruiz.com/work/vegas-valley/): Dos propuestas de insignia y un mockup del emblema de montaña bordado sobre un bolso de campo.
+- [Mosconi](https://fabrizzioruiz.com/work/mosconi/): Grillas de eventos y promociones para redes sociales, junto a una historia de tragos tradicionales.
+- [Pam Paiva](https://fabrizzioruiz.com/work/pam-paiva/): Serie de cinco piezas para comunicar un curso de automaquillaje.
+- [PWR × Patagonia · Abrazo de Oso](https://fabrizzioruiz.com/work/abrazo-de-oso/): Selección de la presentación de PWR para Patagonia, con la activación de campaña y su exhibición en punto de venta.
+- [IDEM Agromarketing](https://fabrizzioruiz.com/work/idem/): Presentación para una agencia de agromarketing, desde la portada hasta la infografía de servicios.
+- [Bad Liar](https://fabrizzioruiz.com/work/bad-liar/): Diseño web de Bad Liar, desde la portada hasta las recetas de cócteles, el formulario de contacto y el pie de página.
+- [Protein Bar](https://fabrizzioruiz.com/work/protein-bar/): Piezas para redes sobre los smoothies, los jugos prensados en frío y el café de Protein Bar, junto a su gráfica de delivery.
+- [ACUO · Cosmic](https://fabrizzioruiz.com/work/acuo/): Video vertical de presentación del sitio Cosmic en una pantalla móvil.
+- [Skylinq Home](https://fabrizzioruiz.com/work/skylinq/): Diseño web para servicios de energía y mejoras para el hogar.
+- [Law Group](https://fabrizzioruiz.com/work/law-group/): Un proyecto web presentado en el portafolio anterior.
+- [Vista Digital](https://fabrizzioruiz.com/work/vista-digital/): Un proyecto web presentado en el portafolio anterior.
+- [Piezas para redes sociales](https://fabrizzioruiz.com/work/social-media-assets/): Gráficas de campaña para comunicar el contenido de un cliente.
+- [Presentaciones y pitch decks](https://fabrizzioruiz.com/work/pitch-decks/): Informe corporativo preparado según las guías de marca.
+- [Logotipos para clientes](https://fabrizzioruiz.com/work/client-logos/): Una selección de trabajos de diseño de logotipos.
+- [ArchViz y diseño para retail](https://fabrizzioruiz.com/work/architectural-visualization/): Visuales arquitectónicos y comerciales de proyectos seleccionados.
