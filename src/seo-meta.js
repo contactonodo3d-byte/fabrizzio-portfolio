@@ -73,7 +73,7 @@ export function personJsonLd() {
     email: 'hello@fabrizzioruiz.com',
     telephone: '+595972780989',
     address: { '@type': 'PostalAddress', addressLocality: 'Asunción', addressCountry: 'PY' },
-    sameAs: ['https://x.com/fabrizzioruiz_'],
+    sameAs: ['https://x.com/fabrizzioruiz_', 'https://www.linkedin.com/in/fabriz7io/'],
     knowsAbout: ['3D trade-show booth design', 'Scenography', 'Escenografía', 'Environmental graphics', 'Branding', 'Packaging', 'White-label design'],
     worksFor: { '@type': 'Organization', name: 'Fabrizzio Ruiz', description: 'Remote freelance designer since 2018', url: `${ORIGIN}/` },
     affiliation: { '@type': 'Organization', name: 'Tenth Element', description: 'Former Lead Designer, Las Vegas, NV' },

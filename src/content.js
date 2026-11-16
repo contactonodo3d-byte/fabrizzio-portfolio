@@ -2,7 +2,7 @@ export const site = {
   name: 'Fabrizzio Ruiz',
   email: 'hello@fabrizzioruiz.com', // Replace before publishing.
   location: 'Asunción, Paraguay',
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/fabriz7io/',
   instagram: '',
   playlistUrl: 'https://open.spotify.com/embed/playlist/4G7hOw2Krp9DA7tLFY0bfI?utm_source=generator&theme=0&si=cc88254c73e44591',
 };
