@@ -92,13 +92,14 @@ export function selectedProjects(language) {
   return selected.map(([slug, title, category, ...notes]) => ({
     slug, title, label: language === 'es' && ['foody','indufar-2026','casa-albirroja'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
     className: 'project-' + (category === 'social' ? 'brand' : category), thumbnail: media[slug][0].url,
-    href: '/projects/?project=' + slug, gallery: media[slug],
+    width: media[slug][0].width, height: media[slug][0].height,
+    href: '/work/' + slug + '/', gallery: media[slug],
   }));
 }
 
-export function mediaFigure(item, title) {
+export function mediaFigure(item, title, loading = 'lazy') {
   const dimensions = 'width="' + item.width + '" height="' + item.height + '"';
-  const visual = `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="lazy">`;
+  const visual = `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="${loading}">`;
   return `<figure${item.longPage ? ' class="long-web-design"' : ''}><button class="media-preview" type="button" data-media-src="${item.video || item.url}" data-media-type="${item.video ? 'video' : 'image'}" data-media-label="${title} · ${item.label}" aria-label="${title} · ${item.label} · ${item.video ? '▶' : '+'}">${visual}${item.video ? '<span class="play-symbol" aria-hidden="true">▶</span>' : ''}</button><figcaption>${item.label}</figcaption></figure>`;
 
 }
@@ -113,8 +114,9 @@ export function caseGallery(project, language = 'es') {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(item);
   }
+  let seen = 0;
   return modelLink + Array.from(groups, ([name, items]) => {
-    const figures = items.map(item => mediaFigure(item, project.title)).join('');
+    const figures = items.map(item => mediaFigure(item, project.title, seen++ === 0 ? 'eager' : 'lazy')).join('');
     if (!name) return `<div class="selected-gallery case-gallery">${figures}</div>`;
     return `<section class="campaign-gallery"><h2>${name}</h2><div class="selected-gallery">${figures}</div></section>`;
   }).join('');
@@ -135,7 +137,7 @@ export function motionSection(language) {
     return `<section class="motion-collection"><a href="/work/#motion">← ${back}</a><h2>${selected.title}</h2><div class="selected-gallery">${figures}</div></section>`;
   }
   return `<div class="directory-grid motion-index">${collections.map(({id,title,clips}) =>
-    `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover"><img src="${clips[0].url}" alt=""><span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
+    `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover"><img src="${clips[0].url}" width="${clips[0].width}" height="${clips[0].height}" alt="${title}" loading="lazy"><span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
 }
 
 
