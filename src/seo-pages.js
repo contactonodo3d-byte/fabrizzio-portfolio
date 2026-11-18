@@ -1,4 +1,4 @@
-import { site, copy as englishCopy, projects as englishProjects, services as englishServices } from './content.js';
+import { site, portfolioCredit, copy as englishCopy, projects as englishProjects, services as englishServices } from './content.js';
 import { locales } from './translations.js';
 import { selectedProjects, caseGallery } from './selected-projects.js';
 import { contact as expoContact } from './expo-contact.js';
@@ -148,7 +148,7 @@ function homeBody() {
 
 function workBody() {
   const cards = orderedProjects('es').map((project, index) => `<article><a href="${project.href}"><p class="eyebrow">${escapeHtml(project.label)}</p><h2>${escapeHtml(project.title)}</h2>${projectFigure(project, index < 2 ? 'eager' : 'lazy')}<p>${escapeHtml(project.note)}</p></a></article>`).join('');
-  return `<main id="main-content" class="work-directory container"><div class="directory-views"><h1>Stands 3D y escenografía</h1></div><p class="editorial-note">${escapeHtml(es.work.intro)}</p><div class="static-projects">${cards}</div></main>`;
+  return `<main id="main-content" class="work-directory container"><div class="directory-views"><h1>Stands 3D y escenografía</h1></div><p class="editorial-note">${escapeHtml(es.work.intro)}</p><div class="static-projects">${cards}</div><p class="portfolio-credit">${escapeHtml(portfolioCredit.es)}</p></main>`;
 }
 
 function servicesBody() {

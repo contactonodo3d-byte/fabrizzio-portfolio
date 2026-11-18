@@ -1,3 +1,4 @@
+import { portfolioCredit } from './content.js';
 import { motionSection } from './selected-projects.js';
 
 const disciplines = {
@@ -65,5 +66,6 @@ export function workBrowser(projects, language) {
   }).join('');
   return `<main class="work-directory container"><div class="directory-views"><h1>${title}</h1></div><p class="editorial-note">${intro}</p>
     <nav class="directory-filters" aria-label="${['Disciplines','Disciplinas','Disciplinas'][index]}">${filters}<a href="/work/#motion" ${motion ? 'aria-current="page"' : ''}>Motion</a></nav>
-    ${motion ? motionSection(language) : `<div class="directory-grid">${cards}</div>`}</main>`;
+    ${motion ? motionSection(language) : `<div class="directory-grid">${cards}</div>`}
+    <p class="portfolio-credit">${portfolioCredit[language]}</p></main>`;
 }
