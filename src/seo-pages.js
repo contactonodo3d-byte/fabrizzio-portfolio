@@ -20,7 +20,7 @@ export function catalog(language = 'es') {
   return [...selectedProjects(language), ...merge(englishProjects, locales[language]?.projects)];
 }
 
-const LEAD = ['foody', 'casa-albirroja', 'indufar-2026'];
+const LEAD = ['foody', 'casa-albirroja', 'indufar-2026', 'gestecner'];
 
 export function orderedProjects(language = 'es') {
   const projects = catalog(language);

@@ -29,6 +29,10 @@ const selected = [
     'Race graphics, stage screens and exhibition stands for Indufar Run and the brand’s 2026 activations.',
     'Gráfica de carrera, pantallas de escenario y stands de Indufar Run y las activaciones de la marca en 2026.',
     'Peças de corrida, telas de palco e estandes da Indufar Run e das ativações da marca em 2026.'],
+  ['gestecner', 'Gestecner · Navegestic', 'spatial',
+    'Two booth concepts for Boat Port Show 2026, centered on an aerial drone, an aquatic drone and an isometric map across the wall and floor screens.',
+    'Dos propuestas de stand para Boat Port Show 2026, con un dron aéreo, un dron acuático y un mapa isométrico que continúa de la pared al piso.',
+    'Duas propostas de estande para o Boat Port Show 2026, com um drone aéreo, um drone aquático e um mapa isométrico que se estende da parede ao piso.'],
   ['acuo-redes', 'ACUO · Social media', 'digital',
     'Campaign artwork, infographics, interviews and reels from the ACUO social archive.',
     'Gráficas de campaña, infografías, entrevistas y reels del archivo de redes de ACUO.',
@@ -90,24 +94,35 @@ const selected = [
 export function selectedProjects(language) {
   const index = { en: 0, es: 1, pt: 2 }[language];
   return selected.map(([slug, title, category, ...notes]) => ({
-    slug, title, label: language === 'es' && ['foody','indufar-2026','casa-albirroja'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
+    slug, title, label: language === 'es' && ['foody','indufar-2026','casa-albirroja','gestecner'].includes(slug) ? 'Stands' : categories[category][index], note: notes[index],
     className: 'project-' + (category === 'social' ? 'brand' : category), thumbnail: media[slug][0].url,
     width: media[slug][0].width, height: media[slug][0].height,
-    href: '/work/' + slug + '/', gallery: media[slug],
+    href: '/work/' + slug + '/', gallery: media[slug].map((item) => item.translations?.[language] ? { ...item, ...item.translations[language] } : item),
   }));
 }
 
 export function mediaFigure(item, title, loading = 'lazy') {
   const dimensions = 'width="' + item.width + '" height="' + item.height + '"';
   const visual = `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="${loading}">`;
-  return `<figure${item.longPage ? ' class="long-web-design"' : ''}><button class="media-preview" type="button" data-media-src="${item.video || item.url}" data-media-type="${item.video ? 'video' : 'image'}" data-media-label="${title} · ${item.label}" aria-label="${title} · ${item.label} · ${item.video ? '▶' : '+'}">${visual}${item.video ? '<span class="play-symbol" aria-hidden="true">▶</span>' : ''}</button><figcaption>${item.label}</figcaption></figure>`;
+  const figureClass = item.longPage ? 'long-web-design' : item.wide ? 'media-wide' : '';
+  return `<figure${figureClass ? ` class="${figureClass}"` : ''}><button class="media-preview" type="button" data-media-src="${item.video || item.url}" data-media-type="${item.video ? 'video' : 'image'}" data-media-label="${title} · ${item.label}" aria-label="${title} · ${item.label} · ${item.video ? '▶' : '+'}">${visual}${item.video ? '<span class="play-symbol" aria-hidden="true">▶</span>' : ''}</button><figcaption>${item.label}</figcaption></figure>`;
 
 }
 
 export function caseGallery(project, language = 'es') {
-  const modelLink = project.slug === 'foody'
-    ? `<p><a class="text-link" href="/3d/foody-exhibidor/">${{en:'Explore the display in 3D / AR', es:'Explorar el exhibidor en 3D / AR', pt:'Explorar o expositor em 3D / AR'}[language]} ↗</a></p>`
-    : '';
+  let projectLinks = '';
+  if (project.slug === 'foody') {
+    const label = {en:'Explore the display in 3D / AR', es:'Explorar el exhibidor en 3D / AR', pt:'Explorar o expositor em 3D / AR'}[language];
+    projectLinks = `<p><a class="text-link" href="/3d/foody-exhibidor/">${label} ↗</a></p>`;
+  } else if (project.slug === 'gestecner') {
+    const credit = {
+      es: 'Diseño del stand y visualización 3D por Fabrizzio Ruiz. Trabajo realizado a través de Péscalo.',
+      en: 'Booth design and 3D visualization by Fabrizzio Ruiz. Work carried out through Péscalo.',
+      pt: 'Design do estande e visualização 3D por Fabrizzio Ruiz. Trabalho realizado por meio da Péscalo.',
+    }[language];
+    const viewer = {es:'Explorar el stand en 3D / AR', en:'Explore the booth in 3D / AR', pt:'Explorar o estande em 3D / AR'}[language];
+    projectLinks = `<p>${credit}</p><p><a class="text-link" href="/expo/gestecner/?lang=${language}">${viewer} ↗</a></p>`;
+  }
   const groups = new Map();
   for (const item of project.gallery) {
     const key = item.group || '';
@@ -115,7 +130,7 @@ export function caseGallery(project, language = 'es') {
     groups.get(key).push(item);
   }
   let seen = 0;
-  return modelLink + Array.from(groups, ([name, items]) => {
+  return projectLinks + Array.from(groups, ([name, items]) => {
     const figures = items.map(item => mediaFigure(item, project.title, seen++ === 0 ? 'eager' : 'lazy')).join('');
     if (!name) return `<div class="selected-gallery case-gallery">${figures}</div>`;
     return `<section class="campaign-gallery"><h2>${name}</h2><div class="selected-gallery">${figures}</div></section>`;

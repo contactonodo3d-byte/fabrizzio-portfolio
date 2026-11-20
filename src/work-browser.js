@@ -15,12 +15,12 @@ const assignments = {
   marca: ['kamelio', 'gio-mobili', 'black-sail', 'vegas-valley', 'client-logos', 'protein-bar'],
   redes: ['acuo-redes', 'mosconi', 'recellebrate', 'pam-paiva', 'protein-bar', 'social-media-assets', 'acuo'],
   web: ['ruisenor', 'bad-liar', 'skylinq', 'law-group', 'vista-digital', 'acuo'],
-  stands: ['foody', 'casa-albirroja', 'indufar-2026'],
-  espacios: ['foody', 'gio-mobili', 'casa-albirroja', 'indufar-2026', 'bar-de-cejas', 'architectural-visualization'],
+  stands: ['foody', 'casa-albirroja', 'indufar-2026', 'gestecner'],
+  espacios: ['foody', 'gio-mobili', 'casa-albirroja', 'indufar-2026', 'gestecner', 'bar-de-cejas', 'architectural-visualization'],
   presentaciones: ['adm-human-rights-report', 'idem', 'abrazo-de-oso', 'pitch-decks'],
 };
 
-const featured = ['foody', 'casa-albirroja', 'indufar-2026', 'gio-mobili'];
+const featured = ['foody', 'casa-albirroja', 'indufar-2026', 'gestecner', 'gio-mobili'];
 const fullFrame = new Set(['adm-human-rights-report', 'mosconi', 'idem', 'abrazo-de-oso', 'vegas-valley', 'protein-bar', 'pitch-decks']);
 
 function currentDiscipline() {

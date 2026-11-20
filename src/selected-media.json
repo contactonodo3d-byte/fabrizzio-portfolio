@@ -1,4 +1,126 @@
 {
+  "gestecner": [
+    {
+      "url": "/images/selected/gestecner/render-principal.webp",
+      "width": 1792,
+      "height": 878,
+      "label": "Simulación del stand · opción 1",
+      "wide": true,
+      "translations": {
+        "en": {
+          "label": "Booth rendering · option 1"
+        },
+        "pt": {
+          "label": "Simulação do estande · opção 1"
+        }
+      }
+    },
+    {
+      "url": "/images/selected/gestecner/vista-general.webp",
+      "width": 1800,
+      "height": 882,
+      "label": "Vista general con cotas",
+      "wide": true,
+      "group": "Distribución y detalles",
+      "translations": {
+        "en": {
+          "label": "Dimensioned overview",
+          "group": "Layout and details"
+        },
+        "pt": {
+          "label": "Vista geral com cotas",
+          "group": "Distribuição e detalhes"
+        }
+      }
+    },
+    {
+      "url": "/images/selected/gestecner/exhibicion-drones.webp",
+      "width": 1406,
+      "height": 1364,
+      "label": "Exhibición de drones y mapa isométrico",
+      "group": "Distribución y detalles",
+      "translations": {
+        "en": {
+          "label": "Drone display and isometric map",
+          "group": "Layout and details"
+        },
+        "pt": {
+          "label": "Exposição de drones e mapa isométrico",
+          "group": "Distribuição e detalhes"
+        }
+      }
+    },
+    {
+      "url": "/images/selected/gestecner/pantalla-interactiva.webp",
+      "width": 1176,
+      "height": 1466,
+      "label": "Pantalla interactiva para minijuegos",
+      "group": "Distribución y detalles",
+      "translations": {
+        "en": {
+          "label": "Interactive screen for mini-games",
+          "group": "Layout and details"
+        },
+        "pt": {
+          "label": "Tela interativa para minijogos",
+          "group": "Distribuição e detalhes"
+        }
+      }
+    },
+    {
+      "url": "/images/selected/gestecner/area-atencion.webp",
+      "width": 884,
+      "height": 1472,
+      "label": "Área de atención y gráfica cartográfica",
+      "group": "Distribución y detalles",
+      "translations": {
+        "en": {
+          "label": "Consultation area and map graphics",
+          "group": "Layout and details"
+        },
+        "pt": {
+          "label": "Área de atendimento e grafismos cartográficos",
+          "group": "Distribuição e detalhes"
+        }
+      }
+    },
+    {
+      "url": "/images/selected/gestecner/render-alternativo.webp",
+      "width": 1800,
+      "height": 1004,
+      "label": "Simulación del stand · opción 2",
+      "wide": true,
+      "group": "Segunda propuesta",
+      "translations": {
+        "en": {
+          "label": "Booth rendering · option 2",
+          "group": "Second concept"
+        },
+        "pt": {
+          "label": "Simulação do estande · opção 2",
+          "group": "Segunda proposta"
+        }
+      }
+    },
+    {
+      "url": "/images/selected/gestecner/vista-alternativa.webp",
+      "width": 1800,
+      "height": 882,
+      "label": "Vista general de la segunda propuesta",
+      "wide": true,
+      "group": "Segunda propuesta",
+      "translations": {
+        "en": {
+          "label": "Overview of the second concept",
+          "group": "Second concept"
+        },
+        "pt": {
+          "label": "Vista geral da segunda proposta",
+          "group": "Segunda proposta"
+        }
+      }
+    }
+  ],
   "gio-mobili": [
     {
       "url": "/images/selected/gio-mobili/1.webp",
