@@ -1,5 +1,6 @@
 import { portfolioCredit } from './content.js';
 import { motionSection } from './selected-projects.js';
+import { imageTag, imageSizes } from './responsive-image.js';
 
 const disciplines = {
   todo: ['All', 'Todo', 'Tudo'],
@@ -55,10 +56,17 @@ export function workBrowser(projects, language) {
     const href = key === 'todo' ? p.href : p.href + '?disciplina=' + key;
     const cover = p.slug === 'gio-mobili' ? '/images/selected/gio-mobili/2.webp' : p.thumbnail;
     const coverItem = p.gallery?.find((item) => item.url === cover) || p.gallery?.[0];
-    const dims = coverItem?.width ? ` width="${coverItem.width}" height="${coverItem.height}"` : (p.width ? ` width="${p.width}" height="${p.height}"` : '');
     const alt = coverItem?.label ? `${p.title} · ${coverItem.label}` : p.title;
     const visual = cover
-      ? `<img src="${cover}" alt="${alt}"${dims} loading="${i < 2 ? 'eager' : 'lazy'}">`
+      ? imageTag({
+          src: cover,
+          alt,
+          width: coverItem?.width || p.width,
+          height: coverItem?.height || p.height,
+          loading: i < 2 ? 'eager' : 'lazy',
+          sizes: imageSizes.directory,
+          fetchPriority: i === 0 ? 'high' : undefined,
+        })
       : `<span class="directory-wordmark">${p.title}</span>`;
     return `<a class="directory-card" id="proyecto-${p.slug}" href="${href}">
       <div class="directory-meta"><span>${names.join(' · ')}</span><h2>${p.title}</h2></div>

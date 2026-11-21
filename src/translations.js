@@ -31,8 +31,8 @@ export const locales = {
     ],
     projects: [
       { label: 'Diseño web', title: 'Skylinq Home', note: 'Diseño web para servicios de energía y mejoras para el hogar.' },
-      { label: 'Diseño web', title: 'Law Group', note: 'Un proyecto web presentado en el portafolio anterior.' },
-      { label: 'Diseño web', title: 'Vista Digital', note: 'Un proyecto web presentado en el portafolio anterior.' },
+      { label: 'Diseño web', title: 'Law Group', note: 'Diseño web de Law Group: presencia digital para el sector legal, del portafolio anterior (Adobe Portfolio). El sitio es law.vistadigital.com.', overview: 'Proyecto de diseño web presentado en el portafolio anterior. Es una presencia digital para el sector legal y se muestra con el enlace al proyecto original.', deliverables: ['Diseño web'] },
+      { label: 'Diseño web', title: 'Vista Digital', note: 'Diseño web de Vista Digital, un proyecto de sitio del portafolio anterior (Adobe Portfolio). El sitio es vistadigital.com.', overview: 'Proyecto de diseño web presentado en el portafolio anterior. Se muestra aquí con el enlace al proyecto original.', deliverables: ['Diseño web'] },
       { label: 'Redes sociales', title: 'Piezas para redes sociales', note: 'Gráficas de campaña para comunicar el contenido de un cliente.' },
       { label: 'Diseño de presentaciones', title: 'Presentaciones y pitch decks', note: 'Informe corporativo preparado según las guías de marca.' },
       { label: 'Diseño de marca', title: 'Logotipos para clientes', note: 'Una selección de trabajos de diseño de logotipos.' },
@@ -71,8 +71,8 @@ export const locales = {
     ],
     projects: [
       { label: 'Web design', title: 'Skylinq Home', note: 'Design de site para serviços de energia e melhorias residenciais.' },
-      { label: 'Web design', title: 'Law Group', note: 'Um projeto de site apresentado no portfólio anterior.' },
-      { label: 'Web design', title: 'Vista Digital', note: 'Um projeto de site apresentado no portfólio anterior.' },
+      { label: 'Web design', title: 'Law Group', note: 'Design do site Law Group: presença digital para advocacia, do portfólio anterior (Adobe Portfolio). O site é law.vistadigital.com.', overview: 'Projeto de design para web apresentado no portfólio anterior. É uma presença digital para advocacia e aparece aqui com o link do projeto original.', deliverables: ['Design do site'] },
+      { label: 'Web design', title: 'Vista Digital', note: 'Design do site Vista Digital, um projeto de site do portfólio anterior (Adobe Portfolio). O site é vistadigital.com.', overview: 'Projeto de design para web apresentado no portfólio anterior. Aparece aqui com o link do projeto original.', deliverables: ['Design do site'] },
       { label: 'Redes sociais', title: 'Peças para redes sociais', note: 'Artes de campanha para comunicar o conteúdo de um cliente.' },
       { label: 'Design de apresentações', title: 'Apresentações e pitch decks', note: 'Relatório corporativo preparado conforme as diretrizes da marca.' },
       { label: 'Design de marca', title: 'Logotipos para clientes', note: 'Uma seleção de trabalhos de criação de logotipos.' },
