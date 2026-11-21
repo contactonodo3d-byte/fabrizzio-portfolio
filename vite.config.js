@@ -2,12 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import { catalog } from './src/seo-pages.js';
+import { publishedProjects } from './src/seo-pages.js';
 import { writeStaticSite } from './scripts/write-static-site.js';
 
 const root = import.meta.dirname;
 const caseInputs = writeStaticSite(root);
-const knownSlugs = new Set(catalog('es').map((project) => project.slug));
+const knownSlugs = new Set(publishedProjects('es').map((project) => project.slug));
 
 const legacyRedirects = {
   '/index.html': '/',

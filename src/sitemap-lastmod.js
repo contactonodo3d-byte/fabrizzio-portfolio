@@ -3,7 +3,7 @@
 // 2026-11-21. /lab/foody-ar-game/ is dated with the server-rendered description.
 export const sitemapLastmod = {
   '/': '2026-11-20',
-  '/work/': '2026-11-20',
+  '/work/': '2026-11-21',
   '/services/': '2026-11-16',
   '/about/': '2026-11-16',
   '/contact/': '2026-11-16',
@@ -29,6 +29,7 @@ export const sitemapLastmod = {
   '/work/idem/': '2026-11-16',
   '/work/indufar-2026/': '2026-11-16',
   '/work/kamelio/': '2026-11-16',
+  // Kept while law-group is in hiddenProjectSlugs, so restoring the case study does not need a new date.
   '/work/law-group/': '2026-11-21',
   '/work/mosconi/': '2026-11-16',
   '/work/pam-paiva/': '2026-11-16',
@@ -39,5 +40,6 @@ export const sitemapLastmod = {
   '/work/skylinq/': '2026-11-16',
   '/work/social-media-assets/': '2026-11-16',
   '/work/vegas-valley/': '2026-11-16',
+  // Kept while vista-digital is in hiddenProjectSlugs, so restoring the case study does not need a new date.
   '/work/vista-digital/': '2026-11-21',
 };
