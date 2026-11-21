@@ -5,6 +5,8 @@ import { contact as expoContact } from './expo-contact.js';
 import {
   ORIGIN, pageMeta, jsonLdScript, personJsonLd, professionalServiceJsonLd, creativeWorkJsonLd, projectTitle, projectDescription,
 } from './seo-meta.js';
+import { imageTag, imageSizes } from './responsive-image.js';
+import { sitemapLastmod } from './sitemap-lastmod.js';
 
 function merge(base, override) {
   if (!override) return base;
@@ -41,10 +43,8 @@ function rootSrc(src) {
   return src.startsWith('./') ? src.slice(1) : src;
 }
 
-function img(src, alt, width, height, loading = 'lazy') {
-  if (!src) return '';
-  const dims = width && height ? ` width="${width}" height="${height}"` : '';
-  return `<img src="${rootSrc(src)}" alt="${escapeHtml(alt)}"${dims} loading="${loading}">`;
+function img(src, alt, width, height, loading = 'lazy', sizes = imageSizes.card, extra = {}) {
+  return imageTag({ src, alt, width, height, loading, sizes, ...extra });
 }
 
 const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -124,16 +124,16 @@ ${script}
 `;
 }
 
-function projectFigure(project, loading) {
+function projectFigure(project, loading, sizes = imageSizes.card, fetchPriority) {
   const label = project.gallery?.[0]?.label;
   const alt = label ? `${project.title} · ${label}` : project.title;
-  return img(project.thumbnail, alt, project.width, project.height, loading);
+  return img(project.thumbnail, alt, project.width, project.height, loading, sizes, { fetchPriority });
 }
 
 function homeBody() {
   const lead = ['foody', 'casa-albirroja', 'indufar-2026', 'gio-mobili']
     .map((slug) => catalog('es').find((project) => project.slug === slug));
-  const cards = lead.map((project, index) => `<a class="project-card" href="${project.href}"><div class="project-art ${project.className}">${projectFigure(project, index === 0 ? 'eager' : 'lazy')}</div><div class="project-meta"><div><span class="eyebrow">${escapeHtml(project.label)}</span><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(project.note)}</p></div></div></a>`).join('');
+  const cards = lead.map((project, index) => `<a class="project-card" href="${project.href}"><div class="project-art ${project.className}">${projectFigure(project, index === 0 ? 'eager' : 'lazy', imageSizes.card, index === 0 ? 'high' : undefined)}</div><div class="project-meta"><div><span class="eyebrow">${escapeHtml(project.label)}</span><h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(project.note)}</p></div></div></a>`).join('');
   const services = esServices.map((service) => `<a href="/services/#${service.id}"><span>${service.number}</span><h3>${escapeHtml(service.title)}</h3><p>${escapeHtml(service.homeBody)}</p></a>`).join('');
   return `<main id="main-content">
 <section class="hero container">
@@ -147,7 +147,7 @@ function homeBody() {
 }
 
 function workBody() {
-  const cards = orderedProjects('es').map((project, index) => `<article><a href="${project.href}"><p class="eyebrow">${escapeHtml(project.label)}</p><h2>${escapeHtml(project.title)}</h2>${projectFigure(project, index < 2 ? 'eager' : 'lazy')}<p>${escapeHtml(project.note)}</p></a></article>`).join('');
+  const cards = orderedProjects('es').map((project, index) => `<article><a href="${project.href}"><p class="eyebrow">${escapeHtml(project.label)}</p><h2>${escapeHtml(project.title)}</h2>${projectFigure(project, index < 2 ? 'eager' : 'lazy', imageSizes.directory, index === 0 ? 'high' : undefined)}<p>${escapeHtml(project.note)}</p></a></article>`).join('');
   return `<main id="main-content" class="work-directory container"><div class="directory-views"><h1>Stands 3D y escenografía</h1></div><p class="editorial-note">${escapeHtml(es.work.intro)}</p><div class="static-projects">${cards}</div><p class="portfolio-credit">${escapeHtml(portfolioCredit.es)}</p></main>`;
 }
 
@@ -195,7 +195,7 @@ function projectBody(project) {
   if (project.gallery) {
     return `<main id="main-content" class="case-page container">${back}${intro}${caseGallery(project, 'es')}</main>`;
   }
-  const figure = project.thumbnail ? `<figure class="case-image">${img(project.thumbnail, `${project.title} · ${project.label}`, project.width, project.height, 'eager')}<figcaption>${escapeHtml(project.source || '')}</figcaption></figure>` : '';
+  const figure = project.thumbnail ? `<figure class="case-image">${img(project.thumbnail, `${project.title} · ${project.label}`, project.width, project.height, 'eager', imageSizes.case, { fetchPriority: 'high' })}<figcaption>${escapeHtml(project.source || '')}</figcaption></figure>` : '';
   const deliverables = (project.deliverables || []).map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   const external = project.externalUrl ? `<p><a class="text-link" href="${project.externalUrl}">Ver el proyecto</a></p>` : '';
   return `<main id="main-content" class="case-page container">${back}${intro}${figure}<div class="case-details"><section><div class="eyebrow">Overview</div><p>${escapeHtml(project.overview || '')}</p></section><section><div class="eyebrow">Deliverables</div><ul>${deliverables}</ul></section><section><div class="eyebrow">Project source</div><p>${escapeHtml(project.source || '')}</p>${external}</section></div></main>`;
@@ -260,12 +260,53 @@ export function staticDocuments() {
     body: `<main id="main-content" class="inner-page container"><h1>Proyectos</h1><p>Cada proyecto tiene su propia página. Si esta no se abre sola, elegí uno:</p><ul>${indexLinks}</ul></main>`,
   });
   for (const project of projects) documents[`work/${project.slug}/index.html`] = page(projectMeta(project));
+  Object.assign(documents, legacyRedirects(projects));
   return documents;
+}
+
+function legacyRedirects(projects) {
+  const jump = (target) => `location.replace(${JSON.stringify(target)}+location.search+location.hash)`;
+  const shell = (title, target) => `<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>${escapeHtml(title)}</title>
+<link rel="canonical" href="${ORIGIN}${target}">
+<script>${jump(target)}</script>
+<meta http-equiv="refresh" content="0;url=${target}">
+</head>
+<body><p><a href="${target}">Continuar</a></p></body>
+</html>
+`;
+  const slugs = JSON.stringify(projects.map((project) => project.slug));
+  const caseStudy = `<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Proyectos · Fabrizzio Ruiz</title>
+<script>(function(){var known=${slugs};var slug=new URLSearchParams(location.search).get("project");var target=(slug&&known.indexOf(slug)!==-1)?"/work/"+slug+"/":"/work/";target+=location.hash;document.write('<link rel="canonical" href="${ORIGIN}'+target+'">');document.write('<meta http-equiv="refresh" content="0;url='+target+'">');location.replace(target);})();</script>
+</head>
+<body><p><a href="/work/">Continuar</a></p><noscript><meta http-equiv="refresh" content="0;url=/work/"></noscript></body>
+</html>
+`;
+  return {
+    'work.html': shell('Proyectos · Fabrizzio Ruiz', '/work/'),
+    'about.html': shell('Sobre mí · Fabrizzio Ruiz', '/about/'),
+    'services.html': shell('Servicios · Fabrizzio Ruiz', '/services/'),
+    'contact.html': shell('Contacto · Fabrizzio Ruiz', '/contact/'),
+    'lab.html': shell('Lab · Fabrizzio Ruiz', '/lab/'),
+    'case-study.html': caseStudy,
+  };
 }
 
 export function sitemapXml() {
   const paths = ['/', '/work/', '/services/', '/about/', '/contact/', '/lab/', '/lab/foody-ar-game/', '/expo/', '/expo/gestecner/', '/connect/', '/superflyer/', ...orderedProjects('es').map((project) => project.href)];
-  const urls = [...new Set(paths)].map((path) => `  <url><loc>${ORIGIN}${path}</loc></url>`).join('\n');
+  const unique = [...new Set(paths)];
+  const urls = unique.map((path) => {
+    const lastmod = sitemapLastmod[path];
+    if (!lastmod) throw new Error(`Missing sitemap lastmod for ${path}`);
+    return `  <url><loc>${ORIGIN}${path}</loc><lastmod>${lastmod}</lastmod></url>`;
+  }).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
 

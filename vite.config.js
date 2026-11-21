@@ -16,7 +16,6 @@ const legacyRedirects = {
   '/services.html': '/services/',
   '/contact.html': '/contact/',
   '/lab.html': '/lab/',
-  '/case-study.html': '/work/',
 };
 
 function sendStatus(res, status, location) {
@@ -26,6 +25,11 @@ function sendStatus(res, status, location) {
 
 function seoRoutes(req, res, next) {
   const url = new URL(req.url, 'http://localhost');
+  if (url.pathname === '/case-study.html') {
+    const slug = url.searchParams.get('project');
+    sendStatus(res, 301, slug && knownSlugs.has(slug) ? `/work/${slug}/` : '/work/');
+    return;
+  }
   const legacy = legacyRedirects[url.pathname];
   if (legacy) { sendStatus(res, 301, legacy + url.search); return; }
   if (url.pathname === '/projects' || url.pathname === '/projects/' || url.pathname === '/projects/index.html') {

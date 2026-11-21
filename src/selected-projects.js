@@ -1,4 +1,5 @@
 import media from './selected-media.json';
+import { imageTag, imageSizes } from './responsive-image.js';
 
 const categories = {
   social: ['Social media', 'Redes sociales', 'Redes sociais'],
@@ -102,8 +103,15 @@ export function selectedProjects(language) {
 }
 
 export function mediaFigure(item, title, loading = 'lazy') {
-  const dimensions = 'width="' + item.width + '" height="' + item.height + '"';
-  const visual = `<img src="${item.url}" ${dimensions} alt="${title} · ${item.label}" loading="${loading}">`;
+  const visual = imageTag({
+    src: item.url,
+    alt: `${title} · ${item.label}`,
+    width: item.width,
+    height: item.height,
+    loading,
+    sizes: item.longPage || item.wide ? imageSizes.galleryWide : imageSizes.gallery,
+    fetchPriority: loading === 'eager' ? 'high' : undefined,
+  });
   const figureClass = item.longPage ? 'long-web-design' : item.wide ? 'media-wide' : '';
   return `<figure${figureClass ? ` class="${figureClass}"` : ''}><button class="media-preview" type="button" data-media-src="${item.video || item.url}" data-media-type="${item.video ? 'video' : 'image'}" data-media-label="${title} · ${item.label}" aria-label="${title} · ${item.label} · ${item.video ? '▶' : '+'}">${visual}${item.video ? '<span class="play-symbol" aria-hidden="true">▶</span>' : ''}</button><figcaption>${item.label}</figcaption></figure>`;
 
@@ -152,7 +160,7 @@ export function motionSection(language) {
     return `<section class="motion-collection"><a href="/work/#motion">← ${back}</a><h2>${selected.title}</h2><div class="selected-gallery">${figures}</div></section>`;
   }
   return `<div class="directory-grid motion-index">${collections.map(({id,title,clips}) =>
-    `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover"><img src="${clips[0].url}" width="${clips[0].width}" height="${clips[0].height}" alt="${title}" loading="lazy"><span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
+    `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover">${imageTag({ src: clips[0].url, alt: title, width: clips[0].width, height: clips[0].height, loading: 'lazy', sizes: imageSizes.directory })}<span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
 }
 
 

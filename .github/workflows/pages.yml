@@ -77,6 +77,13 @@ jobs:
           test -f dist/lab/foody-ar-game/vendor/xr8/xr-slam.js
           grep -q '/lab/foody-ar-game/assets/' dist/lab/foody-ar-game/index.html
           grep -R -q 'https://fabrizzioruiz.com/lab/foody-ar-game/' dist/lab/foody-ar-game
+      - name: Add server-rendered Foody description
+        run: |
+          node scripts/inject-foody-seo.mjs dist/lab/foody-ar-game/index.html
+          grep -q 'data-foody-static' dist/lab/foody-ar-game/index.html
+          grep -q '<h1>Foody AR Farm</h1>' dist/lab/foody-ar-game/index.html
+          grep -q 'name="description" content="Foody AR Farm es un demo' dist/lab/foody-ar-game/index.html
+          grep -q 'id="root"' dist/lab/foody-ar-game/index.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
