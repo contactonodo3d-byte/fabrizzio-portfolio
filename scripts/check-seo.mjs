@@ -76,24 +76,51 @@ assert(home.includes('srcset=') && home.includes('sizes=') && home.includes('fot
 assert(/foto-5\.webp"[^>]*fetchpriority="high"|fetchpriority="high"[^>]*foto-5\.webp/.test(home) || home.includes('fetchpriority="high"'), 'home eager image is prioritized');
 assert(home.includes('loading="lazy"'), 'home lazy-loads later images');
 assert(home.includes('https://www.linkedin.com/in/fabriz7io/'), 'LinkedIn sameAs kept');
-assert(!/behance/i.test(home), 'Behance was not invented');
 
+function walk(dir, files = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(file, files);
+    else if (/\.(html|xml|txt|js|json)$/.test(entry.name)) files.push(file);
+  }
+  return files;
+}
+const built = walk(dist);
+const behanceHits = built.filter((file) => /behance/i.test(read(file)));
+assert(behanceHits.length === 0, `no Behance mentions in the built site (${behanceHits.join(', ')})`);
+
+const hiddenCases = ['/work/law-group/', '/work/vista-digital/'];
 const law = read(path.join(dist, 'work/law-group/index.html'));
 const vista = read(path.join(dist, 'work/vista-digital/index.html'));
+const robots = '<meta name="robots" content="noindex, nofollow">';
+assert(law.includes(robots), 'law-group is noindex, nofollow');
+assert(vista.includes(robots), 'vista-digital is noindex, nofollow');
 assert(law.includes('presencia digital para el sector legal'), 'law-group uses existing story');
 assert(law.includes('law.vistadigital.com'), 'law-group keeps its real URL');
 assert(!/<img /.test(law), 'law-group still has no invented image');
 assert(vista.includes('vistadigital.com') && vista.includes('portafolio anterior'), 'vista-digital keeps known facts');
 assert(!/<img /.test(vista), 'vista-digital still has no invented image');
+const linkSurfaces = built.filter((file) => /\.(html|xml|txt)$/.test(file));
+const leaks = [];
+for (const file of linkSurfaces) {
+  const rel = path.relative(dist, file);
+  if (rel === 'work/law-group/index.html' || rel === 'work/vista-digital/index.html') continue;
+  const text = read(file);
+  for (const hiddenPath of hiddenCases) {
+    if (text.includes(hiddenPath)) leaks.push(`${rel} -> ${hiddenPath}`);
+  }
+}
+assert(leaks.length === 0, `hidden case studies are not linked elsewhere (${leaks.join('; ') || 'none'})`);
 
 const sitemap = read(path.join(dist, 'sitemap.xml'));
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-assert(locs.length === 38, `sitemap has 38 URLs (${locs.length})`);
+assert(locs.length === 36, `sitemap has 36 URLs (${locs.length})`);
 assert(locs.includes(`${origin}/work/gestecner/`), 'sitemap includes /work/gestecner/');
+assert(!locs.some((loc) => hiddenCases.some((hiddenPath) => loc.endsWith(hiddenPath))), 'sitemap omits hidden case studies');
 assert(!locs.some((loc) => loc.endsWith('.html') || !loc.startsWith(`${origin}/`) || loc.includes('?')), 'sitemap URLs are canonical https paths');
 assert((sitemap.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g) || []).length === locs.length, 'every sitemap URL has lastmod');
 assert(sitemap.includes('<loc>https://fabrizzioruiz.com/work/gestecner/</loc><lastmod>2026-11-20</lastmod>'), 'gestecner lastmod is its content date');
-assert(sitemap.includes('<loc>https://fabrizzioruiz.com/work/law-group/</loc><lastmod>2026-11-21</lastmod>'), 'law-group lastmod updated');
+assert(sitemap.includes('<loc>https://fabrizzioruiz.com/work/</loc><lastmod>2026-11-21</lastmod>'), 'work index lastmod matches the hidden-case update');
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://127.0.0.1');

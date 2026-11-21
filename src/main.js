@@ -2,7 +2,7 @@ import { contact as expoContact } from './expo-contact.js';
 import { applyContactIcons } from './contact-icons.js';
 import { workBrowser, returnToProject } from './work-browser.js';
 import { selectedProjects, caseGallery, setupMediaViewer } from './selected-projects.js';
-import { site, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
+import { site, isHiddenProject, copy as englishCopy, projects as englishProjects, heroCovers as englishCovers, services as englishServices, labEntries } from './content.js';
 import { locales } from './translations.js';
 import { ORIGIN, absoluteUrl, metaFor, projectTitle, projectDescription } from './seo-meta.js';
 import { imageTag, imageSizes } from './responsive-image.js';
@@ -23,7 +23,8 @@ function merge(base, override) {
   return override ?? base;
 }
 const copy = merge(englishCopy, translated.copy);
-const projects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)];
+const allProjects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)];
+const projects = allProjects.filter((project) => !isHiddenProject(project));
 const heroCovers = ['foody','casa-albirroja','indufar-2026','gio-mobili','black-sail','adm-human-rights-report','kamelio','bad-liar'].map((slug, index) => {
   const project = projects.find(p => p.slug === slug);
   const gio = slug === 'gio-mobili';
@@ -202,7 +203,8 @@ function applyRouteMeta(path, meta) {
 }
 
 function caseStudy(slug) {
-  const project = projects.find((item) => item.slug === slug);
+  const project = allProjects.find((item) => item.slug === slug);
+  if (isHiddenProject(slug)) setMeta('name', 'robots', 'noindex, nofollow');
   if (!project) {
     applyRouteMeta(route, { title: `${ui.notFound} — ${site.name}`, description: copy.work.intro });
     setMeta('name', 'robots', 'noindex');

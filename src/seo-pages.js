@@ -1,4 +1,4 @@
-import { site, portfolioCredit, copy as englishCopy, projects as englishProjects, services as englishServices } from './content.js';
+import { site, portfolioCredit, isHiddenProject, copy as englishCopy, projects as englishProjects, services as englishServices } from './content.js';
 import { locales } from './translations.js';
 import { selectedProjects, caseGallery } from './selected-projects.js';
 import { contact as expoContact } from './expo-contact.js';
@@ -28,6 +28,10 @@ export function orderedProjects(language = 'es') {
   const projects = catalog(language);
   const lead = LEAD.map((slug) => projects.find((project) => project.slug === slug)).filter(Boolean);
   return [...lead, ...projects.filter((project) => !LEAD.includes(project.slug))];
+}
+
+export function publishedProjects(language = 'es') {
+  return orderedProjects(language).filter((project) => !isHiddenProject(project));
 }
 
 function escapeHtml(value) {
@@ -147,7 +151,7 @@ function homeBody() {
 }
 
 function workBody() {
-  const cards = orderedProjects('es').map((project, index) => `<article><a href="${project.href}"><p class="eyebrow">${escapeHtml(project.label)}</p><h2>${escapeHtml(project.title)}</h2>${projectFigure(project, index < 2 ? 'eager' : 'lazy', imageSizes.directory, index === 0 ? 'high' : undefined)}<p>${escapeHtml(project.note)}</p></a></article>`).join('');
+  const cards = publishedProjects('es').map((project, index) => `<article><a href="${project.href}"><p class="eyebrow">${escapeHtml(project.label)}</p><h2>${escapeHtml(project.title)}</h2>${projectFigure(project, index < 2 ? 'eager' : 'lazy', imageSizes.directory, index === 0 ? 'high' : undefined)}<p>${escapeHtml(project.note)}</p></a></article>`).join('');
   return `<main id="main-content" class="work-directory container"><div class="directory-views"><h1>Stands 3D y escenografía</h1></div><p class="editorial-note">${escapeHtml(es.work.intro)}</p><div class="static-projects">${cards}</div><p class="portfolio-credit">${escapeHtml(portfolioCredit.es)}</p></main>`;
 }
 
@@ -212,6 +216,7 @@ function projectMeta(project) {
     imageAlt: image ? project.title : fallback.imageAlt,
     width: project.width || fallback.width,
     height: project.height || fallback.height,
+    robots: isHiddenProject(project) ? 'noindex, nofollow' : undefined,
     jsonLd: [creativeWorkJsonLd({ ...project, thumbnail: image })],
     body: projectBody(project),
   };
@@ -246,7 +251,8 @@ export function staticDocuments() {
     }),
   };
   const projects = orderedProjects('es');
-  const indexLinks = projects.map((project) => `<li><a href="${project.href}">${escapeHtml(project.title)}</a> — ${escapeHtml(project.note || '')}</li>`).join('');
+  const published = publishedProjects('es');
+  const indexLinks = published.map((project) => `<li><a href="${project.href}">${escapeHtml(project.title)}</a> — ${escapeHtml(project.note || '')}</li>`).join('');
   documents['projects/index.html'] = page({
     title: 'Proyectos · Fabrizzio Ruiz',
     description: 'Los proyectos están en direcciones propias dentro de /work/.',
@@ -256,11 +262,11 @@ export function staticDocuments() {
     imageAlt: work.imageAlt,
     width: work.width,
     height: work.height,
-    extra: `<script>var known=${JSON.stringify(orderedProjects('es').map((project) => project.slug))};var slug=new URLSearchParams(location.search).get("project");if(slug&&known.indexOf(slug)!==-1)location.replace("/work/"+slug+"/"+location.hash);else location.replace("/work/"+location.hash);</script>`,
+    extra: `<script>var known=${JSON.stringify(published.map((project) => project.slug))};var slug=new URLSearchParams(location.search).get("project");if(slug&&known.indexOf(slug)!==-1)location.replace("/work/"+slug+"/"+location.hash);else location.replace("/work/"+location.hash);</script>`,
     body: `<main id="main-content" class="inner-page container"><h1>Proyectos</h1><p>Cada proyecto tiene su propia página. Si esta no se abre sola, elegí uno:</p><ul>${indexLinks}</ul></main>`,
   });
   for (const project of projects) documents[`work/${project.slug}/index.html`] = page(projectMeta(project));
-  Object.assign(documents, legacyRedirects(projects));
+  Object.assign(documents, legacyRedirects(published));
   return documents;
 }
 
@@ -300,7 +306,7 @@ function legacyRedirects(projects) {
 }
 
 export function sitemapXml() {
-  const paths = ['/', '/work/', '/services/', '/about/', '/contact/', '/lab/', '/lab/foody-ar-game/', '/expo/', '/expo/gestecner/', '/connect/', '/superflyer/', ...orderedProjects('es').map((project) => project.href)];
+  const paths = ['/', '/work/', '/services/', '/about/', '/contact/', '/lab/', '/lab/foody-ar-game/', '/expo/', '/expo/gestecner/', '/connect/', '/superflyer/', ...publishedProjects('es').map((project) => project.href)];
   const unique = [...new Set(paths)];
   const urls = unique.map((path) => {
     const lastmod = sitemapLastmod[path];
@@ -311,7 +317,7 @@ export function sitemapXml() {
 }
 
 export function llmsText() {
-  const projects = orderedProjects('es').map((project) => `- [${project.title}](${ORIGIN}${project.href}): ${project.note || project.overview || ''}`).join('\n');
+  const projects = publishedProjects('es').map((project) => `- [${project.title}](${ORIGIN}${project.href}): ${project.note || project.overview || ''}`).join('\n');
   return `# Fabrizzio Ruiz
 
 > Graphic designer in Paraguay. 3D trade-show booth and stand design, scenography, environmental graphics, branding, packaging, and white-label design for agencies. Former Lead Designer at Tenth Element (Las Vegas, NV). Remote freelance designer since 2018.

@@ -1,4 +1,4 @@
-import { portfolioCredit } from './content.js';
+import { isHiddenProject, portfolioCredit } from './content.js';
 import { motionSection } from './selected-projects.js';
 import { imageTag, imageSizes } from './responsive-image.js';
 
@@ -15,6 +15,7 @@ const disciplines = {
 const assignments = {
   marca: ['kamelio', 'gio-mobili', 'black-sail', 'vegas-valley', 'client-logos', 'protein-bar'],
   redes: ['acuo-redes', 'mosconi', 'recellebrate', 'pam-paiva', 'protein-bar', 'social-media-assets', 'acuo'],
+  // law-group and vista-digital stay in Web so clearing hiddenProjectSlugs puts them back here.
   web: ['ruisenor', 'bad-liar', 'skylinq', 'law-group', 'vista-digital', 'acuo'],
   stands: ['foody', 'casa-albirroja', 'indufar-2026', 'gestecner'],
   espacios: ['foody', 'gio-mobili', 'casa-albirroja', 'indufar-2026', 'gestecner', 'bar-de-cejas', 'architectural-visualization'],
@@ -38,6 +39,7 @@ export function returnToProject(slug) {
 }
 
 export function workBrowser(projects, language) {
+  const listed = projects.filter((project) => !isHiddenProject(project));
   const index = {en: 0, es: 1, pt: 2}[language];
   const title = ['3D booths and scenography', 'Stands 3D y escenografía', 'Estandes 3D e cenografia'][index];
   const intro = [
@@ -47,7 +49,7 @@ export function workBrowser(projects, language) {
   ][index];
   const motion = location.hash === '#motion';
   const key = currentDiscipline();
-  const ordered = [...featured.map(slug => projects.find(p => p.slug === slug)), ...projects.filter(p => !featured.includes(p.slug))];
+  const ordered = [...featured.map(slug => listed.find(p => p.slug === slug)), ...listed.filter(p => !featured.includes(p.slug))];
   const visible = ordered.filter(p => key === 'todo' || assignments[key].includes(p.slug));
   const filters = Object.entries(disciplines).map(([id, names]) =>
     `<a href="${workUrl(id)}" ${!motion && id === key ? 'aria-current="page"' : ''}>${names[index]}</a>`).join('');

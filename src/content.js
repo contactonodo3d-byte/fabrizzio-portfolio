@@ -7,6 +7,17 @@ export const site = {
   playlistUrl: 'https://open.spotify.com/embed/playlist/4G7hOw2Krp9DA7tLFY0bfI?utm_source=generator&theme=0&si=cc88254c73e44591',
 };
 
+// TEMPORARILY HIDDEN CASE STUDIES
+// Law Group and Vista Digital stay as pages at /work/<slug>/ (noindex, nofollow)
+// but are left off the work grid, home, related links, project lists, sitemap, and llms.txt.
+// To publish them again: remove the slug from this list and rebuild (npm run dev or npm run build).
+export const hiddenProjectSlugs = ['law-group', 'vista-digital'];
+
+export function isHiddenProject(projectOrSlug) {
+  const slug = typeof projectOrSlug === 'string' ? projectOrSlug : projectOrSlug?.slug;
+  return hiddenProjectSlugs.includes(slug);
+}
+
 // EDIT THE WEBSITE TEXT HERE.
 // Change the quoted words on the right. Keep commas, braces, and property names.
 // Headlines use line1 / line2 / accent so you can change the words without
@@ -170,8 +181,9 @@ export const heroCovers = [
   { id: '03', title: 'Pitch Decks', story: 'A clear story, slide by slide', category: 'Presentation design', thumbnail: '/images/work/pitch-deck.webp', href: '/work/pitch-decks/', width: 1200, height: 938, theme: 'cover-orange' },
   { id: '04', title: 'Client Logos', story: 'Identity marks for clients', category: 'Brand design', thumbnail: '/images/work/brand-identity.webp', href: '/work/client-logos/', width: 1200, height: 938, theme: 'cover-pink' },
   { id: '05', title: 'ArchViz & Retail', story: 'Spaces brought to life', category: 'Spatial design', thumbnail: '/images/work/archviz.webp', href: '/work/architectural-visualization/', width: 1200, height: 938, theme: 'cover-purple' },
-  { id: '06', title: 'Vista Digital', story: 'A website design project', category: 'Web design', thumbnail: '', href: '/work/vista-digital/', theme: 'cover-black' },
-  { id: '07', title: 'Law Group', story: 'A digital presence for law', category: 'Web design', thumbnail: '', href: '/work/law-group/', theme: 'cover-yellow' },
+  // HIDDEN with hiddenProjectSlugs above. Uncomment these covers when restoring those case studies.
+  // { id: '06', title: 'Vista Digital', story: 'A website design project', category: 'Web design', thumbnail: '', href: '/work/vista-digital/', theme: 'cover-black' },
+  // { id: '07', title: 'Law Group', story: 'A digital presence for law', category: 'Web design', thumbnail: '', href: '/work/law-group/', theme: 'cover-yellow' },
 ];
 
 // Publish a Lab entry by adding { category, title, summary, date, url } here.
