@@ -1,39 +1,277 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://fabrizzioruiz.com/</loc><lastmod>2026-11-20</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/</loc><lastmod>2026-11-21</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/services/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/about/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/contact/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/lab/</loc><lastmod>2026-11-16</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://fabrizzioruiz.com/</loc><lastmod>2026-11-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/</loc><lastmod>2026-11-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/"/></url>
+  <url><loc>https://fabrizzioruiz.com/services/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/services/"/></url>
+  <url><loc>https://fabrizzioruiz.com/about/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/about/"/></url>
+  <url><loc>https://fabrizzioruiz.com/contact/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/contact/"/></url>
+  <url><loc>https://fabrizzioruiz.com/lab/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/lab/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/lab/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/lab/"/></url>
   <url><loc>https://fabrizzioruiz.com/lab/foody-ar-game/</loc><lastmod>2026-11-21</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/expo/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/expo/gestecner/</loc><lastmod>2026-10-21</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/connect/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://fabrizzioruiz.com/expo/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/expo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/expo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/expo/"/></url>
+  <url><loc>https://fabrizzioruiz.com/expo/gestecner/</loc><lastmod>2026-10-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/expo/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/expo/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/expo/gestecner/"/></url>
+  <url><loc>https://fabrizzioruiz.com/connect/</loc><lastmod>2026-10-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/connect/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/connect/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/connect/"/></url>
   <url><loc>https://fabrizzioruiz.com/superflyer/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/foody/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/casa-albirroja/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/indufar-2026/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/gestecner/</loc><lastmod>2026-11-20</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/ruisenor/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/kamelio/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/adm-human-rights-report/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/acuo-redes/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/gio-mobili/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/recellebrate/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/bar-de-cejas/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/black-sail/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/vegas-valley/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/mosconi/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/pam-paiva/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/abrazo-de-oso/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/idem/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/bad-liar/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/protein-bar/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/acuo/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/skylinq/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/social-media-assets/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/pitch-decks/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/client-logos/</loc><lastmod>2026-11-16</lastmod></url>
-  <url><loc>https://fabrizzioruiz.com/work/architectural-visualization/</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://fabrizzioruiz.com/work/foody/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/foody/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/foody/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/foody/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/casa-albirroja/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/casa-albirroja/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/casa-albirroja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/casa-albirroja/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/indufar-2026/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/indufar-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/indufar-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/indufar-2026/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/gestecner/</loc><lastmod>2026-11-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/gestecner/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/ruisenor/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/ruisenor/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/ruisenor/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/ruisenor/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/kamelio/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/kamelio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/kamelio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/kamelio/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/adm-human-rights-report/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/adm-human-rights-report/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/adm-human-rights-report/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/adm-human-rights-report/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/acuo-redes/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/acuo-redes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/acuo-redes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/acuo-redes/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/gio-mobili/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/gio-mobili/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/gio-mobili/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/gio-mobili/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/recellebrate/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/recellebrate/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/recellebrate/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/recellebrate/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/bar-de-cejas/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/bar-de-cejas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/bar-de-cejas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/bar-de-cejas/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/black-sail/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/black-sail/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/black-sail/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/black-sail/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/vegas-valley/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/vegas-valley/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/vegas-valley/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/vegas-valley/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/mosconi/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/mosconi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/mosconi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/mosconi/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/pam-paiva/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/pam-paiva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/pam-paiva/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/pam-paiva/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/abrazo-de-oso/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/abrazo-de-oso/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/abrazo-de-oso/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/abrazo-de-oso/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/idem/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/idem/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/idem/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/idem/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/bad-liar/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/bad-liar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/bad-liar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/bad-liar/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/protein-bar/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/protein-bar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/protein-bar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/protein-bar/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/acuo/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/acuo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/acuo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/acuo/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/skylinq/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/skylinq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/skylinq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/skylinq/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/social-media-assets/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/social-media-assets/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/social-media-assets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/social-media-assets/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/pitch-decks/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/pitch-decks/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/pitch-decks/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/pitch-decks/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/client-logos/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/client-logos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/client-logos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/client-logos/"/></url>
+  <url><loc>https://fabrizzioruiz.com/work/architectural-visualization/</loc><lastmod>2026-11-16</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/architectural-visualization/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/architectural-visualization/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/architectural-visualization/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/services/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/services/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/services/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/about/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/about/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/contact/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/contact/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/lab/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/lab/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/lab/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/lab/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/expo/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/expo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/expo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/expo/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/expo/gestecner/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/expo/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/expo/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/expo/gestecner/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/connect/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/connect/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/connect/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/connect/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/foody/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/foody/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/foody/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/foody/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/casa-albirroja/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/casa-albirroja/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/casa-albirroja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/casa-albirroja/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/indufar-2026/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/indufar-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/indufar-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/indufar-2026/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/gestecner/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/gestecner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/gestecner/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/ruisenor/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/ruisenor/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/ruisenor/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/ruisenor/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/kamelio/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/kamelio/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/kamelio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/kamelio/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/adm-human-rights-report/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/adm-human-rights-report/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/adm-human-rights-report/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/adm-human-rights-report/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/acuo-redes/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/acuo-redes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/acuo-redes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/acuo-redes/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/gio-mobili/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/gio-mobili/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/gio-mobili/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/gio-mobili/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/recellebrate/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/recellebrate/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/recellebrate/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/recellebrate/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/bar-de-cejas/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/bar-de-cejas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/bar-de-cejas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/bar-de-cejas/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/black-sail/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/black-sail/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/black-sail/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/black-sail/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/vegas-valley/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/vegas-valley/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/vegas-valley/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/vegas-valley/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/mosconi/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/mosconi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/mosconi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/mosconi/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/pam-paiva/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/pam-paiva/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/pam-paiva/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/pam-paiva/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/abrazo-de-oso/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/abrazo-de-oso/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/abrazo-de-oso/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/abrazo-de-oso/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/idem/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/idem/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/idem/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/idem/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/bad-liar/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/bad-liar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/bad-liar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/bad-liar/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/protein-bar/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/protein-bar/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/protein-bar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/protein-bar/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/acuo/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/acuo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/acuo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/acuo/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/skylinq/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/skylinq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/skylinq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/skylinq/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/social-media-assets/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/social-media-assets/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/social-media-assets/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/social-media-assets/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/pitch-decks/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/pitch-decks/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/pitch-decks/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/pitch-decks/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/client-logos/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/client-logos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/client-logos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/client-logos/"/></url>
+  <url><loc>https://fabrizzioruiz.com/en/work/architectural-visualization/</loc><lastmod>2026-11-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fabrizzioruiz.com/work/architectural-visualization/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fabrizzioruiz.com/en/work/architectural-visualization/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fabrizzioruiz.com/work/architectural-visualization/"/></url>
 </urlset>

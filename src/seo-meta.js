@@ -1,4 +1,12 @@
+import { pairPaths } from './locale-path.js';
+
 export const ORIGIN = 'https://fabrizzioruiz.com';
+
+export function hreflangLinks(path) {
+  const { es, en } = pairPaths(path);
+  const link = (lang, href) => `<link rel="alternate" hreflang="${lang}" href="${ORIGIN}${href}">`;
+  return [link('es', es), link('en', en), link('x-default', es)].join('\n');
+}
 
 export function absoluteUrl(path) {
   if (!path) return '';
@@ -60,7 +68,7 @@ export function jsonLdScript(data) {
   )).join('\n');
 }
 
-export function personJsonLd() {
+export function personJsonLd(language = 'es') {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -68,7 +76,7 @@ export function personJsonLd() {
     name: 'Fabrizzio Ruiz',
     url: `${ORIGIN}/`,
     image: `${ORIGIN}/images/fabrizzio-x.webp`,
-    jobTitle: 'Diseñador de stands 3D y escenografía',
+    jobTitle: language === 'en' ? '3D booth and scenography designer' : 'Diseñador de stands 3D y escenografía',
     description: 'Former Lead Designer at Tenth Element (Las Vegas, NV). Remote freelance designer since 2018. Designs 3D trade-show booths, scenography, environmental graphics, branding, packaging and white-label design for agencies. Based in Paraguay.',
     email: 'hello@fabrizzioruiz.com',
     telephone: '+595972780989',
@@ -80,30 +88,68 @@ export function personJsonLd() {
   };
 }
 
-export function professionalServiceJsonLd() {
+const serviceOffers = {
+  es: [
+    ['Diseño de stands 3D para ferias', '3D trade-show booth design'],
+    ['Escenografía', 'Scenography'],
+    ['Gráfica ambiental', 'Environmental graphics'],
+    ['Diseño white-label para agencias', 'White-label design'],
+    ['Branding y packaging', 'Branding and packaging'],
+  ],
+  en: [
+    ['3D booths & scenography', '3D trade-show booth design'],
+    ['White-label for agencies', 'White-label design'],
+    ['Brand & campaigns', 'Branding and packaging'],
+    ['Web & digital', 'Web design'],
+  ],
+};
+
+export function professionalServiceJsonLd(language = 'es') {
+  const en = language === 'en';
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': `${ORIGIN}/#practice`,
     name: 'Fabrizzio Ruiz',
-    url: `${ORIGIN}/services/`,
+    url: `${ORIGIN}${en ? '/en/services/' : '/services/'}`,
     image: `${ORIGIN}/images/fabrizzio-x.webp`,
     email: 'hello@fabrizzioruiz.com',
     telephone: '+595972780989',
-    areaServed: [{ '@type': 'Country', name: 'Paraguay' }, { '@type': 'Place', name: 'Worldwide' }],
+    areaServed: en
+      ? [
+        { '@type': 'Country', name: 'Paraguay' },
+        { '@type': 'Country', name: 'United States' },
+        { '@type': 'Country', name: 'Canada' },
+        { '@type': 'Place', name: 'Worldwide' },
+      ]
+      : [{ '@type': 'Country', name: 'Paraguay' }, { '@type': 'Place', name: 'Worldwide' }],
     address: { '@type': 'PostalAddress', addressLocality: 'Asunción', addressCountry: 'PY' },
     provider: { '@id': `${ORIGIN}/#fabrizzio` },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Design services',
-      itemListElement: [
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Diseño de stands 3D para ferias', serviceType: '3D trade-show booth design' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Escenografía', serviceType: 'Scenography' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gráfica ambiental', serviceType: 'Environmental graphics' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Diseño white-label para agencias', serviceType: 'White-label design' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Branding y packaging', serviceType: 'Branding and packaging' } },
-      ],
+      itemListElement: serviceOffers[en ? 'en' : 'es'].map(([name, serviceType]) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name, serviceType },
+      })),
     },
+  };
+}
+
+export function expoServiceJsonLd(language = 'es') {
+  const en = language === 'en';
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: en ? '3D booth and scenography design' : 'Diseño de stands 3D y escenografía',
+    url: `${ORIGIN}${en ? '/en/expo/' : '/expo/'}`,
+    serviceType: en ? '3D trade-show booth design, scenography and visualization' : 'Diseño de stands 3D, escenografía y visualización',
+    areaServed: [
+      { '@type': 'Country', name: 'Paraguay' },
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'Canada' },
+    ],
+    provider: { '@type': 'Person', '@id': `${ORIGIN}/#fabrizzio`, name: 'Fabrizzio Ruiz', url: `${ORIGIN}/` },
   };
 }
 
@@ -114,13 +160,23 @@ export const expoFaq = [
   ['¿Cuánto cuesta y cuánto tiempo lleva?', 'Depende de las dimensiones, complejidad, entregables y fecha del evento. Compartí esos datos para recibir una propuesta adaptada a tu proyecto.'],
 ];
 
-export function faqJsonLd() {
+export const expoFaqEn = [
+  ['Can I ask about a project if I already have someone to build the booth?', 'Yes. Tell me who will produce the space and what documentation they need. We define the design and the files to prepare for that process.'],
+  ['What do I receive at the end?', 'Deliverables are agreed in the proposal. Depending on the project, they can include renders, a concept presentation, measured views and graphic files for production. We confirm formats and scope before starting.'],
+  ['Does the service include fabrication and installation?', 'This page presents my design and visualization work. When you ask for a quote, say if you also need production or installation so we can define which part needs a specialist supplier.'],
+  ['How much does it cost and how long does it take?', 'It depends on the dimensions, complexity, deliverables and the event date. Share those details to receive a proposal adapted to your project.'],
+];
+
+export function faqJsonLd(language = 'es') {
+  const en = language === 'en';
+  const entries = en ? expoFaqEn : expoFaq;
+  const path = en ? '/en/expo/' : '/expo/';
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    '@id': `${ORIGIN}/expo/#faq`,
-    url: `${ORIGIN}/expo/`,
-    mainEntity: expoFaq.map(([name, text]) => ({
+    '@id': `${ORIGIN}${path}#faq`,
+    url: `${ORIGIN}${path}`,
+    mainEntity: entries.map(([name, text]) => ({
       '@type': 'Question',
       name,
       acceptedAnswer: { '@type': 'Answer', text },
@@ -128,17 +184,18 @@ export function faqJsonLd() {
   };
 }
 
-export function creativeWorkJsonLd(project) {
+export function creativeWorkJsonLd(project, language = 'es') {
+  const href = project.href.startsWith('/en/') ? project.href : (language === 'en' ? (project.href === '/' ? '/en/' : `/en${project.href}`) : project.href);
   const data = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    '@id': `${ORIGIN}${project.href}#work`,
+    '@id': `${ORIGIN}${href}#work`,
     name: project.title,
     headline: project.title,
     description: projectDescription(project),
-    url: `${ORIGIN}${project.href}`,
+    url: `${ORIGIN}${href}`,
     creator: { '@id': `${ORIGIN}/#fabrizzio` },
-    inLanguage: 'es',
+    inLanguage: language,
   };
   if (project.thumbnail) data.image = absoluteUrl(project.thumbnail);
   return data;

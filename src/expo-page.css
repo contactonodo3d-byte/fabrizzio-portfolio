@@ -71,7 +71,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 }
 @media(max-width:600px) {
   .expo-header { gap: 10px; }
-  .expo-languages button { font-size: 11px; padding: 5px; }
+  .expo-languages a, .expo-languages button { font-size: 11px; padding: 5px; }
   .expo-tools { gap: 6px; }
   .wordmark { font-size: 18px; }
   .selected-gallery, .expo-scope, .expo-process { grid-template-columns: 1fr; }

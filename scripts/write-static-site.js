@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { staticDocuments, sitemapXml, llmsText } from '../src/seo-pages.js';
+import { writeEnglishMirrors } from './english-mirrors.js';
 
 function writeIfChanged(file, content) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -12,11 +13,11 @@ export function writeStaticSite(root) {
   const documents = staticDocuments();
   const slugs = new Set();
   for (const rel of Object.keys(documents)) {
-    const match = rel.match(/^work\/([a-z0-9-]+)\/index\.html$/);
+    const match = rel.match(/^(?:en\/)?work\/([a-z0-9-]+)\/index\.html$/);
     if (match) slugs.add(match[1]);
   }
-  const workDir = path.join(root, 'work');
-  if (fs.existsSync(workDir)) {
+  for (const workDir of [path.join(root, 'work'), path.join(root, 'en/work')]) {
+    if (!fs.existsSync(workDir)) continue;
     for (const entry of fs.readdirSync(workDir, { withFileTypes: true })) {
       if (entry.isDirectory() && !slugs.has(entry.name)) fs.rmSync(path.join(workDir, entry.name), { recursive: true, force: true });
     }
@@ -25,8 +26,13 @@ export function writeStaticSite(root) {
   for (const [rel, html] of Object.entries(documents)) {
     const file = path.join(root, rel);
     writeIfChanged(file, html);
-    const match = rel.match(/^work\/([a-z0-9-]+)\/index\.html$/);
-    if (match) caseInputs[`case-${match[1]}`] = file;
+    const match = rel.match(/^(en\/)?work\/([a-z0-9-]+)\/index\.html$/);
+    if (match) caseInputs[`${match[1] ? 'case-en' : 'case'}-${match[2]}`] = file;
+    else if (rel.startsWith('en/')) caseInputs[`page-${rel.replace(/[/.]/g, '-')}`] = file;
+  }
+  writeEnglishMirrors(root);
+  for (const rel of ['en/expo/index.html', 'en/connect/index.html']) {
+    caseInputs[`page-${rel.replace(/[/.]/g, '-')}`] = path.join(root, rel);
   }
   writeIfChanged(path.join(root, 'public/sitemap.xml'), sitemapXml());
   writeIfChanged(path.join(root, 'public/llms.txt'), llmsText());

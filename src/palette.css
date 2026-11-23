@@ -72,9 +72,9 @@ body { color: var(--ink); background: var(--bg); }
 
 
 .language-switch{display:inline-flex;align-items:center;gap:3px;flex:0 0 auto;padding:3px;border:1px solid #000;border-radius:999px}
-.language-switch button{min-width:28px;padding:6px 4px;border:0;border-radius:999px;background:transparent;color:#000;font-size:10px;font-weight:800;line-height:1.1}
-.language-switch button[aria-pressed="true"]{background:#000;color:#fff}
-.language-switch button:hover:not([aria-pressed="true"]){background:#ffdb01}
+.language-switch a,.language-switch button{min-width:28px;padding:6px 4px;border:0;border-radius:999px;background:transparent;color:#000;font-size:10px;font-weight:800;line-height:1.1;text-align:center;text-decoration:none}
+.language-switch a[aria-current="page"],.language-switch button[aria-pressed="true"]{background:#000;color:#fff}
+.language-switch a:hover:not([aria-current="page"]),.language-switch button:hover:not([aria-pressed="true"]){background:#ffdb01}
 .header-tools{display:inline-flex;align-items:center;gap:10px}.mobile-nav .language-switch{display:none}
 .hero-visual{min-width:0}
 .playlist-widget{width:min(100%,360px);margin:0 auto 18px;padding:0;background:transparent;color:#000;border:0;border-radius:12px;box-shadow:none;overflow:hidden}

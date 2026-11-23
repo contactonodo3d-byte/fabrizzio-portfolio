@@ -1,6 +1,7 @@
 import { isHiddenProject, portfolioCredit } from './content.js';
 import { motionSection } from './selected-projects.js';
 import { imageTag, imageSizes } from './responsive-image.js';
+import { localizedHref } from './locale-path.js';
 
 const disciplines = {
   todo: ['All', 'Todo', 'Tudo'],
@@ -34,8 +35,8 @@ function workUrl(key) {
   return key === 'todo' ? '/work/' : '/work/?disciplina=' + key;
 }
 
-export function returnToProject(slug) {
-  return workUrl(currentDiscipline()) + '#proyecto-' + slug;
+export function returnToProject(slug, language = 'es') {
+  return localizedHref(language, workUrl(currentDiscipline()) + '#proyecto-' + slug);
 }
 
 export function workBrowser(projects, language) {
@@ -52,10 +53,10 @@ export function workBrowser(projects, language) {
   const ordered = [...featured.map(slug => listed.find(p => p.slug === slug)), ...listed.filter(p => !featured.includes(p.slug))];
   const visible = ordered.filter(p => key === 'todo' || assignments[key].includes(p.slug));
   const filters = Object.entries(disciplines).map(([id, names]) =>
-    `<a href="${workUrl(id)}" ${!motion && id === key ? 'aria-current="page"' : ''}>${names[index]}</a>`).join('');
+    `<a href="${localizedHref(language, workUrl(id))}" ${!motion && id === key ? 'aria-current="page"' : ''}>${names[index]}</a>`).join('');
   const cards = visible.map((p, i) => {
     const names = Object.keys(assignments).filter(id => assignments[id].includes(p.slug)).map(id => disciplines[id][index]);
-    const href = key === 'todo' ? p.href : p.href + '?disciplina=' + key;
+    const href = localizedHref(language, key === 'todo' ? p.href : p.href + '?disciplina=' + key);
     const cover = p.slug === 'gio-mobili' ? '/images/selected/gio-mobili/2.webp' : p.thumbnail;
     const coverItem = p.gallery?.find((item) => item.url === cover) || p.gallery?.[0];
     const alt = coverItem?.label ? `${p.title} · ${coverItem.label}` : p.title;
@@ -75,7 +76,7 @@ export function workBrowser(projects, language) {
       <div class="directory-cover ${fullFrame.has(p.slug) ? 'full-frame' : ''}">${visual}</div></a>`;
   }).join('');
   return `<main class="work-directory container"><div class="directory-views"><h1>${title}</h1></div><p class="editorial-note">${intro}</p>
-    <nav class="directory-filters" aria-label="${['Disciplines','Disciplinas','Disciplinas'][index]}">${filters}<a href="/work/#motion" ${motion ? 'aria-current="page"' : ''}>Motion</a></nav>
+    <nav class="directory-filters" aria-label="${['Disciplines','Disciplinas','Disciplinas'][index]}">${filters}<a href="${localizedHref(language, '/work/#motion')}" ${motion ? 'aria-current="page"' : ''}>Motion</a></nav>
     ${motion ? motionSection(language) : `<div class="directory-grid">${cards}</div>`}
     <p class="portfolio-credit">${portfolioCredit[language]}</p></main>`;
 }
