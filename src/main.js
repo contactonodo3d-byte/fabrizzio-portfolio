@@ -6,7 +6,8 @@ import { site, isHiddenProject, copy as englishCopy, projects as englishProjects
 import { locales } from './translations.js';
 import { ORIGIN, absoluteUrl, metaFor, projectTitle, projectDescription } from './seo-meta.js';
 import { imageTag, imageSizes } from './responsive-image.js';
-import { languageFromPath, localizedHref, stripLocale } from './locale-path.js';
+import { languageFromPath, localizedHref, stripLocale, languageSwitchTargets } from './locale-path.js';
+import { englishAboutBody, englishCaseBody, englishCases, englishNavLinks, englishWorkLead, tradeShowBody, whiteLabelBody } from './approved-english.js';
 
 const pathName = location.pathname.replace(/\/index\.html$/, '/');
 const language = languageFromPath(pathName);
@@ -64,10 +65,13 @@ const icon = (name) => ({
 const display = ({ line1, line2 = '', accent = '' }) => `${line1}<br/>${line2}${accent ? `<em>${accent}</em>` : ''}`;
 const languageSwitch = () => {
   const tail = location.search + location.hash;
-  const esHref = (route === '/' ? '/' : route) + tail;
-  const enHref = localizedHref('en', route === '/' ? '/' : route) + tail;
-  const item = (code, href) => `<a href="${href}" lang="${code}" hreflang="${code}"${language === code ? ' aria-current="page"' : ''}>${code.toUpperCase()}</a>`;
-  return `<nav class="language-switch" aria-label="Language / Idioma">${item('es', esHref)}${item('en', enHref)}</nav>`;
+  const localized = L(route === '/' ? '/' : route);
+  const targets = languageSwitchTargets(localized);
+  const item = (code, href) => {
+    const langRef = targets.paired ? ` hreflang="${code}"` : '';
+    return `<a href="${href}${tail}" lang="${code}"${langRef}${language === code ? ' aria-current="page"' : ''}>${code.toUpperCase()}</a>`;
+  };
+  return `<nav class="language-switch" aria-label="Language / Idioma">${item('es', targets.es)}${item('en', targets.en)}</nav>`;
 };
 
 function header() {
@@ -76,7 +80,7 @@ function header() {
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="${L('/')}" ${route === '/' ? 'aria-current="page"' : ''}>Home</a>
       <a href="${L('/work/')}" ${route === '/work/' ? 'aria-current="page"' : ''}>${copy.navigation.work}</a>
-      <a href="${L('/services/')}" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a><a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a>
+      <a href="${L('/services/')}" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a>${language === 'en' ? englishNavLinks(route) : ''}<a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a>
       <a href="${L('/lab/')}" ${route === '/lab/' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
       <a href="${L('/about/')}" ${route === '/about/' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a>
     </nav>
@@ -85,7 +89,7 @@ function header() {
     </div>
     <a class="header-cta" href="${L('/contact/')}">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
   </div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="${L('/')}">Home</a><a href="${L('/work/')}">${copy.navigation.work}</a><a href="${L('/services/')}">${copy.navigation.services}</a><a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="${L('/lab/')}">${copy.navigation.lab}</a><a href="${L('/about/')}">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="${L('/contact/')}">${copy.navigation.startProject}</a>
+    <a href="${L('/')}">Home</a><a href="${L('/work/')}">${copy.navigation.work}</a><a href="${L('/services/')}">${copy.navigation.services}</a>${language === 'en' ? englishNavLinks(route) : ''}<a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="${L('/lab/')}">${copy.navigation.lab}</a><a href="${L('/about/')}">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="${L('/contact/')}">${copy.navigation.startProject}</a>
   </nav></header>`;
 }
 
@@ -102,7 +106,7 @@ function whatsappButton() {
 
 function footer() {
   return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2>${whatsappButton()}</div><a class="round-arrow" href="${L('/contact/')}" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
-  <div class="container footer-bottom"><a class="wordmark" href="${L('/')}">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="${L('/work/')}">${copy.navigation.work}</a><a href="${L('/services/')}">${copy.navigation.services}</a><a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="${L('/lab/')}">${copy.navigation.lab}</a><a href="${L('/about/')}">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="${L('/contact/')}">${copy.navigation.contact}</a><a href="${L('/expo/')}">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
+  <div class="container footer-bottom"><a class="wordmark" href="${L('/')}">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="${L('/work/')}">${copy.navigation.work}</a><a href="${L('/services/')}">${copy.navigation.services}</a>${language === 'en' ? englishNavLinks(route) : ''}<a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="${L('/lab/')}">${copy.navigation.lab}</a><a href="${L('/about/')}">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="${L('/contact/')}">${copy.navigation.contact}</a><a href="${L('/expo/')}">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
 function projectCard(project, large = false) {
@@ -151,7 +155,7 @@ function home() {
   return `<main>
     <section class="hero container"><div class="hero-top"><div class="hero-identity"><span class="eyebrow status"><span class="status-dot"></span> ${copy.home.role}</span><span class="eyebrow hero-location">${copy.home.location}</span></div></div>
       <div class="hero-main"><div class="hero-copy"><h1>${display(copy.home.hero)}</h1>
-      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="${L('/work/')}">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="${L('/contact/')}">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
+      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="${L('/work/')}">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a>${language === 'en' ? '<a class="text-link" href="/en/white-label-design/">White-label design</a><a class="text-link" href="/en/trade-show-booth-design/">Trade show booth design</a>' : ''}<a class="text-link" href="${L('/contact/')}">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
       <div class="hero-showcase"><div class="showcase-grid">
         <a class="showcase-tile showcase-one" href="${L('/work/?disciplina=marca')}">${imageTag({ className: 'showcase-background', src: '/images/selected/black-sail/1.webp', width: 1536, height: 1024, alt: {en:'Black Sail sailboat mark',es:'Marca del velero de Black Sail',pt:'Marca do veleiro da Black Sail'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span>${copy.home.showcase.bigWords.join('<br/>')}</span></a>
@@ -167,7 +171,11 @@ function home() {
   </main>`;
 }
 
-function work() { return workBrowser(projects, language); }
+function work() {
+  const browser = workBrowser(projects, language);
+  if (language !== 'en') return browser;
+  return browser.replace('<p class="editorial-note">', `${englishWorkLead()}<p class="editorial-note">`);
+}
 
 function setMeta(attribute, name, content) {
   if (!content) return;
@@ -209,6 +217,11 @@ function applyRouteMeta(path, meta) {
 }
 
 function caseStudy(slug) {
+  if (language === 'en' && englishCaseBody(slug)) {
+    const study = englishCases[slug];
+    applyRouteMeta(study.path, { title: study.title, description: study.description, image: study.image, imageAlt: study.name, width: 1280, height: 720 });
+    return englishCaseBody(slug).replace(/^<main[^>]*>/, '<main class="case-page container">').replace(/<\/main>$/, '</main>');
+  }
   const project = allProjects.find((item) => item.slug === slug);
   if (isHiddenProject(slug)) setMeta('name', 'robots', 'noindex, nofollow');
   if (!project) {
@@ -242,9 +255,12 @@ function caseStudy(slug) {
   </main>`;
 }
 
-function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div><a class="round-arrow small" href="${L('/contact/')}" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="${L('/contact/')}">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
+function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => {
+  const more = language === 'en' && id === 'white-label' ? '<p><a href="/en/white-label-design/">White-label design for US and Canadian agencies</a></p>' : language === 'en' && id === 'spatial' ? '<p><a href="/en/trade-show-booth-design/">Trade show booth design for exhibit builders</a></p>' : '';
+  return `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>${more}</div><a class="round-arrow small" href="${L('/contact/')}" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`;
+}).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="${L('/contact/')}">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
 
-function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait">${imageTag({ src: '/images/fabrizzio-x.webp', alt: 'Fabrizzio Ruiz', width: 400, height: 400, loading: 'eager' })}<figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><p>${copy.about.paragraph3}</p><a class="text-link" href="${L('/contact/')}">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
+function about() { if (language === 'en') return englishAboutBody(); return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait">${imageTag({ src: '/images/fabrizzio-x.webp', alt: 'Fabrizzio Ruiz', width: 400, height: 400, loading: 'eager' })}<figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><p>${copy.about.paragraph3}</p><a class="text-link" href="${L('/contact/')}">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
 
 function lab() {
   const texts = {
@@ -300,7 +316,7 @@ if (legacyProject) {
   location.replace(target + location.hash);
 }
 const caseSlug = route.match(/^\/work\/([a-z0-9-]+)\/$/)?.[1];
-const pages = { '/': home, '/index.html': home, '/work/': work, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact };
+const pages = { '/': home, '/index.html': home, '/work/': work, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact, '/white-label-design/': () => whiteLabelBody(), '/trade-show-booth-design/': () => tradeShowBody() };
 const render = caseSlug
   ? () => caseStudy(caseSlug)
   : (pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="${L('/')}">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`));

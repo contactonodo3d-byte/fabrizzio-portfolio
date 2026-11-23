@@ -2,11 +2,14 @@ import { pairPaths } from './locale-path.js';
 
 export const ORIGIN = 'https://fabrizzioruiz.com';
 
-export function hreflangLinks(path) {
-  const { es, en } = pairPaths(path);
+export function hreflangLinks(path, { englishOnly = false } = {}) {
   const link = (lang, href) => `<link rel="alternate" hreflang="${lang}" href="${ORIGIN}${href}">`;
+  if (englishOnly) return [link('en', path), link('x-default', path)].join('\n');
+  const { es, en } = pairPaths(path);
   return [link('es', es), link('en', en), link('x-default', es)].join('\n');
 }
+
+export const ENTITY_STATEMENT = 'Fabrizzio Ruiz is a senior graphic, web and 3D designer based in Asunción, Paraguay, with more than eight years of experience. He was Lead Designer for graphic and web work at Tenth Element in Las Vegas, Nevada, from 2020 to 2022, and has worked remotely as a freelancer since 2018. He offers white-label design for agencies, branding, trade show booth design, and 3D/AR visualization, and works hours that overlap US time zones.';
 
 export function absoluteUrl(path) {
   if (!path) return '';
@@ -43,7 +46,7 @@ export const pageMeta = {
   en: {
     '/': { title: '3D trade-show booths and scenography · Fabrizzio Ruiz', description: '3D trade-show booths, scenography and environmental graphics from Paraguay, plus branding, packaging and white-label design for agencies.', ...images.foody },
     '/work/': { title: '3D booth and design projects · Fabrizzio Ruiz', description: 'Trade-show booths, scenography, environmental graphics, branding, packaging and white-label design. Selected work by Fabrizzio Ruiz.', ...images.casa },
-    '/about/': { title: 'About Fabrizzio Ruiz · 3D booths and scenography', description: 'Designer in Asunción, Paraguay. Former Lead Designer at Tenth Element (Las Vegas, NV) and a remote freelance designer since 2018.', ...images.portrait },
+    '/about/': { title: 'Fabrizzio Ruiz | Graphic & Exhibit Designer in Asunción, ex-Tenth Element Las Vegas', description: 'Fabrizzio Ruiz is a graphic and exhibit designer in Asunción, Paraguay, and former Lead Designer at Tenth Element in Las Vegas. Available for remote work.', ...images.portrait },
     '/services/': { title: '3D booth and design services · Fabrizzio Ruiz', description: '3D trade-show booths, scenography, environmental graphics and white-label design for agencies, plus branding, packaging and web design.', ...images.gestecner },
     '/contact/': { title: 'Contact · 3D booths and design · Fabrizzio Ruiz', description: 'Write to Fabrizzio Ruiz about a 3D trade-show booth, scenography, environmental graphics, or white-label design for an agency.', ...images.delta },
     '/lab/': { title: 'Lab · Games, AR and experiments · Fabrizzio Ruiz', description: 'Games, augmented reality and experiments by Fabrizzio Ruiz, including Foody AR Farm and the Gestecner 3D booth viewer.', ...images.gestecner },
@@ -77,7 +80,7 @@ export function personJsonLd(language = 'es') {
     url: `${ORIGIN}/`,
     image: `${ORIGIN}/images/fabrizzio-x.webp`,
     jobTitle: language === 'en' ? '3D booth and scenography designer' : 'Diseñador de stands 3D y escenografía',
-    description: 'Former Lead Designer at Tenth Element (Las Vegas, NV). Remote freelance designer since 2018. Designs 3D trade-show booths, scenography, environmental graphics, branding, packaging and white-label design for agencies. Based in Paraguay.',
+    description: ENTITY_STATEMENT,
     email: 'hello@fabrizzioruiz.com',
     telephone: '+595972780989',
     address: { '@type': 'PostalAddress', addressLocality: 'Asunción', addressCountry: 'PY' },

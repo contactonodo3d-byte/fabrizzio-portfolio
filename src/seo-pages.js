@@ -2,11 +2,15 @@ import { site, portfolioCredit, isHiddenProject, copy as englishCopy, projects a
 import { locales } from './translations.js';
 import { selectedProjects, caseGallery } from './selected-projects.js';
 import { contact as expoContact } from './expo-contact.js';
-import { localizedHref, pairPaths } from './locale-path.js';
+import { localizedHref, languageSwitchTargets } from './locale-path.js';
 import {
   ORIGIN, pageMeta, jsonLdScript, personJsonLd, professionalServiceJsonLd, creativeWorkJsonLd, projectTitle, projectDescription,
-  hreflangLinks,
+  hreflangLinks, ENTITY_STATEMENT,
 } from './seo-meta.js';
+import {
+  whiteLabelPage, tradeShowPage, whiteLabelBody, tradeShowBody, englishCaseBody, englishAboutBody, englishWorkLead,
+  englishCases, faqJsonLd, marketServiceJsonLd, caseCreativeWork,
+} from './approved-english.js';
 import { imageTag, imageSizes } from './responsive-image.js';
 import { sitemapLastmod } from './sitemap-lastmod.js';
 
@@ -61,7 +65,7 @@ const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="/src/album.css">
 <link rel="stylesheet" href="/src/cases.css">`;
 
-function head({ title, description, path, image, imageAlt, width, height, robots, jsonLd, extra = '', language = 'es', canonical = true, alternates = true }) {
+function head({ title, description, path, image, imageAlt, width, height, robots, jsonLd, extra = '', language = 'es', canonical = true, alternates = true, englishOnly = false }) {
   const url = ORIGIN + path;
   const imageUrl = image ? (image.startsWith('http') ? image : ORIGIN + image) : '';
   const card = width >= 600 ? 'summary_large_image' : 'summary';
@@ -78,7 +82,7 @@ ${robots ? `<meta name="robots" content="${escapeHtml(robots)}">` : ''}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 ${canonical ? `<link rel="canonical" href="${url}">` : ''}
-${canonical && alternates ? hreflangLinks(path) : ''}
+${canonical && alternates ? hreflangLinks(path, { englishOnly }) : ''}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fabrizzio Ruiz">
 <meta property="og:locale" content="${locale}">
@@ -101,8 +105,12 @@ ${FONTS}
 }
 
 function languageSwitch(language, path) {
-  const { es: esPath, en: enPath } = pairPaths(path);
-  const item = (code, href) => `<a href="${href}" lang="${code}" hreflang="${code}"${language === code ? ' aria-current="page"' : ''}>${code.toUpperCase()}</a>`;
+  const { es: esPath, en: enPath, paired } = languageSwitchTargets(path);
+  const item = (code, href) => {
+    const current = language === code;
+    const langRef = paired ? ` hreflang="${code}"` : '';
+    return `<a href="${href}" lang="${code}"${langRef}${current ? ' aria-current="page"' : ''}>${code.toUpperCase()}</a>`;
+  };
   return `<nav class="language-switch" aria-label="Language / Idioma">${item('es', esPath)}${item('en', enPath)}</nav>`;
 }
 
@@ -120,7 +128,7 @@ function header(current, language, copy) {
 <header class="site-header"><div class="container header-inner">
   <a class="wordmark" href="${L('/')}" aria-label="${homeLabel}">FABRIZZIO<span class="wordmark-dot">.</span></a>
   <nav class="desktop-nav" aria-label="${navLabel}">
-    ${link('/', 'Home')}${link('/work/', copy.navigation.work)}${link('/services/', copy.navigation.services)}${link('/expo/', stands)}${link('/lab/', copy.navigation.lab)}${link('/about/', copy.navigation.about)}<a href="/superflyer/">Superflyer</a>
+    ${link('/', 'Home')}${link('/work/', copy.navigation.work)}${link('/services/', copy.navigation.services)}${language === 'en' ? `${link('/white-label-design/', 'White-label')}${link('/trade-show-booth-design/', 'Booth design')}` : ''}${link('/expo/', stands)}${link('/lab/', copy.navigation.lab)}${link('/about/', copy.navigation.about)}<a href="/superflyer/">Superflyer</a>
   </nav>
   <div class="header-tools">${languageSwitch(language, current)}</div>
   <a class="header-cta" href="${L('/contact/')}">${escapeHtml(copy.navigation.startProject)}</a>
@@ -131,7 +139,7 @@ function footer(language, copy) {
   const L = (href) => localizedHref(language, href);
   const stands = language === 'en' ? 'Expo booths' : 'Stands';
   return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${escapeHtml(copy.footer.kicker)}</div><h2>${display(copy.footer.title)}</h2><p><a href="mailto:${site.email}">${site.email}</a></p><p><a href="https://wa.me/${expoContact.whatsapp}">WhatsApp</a></p></div></div>
-<div class="container footer-bottom"><a class="wordmark" href="${L('/')}">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${escapeHtml(copy.footer.descriptor)}<br/>${escapeHtml(site.location)} · ${escapeHtml(copy.footer.worldwide)}</p><div class="footer-links"><a href="${L('/work/')}">${escapeHtml(copy.navigation.work)}</a><a href="${L('/services/')}">${escapeHtml(copy.navigation.services)}</a><a href="${L('/expo/')}">${stands}</a><a href="${L('/about/')}">${escapeHtml(copy.navigation.about)}</a><a href="${L('/contact/')}">${escapeHtml(copy.navigation.contact)}</a></div><small>© ${new Date().getFullYear()} ${escapeHtml(site.name)}</small></div></footer>`;
+<div class="container footer-bottom"><a class="wordmark" href="${L('/')}">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${escapeHtml(copy.footer.descriptor)}<br/>${escapeHtml(site.location)} · ${escapeHtml(copy.footer.worldwide)}</p><div class="footer-links"><a href="${L('/work/')}">${escapeHtml(copy.navigation.work)}</a><a href="${L('/services/')}">${escapeHtml(copy.navigation.services)}</a>${language === 'en' ? '<a href="/en/white-label-design/">White-label</a><a href="/en/trade-show-booth-design/">Booth design</a>' : ''}<a href="${L('/expo/')}">${stands}</a><a href="${L('/about/')}">${escapeHtml(copy.navigation.about)}</a><a href="${L('/contact/')}">${escapeHtml(copy.navigation.contact)}</a></div><small>© ${new Date().getFullYear()} ${escapeHtml(site.name)}</small></div></footer>`;
 }
 
 function page(options) {
@@ -167,7 +175,7 @@ function homeBody(language, copy, services) {
   return `<main id="main-content">
 <section class="hero container">
   <div class="hero-top"><div class="hero-identity"><span class="eyebrow status"><span class="status-dot"></span> ${escapeHtml(copy.home.role)}</span><span class="eyebrow hero-location">${escapeHtml(copy.home.location)}</span></div></div>
-  <div class="hero-copy"><h1>${display(copy.home.hero)}</h1><p>${escapeHtml(copy.home.intro)}</p><div class="hero-actions"><a class="button button-light" href="${L('/work/')}">${escapeHtml(copy.home.exploreWorkButton)}</a><a class="text-link" href="${L('/expo/')}">${expoLink}</a><a class="text-link" href="${L('/contact/')}">${escapeHtml(copy.navigation.startProject)}</a></div></div>
+  <div class="hero-copy"><h1>${display(copy.home.hero)}</h1><p>${escapeHtml(copy.home.intro)}</p><div class="hero-actions"><a class="button button-light" href="${L('/work/')}">${escapeHtml(copy.home.exploreWorkButton)}</a><a class="text-link" href="${L('/expo/')}">${expoLink}</a>${language === 'en' ? '<a class="text-link" href="/en/white-label-design/">White-label design</a><a class="text-link" href="/en/trade-show-booth-design/">Trade show booth design</a>' : ''}<a class="text-link" href="${L('/contact/')}">${escapeHtml(copy.navigation.startProject)}</a></div></div>
 </section>
 <section class="section container" id="work"><div class="section-head"><div><div class="eyebrow">${escapeHtml(copy.home.work.kicker)}</div><h2>${display(copy.home.work.title)}</h2></div><a class="text-link" href="${L('/work/')}">${escapeHtml(copy.home.work.allWorkLink)}</a></div><div class="project-grid">${cards}</div><p class="editorial-note">${escapeHtml(copy.home.work.placeholderNote)}</p></section>
 <section class="services-band"><div class="container"><div class="section-head"><div><div class="eyebrow">${escapeHtml(copy.home.services.kicker)}</div><h2>${display(copy.home.services.title)}</h2></div></div><div class="service-rows">${serviceRows}</div></div></section>
@@ -179,17 +187,21 @@ function workBody(language, copy) {
   const L = (href) => localizedHref(language, href);
   const cards = publishedProjects(language).map((project, index) => `<article><a href="${L(project.href)}"><p class="eyebrow">${escapeHtml(project.label)}</p><h2>${escapeHtml(project.title)}</h2>${projectFigure(project, index < 2 ? 'eager' : 'lazy', imageSizes.directory, index === 0 ? 'high' : undefined)}<p>${escapeHtml(project.note)}</p></a></article>`).join('');
   const heading = language === 'en' ? '3D booths and scenography' : 'Stands 3D y escenografía';
-  return `<main id="main-content" class="work-directory container"><div class="directory-views"><h1>${heading}</h1></div><p class="editorial-note">${escapeHtml(copy.work.intro)}</p><div class="static-projects">${cards}</div><p class="portfolio-credit">${escapeHtml(portfolioCredit[language])}</p></main>`;
+  return `<main id="main-content" class="work-directory container"><div class="directory-views"><h1>${heading}</h1></div><p class="editorial-note">${escapeHtml(copy.work.intro)}</p>${language === 'en' ? englishWorkLead() : ''}<div class="static-projects">${cards}</div><p class="portfolio-credit">${escapeHtml(portfolioCredit[language])}</p></main>`;
 }
 
 function servicesBody(language, copy, services) {
   const L = (href) => localizedHref(language, href);
   const ask = language === 'en' ? 'Inquire' : 'Consultar';
-  const blocks = services.map((service) => `<section id="${service.id}" class="service-detail"><span class="eyebrow">${service.number}</span><div><h2>${escapeHtml(service.title)}</h2><p>${escapeHtml(service.body)}</p><ul>${service.items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div><a href="${L('/contact/')}">${ask}</a></section>`).join('');
+  const blocks = services.map((service) => {
+    const more = language === 'en' && service.id === 'white-label' ? '<p><a href="/en/white-label-design/">White-label design for US and Canadian agencies</a></p>' : language === 'en' && service.id === 'spatial' ? '<p><a href="/en/trade-show-booth-design/">Trade show booth design for exhibit builders</a></p>' : '';
+    return `<section id="${service.id}" class="service-detail"><span class="eyebrow">${service.number}</span><div><h2>${escapeHtml(service.title)}</h2><p>${escapeHtml(service.body)}</p><ul>${service.items.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>${more}</div><a href="${L('/contact/')}">${ask}</a></section>`;
+  }).join('');
   return `<main id="main-content" class="inner-page container"><div class="page-intro"><div class="eyebrow">${escapeHtml(copy.services.kicker)}</div><h1>${display(copy.services.title)}</h1><p>${escapeHtml(copy.services.intro)}</p></div>${blocks}<section class="monthly"><div class="eyebrow">${escapeHtml(copy.services.monthlyKicker)}</div><h2>${escapeHtml(copy.services.monthlyTitle)}</h2><p>${escapeHtml(copy.services.monthlyBody)}</p><a class="button button-dark" href="${L('/contact/')}">${escapeHtml(copy.services.monthlyButton)}</a></section><p class="editorial-note">${escapeHtml(copy.services.note)}</p></main>`;
 }
 
 function aboutBody(language, copy) {
+  if (language === 'en') return englishAboutBody();
   const L = (href) => localizedHref(language, href);
   return `<main id="main-content" class="inner-page container"><div class="page-intro"><div class="eyebrow">${escapeHtml(copy.about.kicker)}</div><h1>${display(copy.about.title)}</h1><p>${escapeHtml(copy.about.intro)}</p></div><div class="about-layout"><figure class="about-portrait">${img('/images/fabrizzio-x.webp', 'Fabrizzio Ruiz', 400, 400, 'eager')}<figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${escapeHtml(copy.about.sectionKicker)}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${escapeHtml(copy.about.paragraph1)}</p><p>${escapeHtml(copy.about.paragraph2)}</p><p>${escapeHtml(copy.about.paragraph3)}</p><a class="text-link" href="${L('/contact/')}">${escapeHtml(copy.about.contactLink)}</a></div></div></main>`;
 }
@@ -250,6 +262,23 @@ function projectBody(project, language) {
 }
 
 function projectMeta(project, language, copy) {
+  const expanded = language === 'en' ? englishCases[project.slug] : null;
+  if (expanded) {
+    return {
+      title: expanded.title,
+      description: expanded.description,
+      path: expanded.path,
+      language,
+      copy,
+      englishOnly: false,
+      image: expanded.image,
+      imageAlt: expanded.name,
+      width: 1280,
+      height: 720,
+      jsonLd: [caseCreativeWork(expanded)],
+      body: englishCaseBody(project.slug),
+    };
+  }
   const image = rootSrc(project.thumbnail);
   const fallback = pageMeta[language]['/about/'];
   const path = localizedHref(language, project.href);
@@ -305,6 +334,54 @@ function documentsFor(language) {
     [fileFor(language, 'contact/index.html')]: page({ ...contact, path: path('/contact/'), language, copy, jsonLd: personJsonLd(language), body: contactBody(language, copy) }),
     [fileFor(language, 'lab/index.html')]: page({ ...labMeta, path: path('/lab/'), language, copy, body: labBody(language) }),
   };
+  if (language === 'en') {
+    const offerImage = { image: '/images/selected/foody/foto-5.webp', imageAlt: 'Foody booth at the exhibition', width: 1280, height: 720 };
+    documents['en/white-label-design/index.html'] = page({
+      ...offerImage,
+      title: whiteLabelPage.title,
+      description: whiteLabelPage.description,
+      path: whiteLabelPage.path,
+      language: 'en',
+      copy,
+      englishOnly: true,
+      jsonLd: [
+        marketServiceJsonLd({ name: 'White-label design for US and Canadian agencies', serviceType: 'White-label graphic and exhibit design', path: whiteLabelPage.path }),
+        faqJsonLd(whiteLabelPage.path, whiteLabelPage.faqs),
+      ],
+      body: whiteLabelBody(),
+    });
+    documents['en/trade-show-booth-design/index.html'] = page({
+      ...offerImage,
+      title: tradeShowPage.title,
+      description: tradeShowPage.description,
+      path: tradeShowPage.path,
+      language: 'en',
+      copy,
+      englishOnly: true,
+      jsonLd: [
+        marketServiceJsonLd({ name: 'Trade show booth design', serviceType: 'Freelance trade show booth design', path: tradeShowPage.path }),
+        faqJsonLd(tradeShowPage.path, tradeShowPage.faqs),
+      ],
+      body: tradeShowBody(),
+    });
+    for (const slug of ['el-delta', 'indufar-run']) {
+      const study = englishCases[slug];
+      documents[`en/work/${slug}/index.html`] = page({
+        title: study.title,
+        description: study.description,
+        path: study.path,
+        language: 'en',
+        copy,
+        englishOnly: true,
+        image: study.image,
+        imageAlt: study.name,
+        width: 1280,
+        height: 720,
+        jsonLd: [caseCreativeWork(study)],
+        body: englishCaseBody(slug),
+      });
+    }
+  }
   for (const project of orderedProjects(language)) {
     documents[fileFor(language, `work/${project.slug}/index.html`)] = page(projectMeta(project, language, copy));
   }
@@ -392,6 +469,7 @@ function legacyRedirects(projects) {
 }
 
 const SITEMAP_PATHS = ['/', '/work/', '/services/', '/about/', '/contact/', '/lab/', '/lab/foody-ar-game/', '/expo/', '/expo/gestecner/', '/connect/', '/superflyer/'];
+const ENGLISH_ONLY_URLS = ['/en/white-label-design/', '/en/trade-show-booth-design/', '/en/work/el-delta/', '/en/work/indufar-run/'];
 
 function lastmodFor(path) {
   if (sitemapLastmod[path]) return sitemapLastmod[path];
@@ -411,25 +489,35 @@ export function sitemapXml() {
   const english = spanish
     .filter((path) => path !== '/lab/foody-ar-game/' && path !== '/superflyer/')
     .map((path) => (path === '/' ? '/en/' : `/en${path}`));
-  const unique = [...new Set([...spanish, ...english])];
+  const unique = [...new Set([...spanish, ...english, ...ENGLISH_ONLY_URLS])];
   const urls = unique.map((path) => {
     const loc = `${ORIGIN}${path}`;
-    const alternate = path.startsWith('/en/') || path === '/en/'
-      ? { es: spanishPathFromSitemap(path), en: path }
-      : (path === '/lab/foody-ar-game/' || path === '/superflyer/' ? null : { es: path, en: path === '/' ? '/en/' : `/en${path}` });
-    const links = alternate
-      ? `\n    <xhtml:link rel="alternate" hreflang="es" href="${ORIGIN}${alternate.es}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${ORIGIN}${alternate.en}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN}${alternate.es}"/>`
-      : '';
+    const englishOnly = ENGLISH_ONLY_URLS.includes(path);
+    const alternate = englishOnly
+      ? null
+      : path.startsWith('/en/') || path === '/en/'
+        ? { es: spanishPathFromSitemap(path), en: path }
+        : (path === '/lab/foody-ar-game/' || path === '/superflyer/' ? null : { es: path, en: path === '/' ? '/en/' : `/en${path}` });
+    const links = englishOnly
+      ? `\n    <xhtml:link rel="alternate" hreflang="en" href="${loc}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${loc}"/>`
+      : alternate
+        ? `\n    <xhtml:link rel="alternate" hreflang="es" href="${ORIGIN}${alternate.es}"/>\n    <xhtml:link rel="alternate" hreflang="en" href="${ORIGIN}${alternate.en}"/>\n    <xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN}${alternate.es}"/>`
+        : '';
     return `  <url><loc>${loc}</loc><lastmod>${lastmodFor(path)}</lastmod>${links}</url>`;
   }).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`;
 }
 
 export function llmsText() {
-  const projects = publishedProjects('en').map((project) => `- [${project.title}](${ORIGIN}${localizedHref('en', project.href)}): ${project.note || project.overview || ''}`).join('\n');
+  const projects = publishedProjects('en').map((project) => {
+    const expanded = englishCases[project.slug];
+    const description = expanded ? expanded.description : (project.note || project.overview || '');
+    return `- [${expanded ? expanded.name : project.title}](${ORIGIN}${localizedHref('en', project.href)}): ${description}`;
+  }).join('\n');
+  const leadStudies = ['el-delta', 'indufar-run'].map((slug) => `- [${englishCases[slug].name}](${ORIGIN}${englishCases[slug].path}): ${englishCases[slug].description}`).join('\n');
   return `# Fabrizzio Ruiz
 
-> Graphic designer in Paraguay. 3D trade-show booth and stand design, scenography, environmental graphics, branding, packaging, and white-label design for agencies. Former Lead Designer at Tenth Element (Las Vegas, NV). Remote freelance designer since 2018.
+> ${ENTITY_STATEMENT}
 
 Spanish pages are published at the unprefixed URLs. The same pages are also published in English under /en/. There is no separate Portuguese URL.
 
@@ -450,7 +538,9 @@ The website, contact card and about page say Asunción, Paraguay. Do not replace
 - [Home](${ORIGIN}/) and [English home](${ORIGIN}/en/): 3D trade-show booths, scenography, environmental graphics, branding, packaging and white-label design.
 - [Work](${ORIGIN}/work/) and [English work](${ORIGIN}/en/work/): selected projects, each at its own URL.
 - [Services](${ORIGIN}/services/) and [English services](${ORIGIN}/en/services/): stands and scenography, white-label for agencies, brand and campaigns, web and digital.
-- [About](${ORIGIN}/about/) and [English about](${ORIGIN}/en/about/): practice, Tenth Element, freelance work since 2018.
+- [White-label design](${ORIGIN}/en/white-label-design/): white-label graphic and exhibit design for US and Canadian agencies.
+- [Trade show booth design](${ORIGIN}/en/trade-show-booth-design/): freelance booth design for exhibit builders, with 3D concepts and production-ready files.
+- [About](${ORIGIN}/about/) and [English about](${ORIGIN}/en/about/): ${ENTITY_STATEMENT}
 - [Contact](${ORIGIN}/contact/) and [English contact](${ORIGIN}/en/contact/): email and WhatsApp.
 - [Expo booths](${ORIGIN}/expo/) and [English expo booths](${ORIGIN}/en/expo/): stand design page with selected booths and an FAQ.
 - [Gestecner viewer](${ORIGIN}/expo/gestecner/) and [English Gestecner viewer](${ORIGIN}/en/expo/gestecner/): 3D / AR viewer for the Gestecner stand concept.
@@ -459,6 +549,7 @@ The website, contact card and about page say Asunción, Paraguay. Do not replace
 
 ## Projects
 
+${leadStudies}
 ${projects}
 `;
 }

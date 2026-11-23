@@ -43,7 +43,7 @@ function seoRoutes(req, res, next) {
   if (url.pathname === '/connect') { sendStatus(res, 308, '/connect/' + url.search); return; }
   if (url.pathname === '/expo') { sendStatus(res, 308, '/expo/' + url.search); return; }
   if (url.pathname === '/en') { sendStatus(res, 308, '/en/' + url.search); return; }
-  if (/^\/en\/(?:work|services|about|contact|lab|expo|connect)(?:\/[a-z0-9-]+)?$/.test(url.pathname)) {
+  if (/^\/en\/(?:work|services|about|contact|lab|expo|connect|white-label-design|trade-show-booth-design)(?:\/[a-z0-9-]+)?$/.test(url.pathname)) {
     sendStatus(res, 308, url.pathname + '/' + url.search);
     return;
   }

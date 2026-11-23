@@ -1,6 +1,6 @@
 # Fabrizzio Ruiz
 
-> Graphic designer in Paraguay. 3D trade-show booth and stand design, scenography, environmental graphics, branding, packaging, and white-label design for agencies. Former Lead Designer at Tenth Element (Las Vegas, NV). Remote freelance designer since 2018.
+> Fabrizzio Ruiz is a senior graphic, web and 3D designer based in Asunción, Paraguay, with more than eight years of experience. He was Lead Designer for graphic and web work at Tenth Element in Las Vegas, Nevada, from 2020 to 2022, and has worked remotely as a freelancer since 2018. He offers white-label design for agencies, branding, trade show booth design, and 3D/AR visualization, and works hours that overlap US time zones.
 
 Spanish pages are published at the unprefixed URLs. The same pages are also published in English under /en/. There is no separate Portuguese URL.
 
@@ -21,7 +21,9 @@ The website, contact card and about page say Asunción, Paraguay. Do not replace
 - [Home](https://fabrizzioruiz.com/) and [English home](https://fabrizzioruiz.com/en/): 3D trade-show booths, scenography, environmental graphics, branding, packaging and white-label design.
 - [Work](https://fabrizzioruiz.com/work/) and [English work](https://fabrizzioruiz.com/en/work/): selected projects, each at its own URL.
 - [Services](https://fabrizzioruiz.com/services/) and [English services](https://fabrizzioruiz.com/en/services/): stands and scenography, white-label for agencies, brand and campaigns, web and digital.
-- [About](https://fabrizzioruiz.com/about/) and [English about](https://fabrizzioruiz.com/en/about/): practice, Tenth Element, freelance work since 2018.
+- [White-label design](https://fabrizzioruiz.com/en/white-label-design/): white-label graphic and exhibit design for US and Canadian agencies.
+- [Trade show booth design](https://fabrizzioruiz.com/en/trade-show-booth-design/): freelance booth design for exhibit builders, with 3D concepts and production-ready files.
+- [About](https://fabrizzioruiz.com/about/) and [English about](https://fabrizzioruiz.com/en/about/): Fabrizzio Ruiz is a senior graphic, web and 3D designer based in Asunción, Paraguay, with more than eight years of experience. He was Lead Designer for graphic and web work at Tenth Element in Las Vegas, Nevada, from 2020 to 2022, and has worked remotely as a freelancer since 2018. He offers white-label design for agencies, branding, trade show booth design, and 3D/AR visualization, and works hours that overlap US time zones.
 - [Contact](https://fabrizzioruiz.com/contact/) and [English contact](https://fabrizzioruiz.com/en/contact/): email and WhatsApp.
 - [Expo booths](https://fabrizzioruiz.com/expo/) and [English expo booths](https://fabrizzioruiz.com/en/expo/): stand design page with selected booths and an FAQ.
 - [Gestecner viewer](https://fabrizzioruiz.com/expo/gestecner/) and [English Gestecner viewer](https://fabrizzioruiz.com/en/expo/gestecner/): 3D / AR viewer for the Gestecner stand concept.
@@ -30,10 +32,12 @@ The website, contact card and about page say Asunción, Paraguay. Do not replace
 
 ## Projects
 
-- [Foody · ExpoVet](https://fabrizzioruiz.com/en/work/foody/): From concept to a 3 × 3 m exhibition stand: brand graphics, product display, prize wheel and a flyer linking to the product catalogue.
+- [Indufar · El Delta](https://fabrizzioruiz.com/en/work/el-delta/): Design and visualization for a built brand space with a nutrition bar, a photo opportunity and an activation — shown as 3D renders next to photographs of the realized space.
+- [Indufar Run](https://fabrizzioruiz.com/en/work/indufar-run/): Spatial design for TG, Banes, Mentovick, Vitamina C, Arsetonic and Indufar — a family of booths for tasting, product display and interaction.
+- [Foody · ExpoVet](https://fabrizzioruiz.com/en/work/foody/): From concept to a 3 × 3 m exhibition stand: brand graphics, a product display, a prize wheel and a flyer with a QR code to the product catalog.
 - [Indufar · Casa Albirroja](https://fabrizzioruiz.com/en/work/casa-albirroja/): From the Somos el Aguante campaign artwork to a stand with its own football table.
 - [Indufar 2026](https://fabrizzioruiz.com/en/work/indufar-2026/): Race graphics, stage screens and exhibition stands for Indufar Run and the brand’s 2026 activations.
-- [Gestecner · Navegestic](https://fabrizzioruiz.com/en/work/gestecner/): Two booth concepts for Boat Port Show 2026, centered on an aerial drone, an aquatic drone and an isometric map across the wall and floor screens.
+- [Gestecner · Navegestic](https://fabrizzioruiz.com/en/work/gestecner/): Two booth concepts for Boat Port Show 2026, built around an aerial drone, an aquatic drone and an isometric map that continues from the wall to the floor.
 - [Ruiseñor](https://fabrizzioruiz.com/en/work/ruisenor/): Website design proposal for a peanut and nut brand, with a product catalog, size selector and animated packaging.
 - [Kamelio](https://fabrizzioruiz.com/en/work/kamelio/): Chameleon identity with concept mockups for vehicle graphics and stationery.
 - [ADM · Human Rights Policy Implementation](https://fabrizzioruiz.com/en/work/adm-human-rights-report/): A 30-slide presentation of ADM’s 2022 human rights report, with supply-chain maps, performance indicators and community programs.

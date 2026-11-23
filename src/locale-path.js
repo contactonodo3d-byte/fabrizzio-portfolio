@@ -29,6 +29,32 @@ export function pairPaths(path = '/') {
   return { es, en };
 }
 
+const ENGLISH_ONLY = new Set([
+  '/white-label-design/',
+  '/trade-show-booth-design/',
+  '/work/el-delta/',
+  '/work/indufar-run/',
+]);
+
+const RELATED_SPANISH = {
+  '/white-label-design/': '/services/',
+  '/trade-show-booth-design/': '/expo/',
+  '/work/el-delta/': '/expo/',
+  '/work/indufar-run/': '/expo/',
+};
+
+export function isEnglishOnlyPath(path = '/') {
+  return ENGLISH_ONLY.has(spanishPath(path));
+}
+
+export function languageSwitchTargets(path = '/') {
+  const spanish = spanishPath(path);
+  if (ENGLISH_ONLY.has(spanish)) {
+    return { es: RELATED_SPANISH[spanish], en: localizedHref('en', spanish), paired: false };
+  }
+  return { ...pairPaths(path), paired: true };
+}
+
 export function stripLocale(pathname = '/') {
   const path = pathname.replace(/\/index\.html$/, '/') || '/';
   return spanishPath(path);
