@@ -1,5 +1,6 @@
 import media from './selected-media.json';
 import { imageTag, imageSizes } from './responsive-image.js';
+import { localizedHref } from './locale-path.js';
 
 const categories = {
   social: ['Social media', 'Redes sociales', 'Redes sociais'],
@@ -121,7 +122,7 @@ export function caseGallery(project, language = 'es') {
   let projectLinks = '';
   if (project.slug === 'foody') {
     const label = {en:'Explore the display in 3D / AR', es:'Explorar el exhibidor en 3D / AR', pt:'Explorar o expositor em 3D / AR'}[language];
-    projectLinks = `<p><a class="text-link" href="/3d/foody-exhibidor/">${label} ↗</a></p>`;
+    projectLinks = `<p><a class="text-link" href="${localizedHref(language, '/3d/foody-exhibidor/')}">${label} ↗</a></p>`;
   } else if (project.slug === 'gestecner') {
     const credit = {
       es: 'Diseño del stand y visualización 3D por Fabrizzio Ruiz. Trabajo realizado a través de Péscalo.',
@@ -129,7 +130,7 @@ export function caseGallery(project, language = 'es') {
       pt: 'Design do estande e visualização 3D por Fabrizzio Ruiz. Trabalho realizado por meio da Péscalo.',
     }[language];
     const viewer = {es:'Explorar el stand en 3D / AR', en:'Explore the booth in 3D / AR', pt:'Explorar o estande em 3D / AR'}[language];
-    projectLinks = `<p>${credit}</p><p><a class="text-link" href="/expo/gestecner/?lang=${language}">${viewer} ↗</a></p>`;
+    projectLinks = `<p>${credit}</p><p><a class="text-link" href="${localizedHref(language, '/expo/gestecner/')}">${viewer} ↗</a></p>`;
   }
   const groups = new Map();
   for (const item of project.gallery) {
@@ -157,10 +158,10 @@ export function motionSection(language) {
   if (selected) {
     const back = {en:'All collections', es:'Todas las colecciones', pt:'Todas as coleções'}[language];
     const figures = selected.clips.map(item => mediaFigure({...item, label: item.label + ' · ' + item.duration}, selected.title)).join('');
-    return `<section class="motion-collection"><a href="/work/#motion">← ${back}</a><h2>${selected.title}</h2><div class="selected-gallery">${figures}</div></section>`;
+    return `<section class="motion-collection"><a href="${localizedHref(language, '/work/#motion')}">← ${back}</a><h2>${selected.title}</h2><div class="selected-gallery">${figures}</div></section>`;
   }
   return `<div class="directory-grid motion-index">${collections.map(({id,title,clips}) =>
-    `<a class="directory-card" href="/work/?coleccion=${id}#motion"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover">${imageTag({ src: clips[0].url, alt: title, width: clips[0].width, height: clips[0].height, loading: 'lazy', sizes: imageSizes.directory })}<span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
+    `<a class="directory-card" href="${localizedHref(language, `/work/?coleccion=${id}#motion`)}"><div class="directory-meta"><span>${clips.length} ${language === 'pt' ? 'vídeo' : 'video'}${clips.length === 1 ? '' : 's'}</span><h2>${title}</h2></div><div class="directory-cover">${imageTag({ src: clips[0].url, alt: title, width: clips[0].width, height: clips[0].height, loading: 'lazy', sizes: imageSizes.directory })}<span class="play-symbol" aria-hidden="true">▶</span></div></a>`).join('')}</div>`;
 }
 
 

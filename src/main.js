@@ -6,15 +6,13 @@ import { site, isHiddenProject, copy as englishCopy, projects as englishProjects
 import { locales } from './translations.js';
 import { ORIGIN, absoluteUrl, metaFor, projectTitle, projectDescription } from './seo-meta.js';
 import { imageTag, imageSizes } from './responsive-image.js';
+import { languageFromPath, localizedHref, stripLocale, languageSwitchTargets } from './locale-path.js';
+import { englishAboutBody, englishCaseBody, englishCases, englishNavLinks, englishWorkLead, tradeShowBody, whiteLabelBody } from './approved-english.js';
 
-const supportedLanguages = ['en', 'es', 'pt'];
-let chosenLanguage;
-try { chosenLanguage = localStorage.getItem('fabrizzio-language'); } catch { /* Browser storage may be unavailable. */ }
-const browserLanguage = (navigator.languages?.length ? navigator.languages : [navigator.language])
-  .map((locale) => locale?.toLowerCase().split(/[-_]/)[0])
-  .find((locale) => supportedLanguages.includes(locale));
-const language = supportedLanguages.includes(chosenLanguage) ? chosenLanguage : browserLanguage || 'en';
+const pathName = location.pathname.replace(/\/index\.html$/, '/');
+const language = languageFromPath(pathName);
 document.documentElement.lang = language;
+const L = (href) => localizedHref(language, href);
 const translated = locales[language] || {};
 function merge(base, override) {
   if (!override) return base;
@@ -23,7 +21,10 @@ function merge(base, override) {
   return override ?? base;
 }
 const copy = merge(englishCopy, translated.copy);
-const allProjects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)];
+const allProjects = [...selectedProjects(language), ...merge(englishProjects, translated.projects)].map((project) => ({
+  ...project,
+  href: localizedHref(language, project.href),
+}));
 const projects = allProjects.filter((project) => !isHiddenProject(project));
 const heroCovers = ['foody','casa-albirroja','indufar-2026','gio-mobili','black-sail','adm-human-rights-report','kamelio','bad-liar'].map((slug, index) => {
   const project = projects.find(p => p.slug === slug);
@@ -38,7 +39,7 @@ const englishUi = { select: 'Select', coverInstructions: 'Project covers. Use th
 const ui = { ...englishUi, ...translated.ui };
 
 const app = document.querySelector('#app');
-const route = location.pathname.replace(/\/index\.html$/, '/');
+const route = stripLocale(pathName);
 const isPlaceholderEmail = site.email === 'hello@example.com';
 
 function playlistDetails() {
@@ -62,24 +63,33 @@ const icon = (name) => ({
   downRight: '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 18 18M8 18h10V8"/></svg>',
 })[name];
 const display = ({ line1, line2 = '', accent = '' }) => `${line1}<br/>${line2}${accent ? `<em>${accent}</em>` : ''}`;
-const languageSwitch = () => `<div class="language-switch" role="group" aria-label="Language / Idioma / Idioma">${['en', 'es', 'pt'].map((code) => `<button type="button" data-language="${code}" aria-pressed="${language === code}" lang="${code}">${code.toUpperCase()}</button>`).join('')}</div>`;
+const languageSwitch = () => {
+  const tail = location.search + location.hash;
+  const localized = L(route === '/' ? '/' : route);
+  const targets = languageSwitchTargets(localized);
+  const item = (code, href) => {
+    const langRef = targets.paired ? ` hreflang="${code}"` : '';
+    return `<a href="${href}${tail}" lang="${code}"${langRef}${language === code ? ' aria-current="page"' : ''}>${code.toUpperCase()}</a>`;
+  };
+  return `<nav class="language-switch" aria-label="Language / Idioma">${item('es', targets.es)}${item('en', targets.en)}</nav>`;
+};
 
 function header() {
   return `<header class="site-header"><div class="container header-inner">
-    <a class="wordmark" href="/" aria-label="Fabrizzio Ruiz home">FABRIZZIO<span class="wordmark-dot">.</span></a>
+    <a class="wordmark" href="${L('/')}" aria-label="Fabrizzio Ruiz home">FABRIZZIO<span class="wordmark-dot">.</span></a>
     <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="/" ${route === '/' ? 'aria-current="page"' : ''}>Home</a>
-      <a href="/work/" ${route === '/work/' ? 'aria-current="page"' : ''}>${copy.navigation.work}</a>
-      <a href="/services/" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a><a href="/expo/">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a>
-      <a href="/lab/" ${route === '/lab/' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
-      <a href="/about/" ${route === '/about/' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a>
+      <a href="${L('/')}" ${route === '/' ? 'aria-current="page"' : ''}>Home</a>
+      <a href="${L('/work/')}" ${route === '/work/' ? 'aria-current="page"' : ''}>${copy.navigation.work}</a>
+      <a href="${L('/services/')}" ${route === '/services/' ? 'aria-current="page"' : ''}>${copy.navigation.services}</a>${language === 'en' ? englishNavLinks(route) : ''}<a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a>
+      <a href="${L('/lab/')}" ${route === '/lab/' ? 'aria-current="page"' : ''}>${copy.navigation.lab}</a>
+      <a href="${L('/about/')}" ${route === '/about/' ? 'aria-current="page"' : ''}>${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a>
     </nav>
     <div class="header-tools">${languageSwitch()}
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="${ui.openMenu}"><span></span><span></span></button>
     </div>
-    <a class="header-cta" href="/contact/">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
+    <a class="header-cta" href="${L('/contact/')}">${copy.navigation.startProject} <span>${icon('arrow')}</span></a>
   </div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-    <a href="/">Home</a><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/expo/">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.startProject}</a>
+    <a href="${L('/')}">Home</a><a href="${L('/work/')}">${copy.navigation.work}</a><a href="${L('/services/')}">${copy.navigation.services}</a>${language === 'en' ? englishNavLinks(route) : ''}<a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="${L('/lab/')}">${copy.navigation.lab}</a><a href="${L('/about/')}">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="${L('/contact/')}">${copy.navigation.startProject}</a>
   </nav></header>`;
 }
 
@@ -95,8 +105,8 @@ function whatsappButton() {
 }
 
 function footer() {
-  return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2>${whatsappButton()}</div><a class="round-arrow" href="/contact/" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
-  <div class="container footer-bottom"><a class="wordmark" href="/">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="/work/">${copy.navigation.work}</a><a href="/services/">${copy.navigation.services}</a><a href="/expo/">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="/lab/">${copy.navigation.lab}</a><a href="/about/">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="/contact/">${copy.navigation.contact}</a><a href="/expo/">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
+  return `<footer class="footer"><div class="container footer-top"><div><div class="eyebrow">${copy.footer.kicker}</div><h2>${display(copy.footer.title)}</h2>${whatsappButton()}</div><a class="round-arrow" href="${L('/contact/')}" aria-label="${ui.contactPage}">${icon('arrow')}</a></div>
+  <div class="container footer-bottom"><a class="wordmark" href="${L('/')}">FABRIZZIO<span class="wordmark-dot">.</span></a><p>${copy.footer.descriptor}<br/>${site.location} · ${copy.footer.worldwide}</p><div class="footer-links"><a href="${L('/work/')}">${copy.navigation.work}</a><a href="${L('/services/')}">${copy.navigation.services}</a>${language === 'en' ? englishNavLinks(route) : ''}<a href="${L('/expo/')}">${{es:'Stands',en:'Expo booths',pt:'Estandes'}[language]}</a><a href="${L('/lab/')}">${copy.navigation.lab}</a><a href="${L('/about/')}">${copy.navigation.about}</a><a href="/superflyer/">Superflyer</a><a href="${L('/contact/')}">${copy.navigation.contact}</a><a href="${L('/expo/')}">${{es:'Stands',en:'Exhibition &amp; 3D',pt:'Estandes'}[language]}</a><a href="/superflyer/">Superflyer</a></div><small>© ${new Date().getFullYear()} ${site.name}</small></div></footer>`;
 }
 
 function projectCard(project, large = false) {
@@ -138,30 +148,34 @@ const boothCopy = {
 }[language];
 
 function boothShowcase() {
-  return `<section class="section container home-booth" id="nodo3d" aria-labelledby="booth-heading"><div class="booth-intro"><span class="eyebrow">${boothCopy.kicker}</span><h2 id="booth-heading">${boothCopy.title}</h2><p>${boothCopy.body}</p><a class="text-link" href="/expo/">${boothCopy.more} <span>${icon('arrow')}</span></a></div><div class="booth-experience"><div class="booth-viewer" id="home-booth-viewer"><div class="booth-poster">${imageTag({ src: '/expo/assets/gestecner-op1-render.webp', alt: boothCopy.alt, width: 1800, height: 1004, loading: 'lazy', sizes: imageSizes.booth })}<button class="button button-dark" type="button" id="home-booth-load">${boothCopy.open} <span>${icon('arrow')}</span></button></div></div><p class="booth-status" id="home-booth-status" role="status" aria-live="polite"></p><p class="booth-hint">${boothCopy.hint}</p></div></section>`;
+  return `<section class="section container home-booth" id="nodo3d" aria-labelledby="booth-heading"><div class="booth-intro"><span class="eyebrow">${boothCopy.kicker}</span><h2 id="booth-heading">${boothCopy.title}</h2><p>${boothCopy.body}</p><a class="text-link" href="${L('/expo/')}">${boothCopy.more} <span>${icon('arrow')}</span></a></div><div class="booth-experience"><div class="booth-viewer" id="home-booth-viewer"><div class="booth-poster">${imageTag({ src: '/expo/assets/gestecner-op1-render.webp', alt: boothCopy.alt, width: 1800, height: 1004, loading: 'lazy', sizes: imageSizes.booth })}<button class="button button-dark" type="button" id="home-booth-load">${boothCopy.open} <span>${icon('arrow')}</span></button></div></div><p class="booth-status" id="home-booth-status" role="status" aria-live="polite"></p><p class="booth-hint">${boothCopy.hint}</p></div></section>`;
 }
 
 function home() {
   return `<main>
     <section class="hero container"><div class="hero-top"><div class="hero-identity"><span class="eyebrow status"><span class="status-dot"></span> ${copy.home.role}</span><span class="eyebrow hero-location">${copy.home.location}</span></div></div>
       <div class="hero-main"><div class="hero-copy"><h1>${display(copy.home.hero)}</h1>
-      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="/work/">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a><a class="text-link" href="/contact/">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
+      <div class="hero-bottom"><p>${copy.home.intro}</p><div class="hero-actions"><a class="button button-light" href="${L('/work/')}">${copy.home.exploreWorkButton} <span>${icon('arrow')}</span></a>${language === 'en' ? '<a class="text-link" href="/en/white-label-design/">White-label design</a><a class="text-link" href="/en/trade-show-booth-design/">Trade show booth design</a>' : ''}<a class="text-link" href="${L('/contact/')}">${copy.navigation.startProject} <span>${icon('arrow')}</span></a></div></div>
       </div><div class="hero-visual">${playlistWidget()}${heroAlbum()}</div></div>
       <div class="hero-showcase"><div class="showcase-grid">
-        <a class="showcase-tile showcase-one" href="/work/?disciplina=marca">${imageTag({ className: 'showcase-background', src: '/images/selected/black-sail/1.webp', width: 1536, height: 1024, alt: {en:'Black Sail sailboat mark',es:'Marca del velero de Black Sail',pt:'Marca do veleiro da Black Sail'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span>${copy.home.showcase.bigWords.join('<br/>')}</span></a>
-        <a class="showcase-tile showcase-two" href="/work/?disciplina=web">${imageTag({ className: 'showcase-background', src: '/images/work/skylinq.webp', width: 1600, height: 1250, alt: {en:'Skylinq Home website',es:'Sitio web de Skylinq Home',pt:'Site da Skylinq Home'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></a>
-        <a class="showcase-tile showcase-three" href="/work/?disciplina=stands">${imageTag({ className: 'showcase-background', src: '/images/selected/casa-albirroja/expo-nocturna.webp', width: 1536, height: 1024, alt: {en:'Indufar Casa Albirroja exhibition stand',es:'Stand de Indufar · Casa Albirroja',pt:'Estande Indufar · Casa Albirroja'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></a>
+        <a class="showcase-tile showcase-one" href="${L('/work/?disciplina=marca')}">${imageTag({ className: 'showcase-background', src: '/images/selected/black-sail/1.webp', width: 1536, height: 1024, alt: {en:'Black Sail sailboat mark',es:'Marca del velero de Black Sail',pt:'Marca do veleiro da Black Sail'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span>${copy.home.showcase.bigWords.join('<br/>')}</span></a>
+        <a class="showcase-tile showcase-two" href="${L('/work/?disciplina=web')}">${imageTag({ className: 'showcase-background', src: '/images/work/skylinq.webp', width: 1600, height: 1250, alt: {en:'Skylinq Home website',es:'Sitio web de Skylinq Home',pt:'Site da Skylinq Home'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span class="outline-circle"></span><span class="showcase-label">${copy.home.showcase.middleLabel}</span></a>
+        <a class="showcase-tile showcase-three" href="${L('/work/?disciplina=stands')}">${imageTag({ className: 'showcase-background', src: '/images/selected/casa-albirroja/expo-nocturna.webp', width: 1536, height: 1024, alt: {en:'Indufar Casa Albirroja exhibition stand',es:'Stand de Indufar · Casa Albirroja',pt:'Estande Indufar · Casa Albirroja'}[language], loading: 'lazy', sizes: imageSizes.showcase })}<span>F/<br/>R.</span><span class="showcase-label">${copy.home.showcase.rightLabel}</span></a>
       </div></div>
     </section>
     ${boothShowcase()}
-    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="/work/">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${['foody','casa-albirroja','indufar-2026','gio-mobili'].map((slug) => projects.find((item) => item.slug === slug)).filter(Boolean).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
-    <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="/services/#${id}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
-    <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="/about/">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
-    <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="/lab/">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
+    <section class="section container" id="work">${sectionIntro(copy.home.work.kicker, display(copy.home.work.title), `<a class="text-link" href="${L('/work/')}">${copy.home.work.allWorkLink} <span>${icon('arrow')}</span></a>`)}<div class="project-grid">${['foody','casa-albirroja','indufar-2026','gio-mobili'].map((slug) => projects.find((item) => item.slug === slug)).filter(Boolean).map((p, i) => projectCard(p, i === 0)).join('')}</div><p class="editorial-note">${copy.home.work.placeholderNote}</p></section>
+    <section class="services-band"><div class="container">${sectionIntro(copy.home.services.kicker, display(copy.home.services.title))}<div class="service-rows">${serviceOptions.map(({ id, number, title, homeBody }) => `<a href="${L(`/services/#${id}`)}"><span>${number}</span><h3>${title}</h3><p>${homeBody}</p><b>${icon('arrow')}</b></a>`).join('')}</div></div></section>
+    <section class="section container perspective"><div><div class="eyebrow">${copy.home.approach.kicker}</div><h2>${display(copy.home.approach.title)}</h2></div><div><p>${copy.home.approach.body}</p><a class="text-link" href="${L('/about/')}">${copy.home.approach.moreLink} <span>${icon('arrow')}</span></a></div></section>
+    <section class="lab-teaser container"><div class="lab-number">FR—LAB / 001</div><div><div class="eyebrow">${copy.home.lab.kicker}</div><h2>${display(copy.home.lab.title)}</h2><p>${copy.home.lab.body}</p><a class="lab-teaser-link" href="${L('/lab/')}">${copy.home.lab.link} <span>${icon('arrow')}</span></a></div></section>
   </main>`;
 }
 
-function work() { return workBrowser(projects, language); }
+function work() {
+  const browser = workBrowser(projects, language);
+  if (language !== 'en') return browser;
+  return browser.replace('<p class="editorial-note">', `${englishWorkLead()}<p class="editorial-note">`);
+}
 
 function setMeta(attribute, name, content) {
   if (!content) return;
@@ -203,14 +217,19 @@ function applyRouteMeta(path, meta) {
 }
 
 function caseStudy(slug) {
+  if (language === 'en' && englishCaseBody(slug)) {
+    const study = englishCases[slug];
+    applyRouteMeta(study.path, { title: study.title, description: study.description, image: study.image, imageAlt: study.name, width: 1280, height: 720 });
+    return englishCaseBody(slug).replace(/^<main[^>]*>/, '<main class="case-page container">').replace(/<\/main>$/, '</main>');
+  }
   const project = allProjects.find((item) => item.slug === slug);
   if (isHiddenProject(slug)) setMeta('name', 'robots', 'noindex, nofollow');
   if (!project) {
     applyRouteMeta(route, { title: `${ui.notFound} — ${site.name}`, description: copy.work.intro });
     setMeta('name', 'robots', 'noindex');
-    return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="/work/">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
+    return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><p>${copy.work.intro}</p><a class="text-link" href="${L('/work/')}">${copy.navigation.work} <span>${icon('arrow')}</span></a></div></main>`;
   }
-  applyRouteMeta(`/work/${project.slug}/`, {
+  applyRouteMeta(L(`/work/${project.slug}/`), {
     title: projectTitle(project),
     description: projectDescription(project),
     image: project.thumbnail,
@@ -221,24 +240,27 @@ function caseStudy(slug) {
   const backLabel = {en:'Back to projects', es:'Volver a proyectos', pt:'Voltar aos projetos'}[language];
   if (project.gallery) {
     return `<main class="case-page container">
-      <a class="case-back text-link" href="${returnToProject(project.slug)}">← ${backLabel}</a>
+      <a class="case-back text-link" href="${returnToProject(project.slug, language)}">← ${backLabel}</a>
       <header class="case-intro"><div class="eyebrow">${project.label}</div><h1>${project.title}</h1><p>${project.note}</p></header>
       ${caseGallery(project, language)}
     </main>`;
   }
   const related = projects.filter(({ slug }) => slug !== project.slug).slice(0, 3);
   return `<main class="case-page container">
-    <a class="case-back text-link" href="${returnToProject(project.slug)}">← ${backLabel}</a>
+    <a class="case-back text-link" href="${returnToProject(project.slug, language)}">← ${backLabel}</a>
     <header class="case-intro"><div class="eyebrow">${project.label} · ${project.role}</div><h1>${project.title}</h1><p>${project.overview}</p></header>
     ${project.thumbnail ? `<figure class="case-image">${imageTag({ src: project.thumbnail, alt: `${project.title} · ${project.label}`, width: project.width || (project.thumbnail.includes('/skylinq.') ? 1600 : 1200), height: project.height || (project.thumbnail.includes('/skylinq.') ? 1250 : 938), loading: 'eager', sizes: imageSizes.case, fetchPriority: 'high' })}<figcaption>${project.source}</figcaption></figure>` : ''}
-    <div class="case-details"><section><div class="eyebrow">Overview</div><p>${project.overview}</p></section><section><div class="eyebrow">Deliverables</div><ul>${project.deliverables.map((item) => `<li>${item}</li>`).join('')}</ul></section><section><div class="eyebrow">Project source</div><p>Selected work from ${project.source}.</p>${project.externalUrl ? `<a class="text-link" href="${project.externalUrl}" target="_blank" rel="noreferrer">${project.slug === 'skylinq' || project.slug === 'law-group' || project.slug === 'vista-digital' ? 'Visit website' : 'View profile'} <span>${icon('arrow')}</span></a>` : ''}</section></div>
-    <section class="case-related"><div class="section-head"><div><div class="eyebrow">More selected work</div><h2>Keep looking.</h2></div><a class="text-link" href="/work/">All work <span>${icon('arrow')}</span></a></div><div class="project-grid">${related.map((item) => projectCard(item)).join('')}</div></section>
+    <div class="case-details"><section><div class="eyebrow">Overview</div><p>${project.overview}</p></section><section><div class="eyebrow">Deliverables</div><ul>${project.deliverables.map((item) => `<li>${item}</li>`).join('')}</ul></section>${project.slug === 'client-logos' ? '' : `<section><div class="eyebrow">Project source</div><p>Selected work from ${project.source}.</p>${project.externalUrl ? `<a class="text-link" href="${project.externalUrl}" target="_blank" rel="noreferrer">${project.slug === 'skylinq' || project.slug === 'law-group' || project.slug === 'vista-digital' ? 'Visit website' : 'View profile'} <span>${icon('arrow')}</span></a>` : ''}</section>`}</div>
+    <section class="case-related"><div class="section-head"><div><div class="eyebrow">More selected work</div><h2>Keep looking.</h2></div><a class="text-link" href="${L('/work/')}">All work <span>${icon('arrow')}</span></a></div><div class="project-grid">${related.map((item) => projectCard(item)).join('')}</div></section>
   </main>`;
 }
 
-function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul></div><a class="round-arrow small" href="/contact/" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="/contact/">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
+function services() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.services.kicker}</div><h1>${display(copy.services.title)}</h1><p>${copy.services.intro}</p></div><div class="services-list">${serviceOptions.map(({ id, number, title, body, items }) => {
+  const more = language === 'en' && id === 'white-label' ? '<p><a href="/en/white-label-design/">White-label design for US and Canadian agencies</a></p>' : language === 'en' && id === 'spatial' ? '<p><a href="/en/trade-show-booth-design/">Trade show booth design for exhibit builders</a></p>' : '';
+  return `<section id="${id}" class="service-detail"><span class="eyebrow">${number} / ${ui.service}</span><div><h2>${title}</h2><p>${body}</p><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>${more}</div><a class="round-arrow small" href="${L('/contact/')}" aria-label="${ui.inquire} ${title}">${icon('arrow')}</a></section>`;
+}).join('')}</div><section class="monthly"><div class="eyebrow">${copy.services.monthlyKicker}</div><div><h2>${copy.services.monthlyTitle}</h2><p>${copy.services.monthlyBody}</p></div><a class="button button-dark" href="${L('/contact/')}">${copy.services.monthlyButton} <span>${icon('arrow')}</span></a></section><p class="editorial-note">${copy.services.note}</p></main>`; }
 
-function about() { return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait">${imageTag({ src: '/images/fabrizzio-x.webp', alt: 'Fabrizzio Ruiz', width: 400, height: 400, loading: 'eager' })}<figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><p>${copy.about.paragraph3}</p><a class="text-link" href="/contact/">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
+function about() { if (language === 'en') return englishAboutBody(); return `<main class="inner-page container"><div class="page-intro"><div class="eyebrow">${copy.about.kicker}</div><h1>${display(copy.about.title)}</h1><p>${copy.about.intro}</p></div><div class="about-layout"><figure class="about-portrait">${imageTag({ src: '/images/fabrizzio-x.webp', alt: 'Fabrizzio Ruiz', width: 400, height: 400, loading: 'eager' })}<figcaption><a href="https://x.com/fabrizzioruiz_">@fabrizzioruiz_</a></figcaption></figure><div class="about-copy"><div class="eyebrow">${copy.about.sectionKicker}</div><h2>${display(copy.about.sectionTitle)}</h2><p>${copy.about.paragraph1}</p><p>${copy.about.paragraph2}</p><p>${copy.about.paragraph3}</p><a class="text-link" href="${L('/contact/')}">${copy.about.contactLink} <span>${icon('arrow')}</span></a></div></div></main>`; }
 
 function lab() {
   const texts = {
@@ -261,7 +283,7 @@ function lab() {
     en: ['Browser archery game.','Horde arena with factions, recruitment and battles.','An augmented-reality farming game.','Interactive exhibition stand viewer with augmented reality.','A product display to explore in 3D and AR.','An interactive brand experience.','A rogue-AI simulator inspired by Plague Inc.','A 3D and AR visualization project.','A website concept for exploration and feedback.'],
     pt: ['Jogo de arco e flecha no navegador.','Arena de hordas com facções, recrutamento e batalhas.','Um jogo de fazenda em realidade aumentada.','Visualizador interativo de estande com realidade aumentada.','Expositor de produto para explorar em 3D e AR.','Uma experiência interativa de marca.','Simulador de uma IA fora de controle, inspirado em Plague Inc.','Um projeto de visualização 3D e AR.','Conceito de site para explorar e avaliar.'],
   };
-  return `<main class="lab-projects container"><header><h1>Lab</h1><h2>${texts[0]}</h2><p>${texts[1]}</p></header><div class="lab-entry-grid">${entries.map(([title,summary,url,wip], index) => `<article class="lab-entry"><h3>${title}</h3>${wip ? `<p class="lab-status">${texts[2]}</p>` : ''}<p>${summaries[language]?.[index] || summary}</p><a class="text-link" href="${url}">${texts[3]} <span aria-hidden="true">${icon('arrow')}</span></a></article>`).join('')}</div></main>`;
+  return `<main class="lab-projects container"><header><h1>Lab</h1><h2>${texts[0]}</h2><p>${texts[1]}</p></header><div class="lab-entry-grid">${entries.map(([title,summary,url,wip], index) => `<article class="lab-entry"><h3>${title}</h3>${wip ? `<p class="lab-status">${texts[2]}</p>` : ''}<p>${summaries[language]?.[index] || summary}</p><a class="text-link" href="${url.startsWith('/') ? L(url) : url}">${texts[3]} <span aria-hidden="true">${icon('arrow')}</span></a></article>`).join('')}</div></main>`;
 }
 
 function contact() {
@@ -294,12 +316,12 @@ if (legacyProject) {
   location.replace(target + location.hash);
 }
 const caseSlug = route.match(/^\/work\/([a-z0-9-]+)\/$/)?.[1];
-const pages = { '/': home, '/index.html': home, '/work/': work, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact };
+const pages = { '/': home, '/index.html': home, '/work/': work, '/services/': services, '/lab/': lab, '/about/': about, '/contact/': contact, '/white-label-design/': () => whiteLabelBody(), '/trade-show-booth-design/': () => tradeShowBody() };
 const render = caseSlug
   ? () => caseStudy(caseSlug)
-  : (pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="/">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`));
+  : (pages[route] || (() => `<main class="inner-page container not-found"><div class="eyebrow">404 / ${ui.notFound}</div><h1>${ui.notFoundTitle}</h1><a class="button button-light" href="${L('/')}">${ui.backHome.replace('↗', icon('arrow'))}</a></main>`));
 if (app && !legacyProject) {
-  if (!caseSlug) applyRouteMeta(route === '/index.html' ? '/' : route, metaFor(language, route === '/index.html' ? '/' : route));
+  if (!caseSlug) applyRouteMeta(L(route === '/index.html' ? '/' : route), metaFor(language, route === '/index.html' ? '/' : route));
   app.innerHTML = header() + render() + footer();
 }
 applyContactIcons();
@@ -328,11 +350,6 @@ menuButton?.addEventListener('click', () => {
   menuButton.setAttribute('aria-label', open ? ui.closeMenu : ui.openMenu);
   mobileNav.hidden = !open;
 });
-
-document.querySelectorAll('[data-language]').forEach((button) => button.addEventListener('click', () => {
-  localStorage.setItem('fabrizzio-language', button.dataset.language);
-  location.reload();
-}));
 
 if (route === '/work/') {
   const initialMotion = location.hash === '#motion';

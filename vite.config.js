@@ -42,6 +42,11 @@ function seoRoutes(req, res, next) {
   if (bareCase) { sendStatus(res, 308, `/work/${bareCase[1]}/${url.search}`); return; }
   if (url.pathname === '/connect') { sendStatus(res, 308, '/connect/' + url.search); return; }
   if (url.pathname === '/expo') { sendStatus(res, 308, '/expo/' + url.search); return; }
+  if (url.pathname === '/en') { sendStatus(res, 308, '/en/' + url.search); return; }
+  if (/^\/en\/(?:work|services|about|contact|lab|expo|connect|white-label-design|trade-show-booth-design)(?:\/[a-z0-9-]+)?$/.test(url.pathname)) {
+    sendStatus(res, 308, url.pathname + '/' + url.search);
+    return;
+  }
   if (url.pathname === '/lab/foody-ar-game') { sendStatus(res, 308, '/lab/foody-ar-game/' + url.search); return; }
   if (['/3d', '/3d/foody-exhibidor'].includes(url.pathname)) { sendStatus(res, 308, url.pathname + '/' + url.search); return; }
   if (['/3d/', '/3d/foody-exhibidor/'].includes(url.pathname)) { req.url = url.pathname + 'index.html' + url.search; next(); return; }
